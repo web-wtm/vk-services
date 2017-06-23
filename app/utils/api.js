@@ -16,5 +16,12 @@ module.exports = {
             .then((response) => {
                 console.log(response)
             })
+    },
+    getNearUser: (latitude, longitude) => {
+        return fetch((`https://api.vk.com/method/users.get?user_ids=${userUids}&v=5.65`)
+        .then((data) => data.json())
+            .then((response) => {
+                console.log(response)
+            }))
     }
 }
