@@ -15,6 +15,7 @@ export default class MutualFriends extends React.Component {
 
     onSubmit(e) {
         e.preventDefault()
+        api.getMutualFriends(this.state.sourceUserId, this.state.targetUserId)
     }
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
