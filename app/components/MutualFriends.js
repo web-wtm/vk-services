@@ -1,21 +1,46 @@
 import React from 'react'
-import fetch from 'fetch-jsonp'
-// import api from '../utils/api'
+import InputField from './InputField'
+import api from '../utils/api'
 
 export default class MutualFriends extends React.Component {
-
-    render () {
-    const getMutual = () => {
-        return fetch(`https://api.vk.com/method/wall.get?domain=serial_friends&v=5.65&access_token=f840ba08f840ba08f840ba0859f81c0d83ff840f840ba08a10260470c008425f33e5a07`)
-            .then((data) => {
-                var a = data.json()
-                console.log(a)
-            })
+    constructor(props) {
+        super(props)
+        this.state = {
+            sourceUserId: '',
+            targetUserId: ''
+        }
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
+
+    onSubmit(e) {
+        e.preventDefault()
+    }
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+    render () {
+        const {sourceUserId, targetUserId} = this.state
         return (
             <div>
                 mutual friends!
-                <button onClick={getMutual}>get</button>
+                <form onSubmit={this.onSubmit}>
+                    <InputField 
+                        fieldName='sourceUserId'
+                        label='Source user'
+                        value={sourceUserId}
+                        placeHolder='source user id'
+                        onChange={this.onChange}
+                    />
+                    <InputField 
+                        fieldName='targetUserId'
+                        label='Target user'
+                        value={targetUserId}
+                        placeHolder='target user id'
+                        onChange={this.onChange}
+                    />
+                    <button>get</button>
+                </form>
             </div>
         )
     }
