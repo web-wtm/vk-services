@@ -7,23 +7,38 @@ export default class MutualFriends extends React.Component {
         super(props)
         this.state = {
             sourceUserId: '',
-            targetUserId: ''
+            targetUserId: '',
+            userUid: ''
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onGetId = this.onGetId.bind(this);
     }
 
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value })
+    }
     onSubmit(e) {
         e.preventDefault()
         api.getMutualFriends(this.state.sourceUserId, this.state.targetUserId)
     }
-    onChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
+    onGetId(e) {
+        e.preventDefault();
+        api.getUsersInfo(this.state.userUid);
     }
     render () {
-        const {sourceUserId, targetUserId} = this.state
+        const {sourceUserId, targetUserId, userUid} = this.state
         return (
             <div>
+                <form onSubmit={this.onGetId}>
+                    <InputField 
+                        fieldName='userUid'
+                        value={userUid}
+                        placeholder='user uid'
+                        onChange={this.onChange}
+                    />
+                    <button>get id</button>
+                </form>
                 mutual friends!
                 <form onSubmit={this.onSubmit}>
                     <InputField 

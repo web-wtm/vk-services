@@ -2,7 +2,6 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Nav from './Nav'
 import Home from './Home'
-import UserId from './UserId'
 import MutualFriends from './MutualFriends'
 import NearbyUsers from './NearbyUsers'
 import TopPosts from './TopPosts'
@@ -15,7 +14,6 @@ export default class App extends React.Component {
                 <Nav />
                 <Switch>
                     <Route exact path='/' component={Home} />
-                    <Route path='/userId' component={UserId} />
                     <Route path='/mutfriends' component={MutualFriends} />
                     <Route path='/nearby' component={NearbyUsers} />
                     <Route path='/posts' component={TopPosts} />
