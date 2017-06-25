@@ -1,6 +1,6 @@
 import fetch from 'fetch-jsonp'
 
-const accessToken = '7e8c6b43faa6a671514d5363766f3b751ac72b1064c06f111ffd01cff25145bf009ae69313134e2c385a5';
+const accessToken = '57a8357c882ce988f47d8119d7ea38f392858eae52127b945ab5a0047df7b640b81cf83d03b34148395d0';
 
 module.exports = {
     getMutualFriends: (sourceId, targetId) => {
@@ -11,17 +11,27 @@ module.exports = {
             })
     },
     getUsersInfo: (userUids,params) => {
-        return fetch(`https://api.vk.com/method/users.get?user_ids=${userUids}&v=5.65`)
+        return fetch(`https://api.vk.com/method/users.get?user_ids=${userUids}&v=5.65&access_token=${accessToken}`)
         .then((data) => data.json())
             .then((response) => {
                 console.log(response)
             })
     },
-    getNearUser: (latitude, longitude) => {
-        return fetch((`https://api.vk.com/method/users.get?user_ids=${userUids}&v=5.65`)
+    getNearUser: (lat, long, accuracy=1) => {
+        return fetch(`https://api.vk.com/method/users.getNearby?latitude=${lat}&longitude=${long}&accuracy=${accuracy}&v=5.65&access_token=${accessToken}`)
         .then((data) => data.json())
             .then((response) => {
                 console.log(response)
-            }))
+            })
+    },
+    getTopPosts: (domain) => {
+        return fetch(`https://api.vk.com/method/wall.get?domain=${domain}&v=5.65&access_token=${accessToken}`)
+        .then((data) => data.json())
+            .then((response) => {
+                console.log(response)
+            })
     }
 }
+
+// 7e8c6b43faa6a671514d5363766f3b751ac72b1064c06f111ffd01cff25145bf009ae69313134e2c385a5
+// https://oauth.vk.com/authorize?client_id=1673052&display=page&redirect_uri=https://vk.com/t7490w743m&scope=friends&response_type=token&v=5.65
