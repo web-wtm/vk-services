@@ -1,6 +1,6 @@
 import fetch from 'fetch-jsonp'
 
-const accessToken = '36681f27c141dd738c4d205be079df535bdef3138a20c644f8babc601c483e451bb55cfb5fed3815894ea';
+const accessToken = 'd57321f27f528d2502c2406d2f66e6398a8380705028d7b0d01508d5958ce6fba33e356a62116a4650dd8';
 
 module.exports = {
     getMutualFriends: (sourceId, targetId) => {
@@ -34,6 +34,6 @@ module.exports = {
     }
 }
 
-// 7e8c6b43faa6a671514d5363766f3b751ac72b1064c06f111ffd01cff25145bf009ae69313134e2c385a5 h
+// d57321f27f528d2502c2406d2f66e6398a8380705028d7b0d01508d5958ce6fba33e356a62116a4650dd8 h
 // 36681f27c141dd738c4d205be079df535bdef3138a20c644f8babc601c483e451bb55cfb5fed3815894ea
 // https://oauth.vk.com/authorize?client_id=1673052&display=page&redirect_uri=https://vk.com/t7490w743m&scope=friends&response_type=token&v=5.65

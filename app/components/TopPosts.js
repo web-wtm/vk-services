@@ -51,9 +51,13 @@ export default class TopPosts extends React.Component {
 
         this.getPosts = this.getPosts.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
     componentDidMount() {
         this.getPosts(this.state.selectedGroup);
+    }
+    onSubmit(e) {
+        e.preventDefault()
     }
     getPosts(domain) {
 
@@ -80,7 +84,7 @@ export default class TopPosts extends React.Component {
         return (
             <div>
                 <SelectedGroup onSelect={this.getPosts}/>
-                <form onSubmit={this.getPosts}>
+                <form onSubmit={this.onSubmit}>
                     <InputField
                         fieldName='selectedGroup'
                         label='Search group's posts
@@ -88,7 +92,7 @@ export default class TopPosts extends React.Component {
                         placeHolder='short domain of group'
                         onChange={this.onChange}
                     />
-                    <button> get </button>
+                    <button onClick={this.getPosts.bind(null, this.state.selectedGroup)}> get </button>
                 </form>
                 {!this.state.posts ? 
                     <Loading text="Downloading" /> : 
