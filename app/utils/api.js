@@ -18,10 +18,11 @@ module.exports = {
             })
     },
     getTopPosts: (domain) => {
-        return fetch(`https://api.vk.com/method/wall.get?domain=${domain}&v=5.65&access_token=${accessToken}`)
+        return fetch(`https://api.vk.com/method/wall.get?domain=${domain}&count=50&v=5.65&access_token=${accessToken}`)
         .then((data) => data.json())
             .then((response) => {
-                console.log(response)
+                let items = response.response.items 
+                return items;
             })
     },
     photoSearch: (lat, long, radius) => {

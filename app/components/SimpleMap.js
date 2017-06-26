@@ -43,3 +43,5 @@ export default class SimpleMap extends React.Component {
     );
   }
 }
+// map api key
+// AIzaSyA4mloYb0KQxeWdjonjkedhXjYZHtd1zfA
