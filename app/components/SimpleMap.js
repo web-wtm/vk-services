@@ -19,7 +19,7 @@ export default class SimpleMap extends React.Component {
   }
   onClick (obj){
       console.log(obj.lat, obj.lng)
-      api.getNearUser(obj.lat, obj.lng, 1)
+      api.photoSearch(obj.lat, obj.lng, 6000)
   } 
   
   static defaultProps = {

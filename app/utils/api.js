@@ -23,6 +23,13 @@ module.exports = {
             .then((response) => {
                 console.log(response)
             })
+    },
+    photoSearch: (lat, long, radius) => {
+        return fetch(`https://api.vk.com/method/photos.search?lat=${lat}&long=${long}&radius=${radius}&v=5.65&access_token=${accessToken}`)
+        .then((data) => data.json())
+            .then((response) => {
+                console.log(response)
+            })
     }
 }
 
