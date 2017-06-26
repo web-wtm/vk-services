@@ -17,13 +17,6 @@ module.exports = {
                 console.log(response)
             })
     },
-    getNearUser: (lat, long, accuracy=1) => {
-        return fetch(`https://api.vk.com/method/users.getNearby?latitude=${lat}&longitude=${long}&accuracy=${accuracy}&v=5.65&access_token=${accessToken}`)
-        .then((data) => data.json())
-            .then((response) => {
-                console.log(response)
-            })
-    },
     getTopPosts: (domain) => {
         return fetch(`https://api.vk.com/method/wall.get?domain=${domain}&v=5.65&access_token=${accessToken}`)
         .then((data) => data.json())
