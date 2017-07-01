@@ -1,6 +1,6 @@
 import fetch from 'fetch-jsonp'
 
-const accessToken = 'd57321f27f528d2502c2406d2f66e6398a8380705028d7b0d01508d5958ce6fba33e356a62116a4650dd8';
+const accessToken = 'f4a4ae0f487c8e89fe4e1fc6a51fa71de68c61216c32f9d28c04c231148ea1535592779676560a52efaea';
 
 module.exports = {
     getMutualFriends: (sourceId, targetId) => {
