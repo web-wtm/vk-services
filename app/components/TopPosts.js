@@ -5,7 +5,7 @@ import api from '../utils/api'
 
 const SelectedGroup = (props) => {
     let groupsDomain = [
-        'mudakoff',
+        'mem1001',
         'another_photos',
         'lhack',
         'ilikes'
@@ -33,7 +33,7 @@ const PostsGrid = (props) => {
         {props.posts.map((item, index) => {
             return (
                 <li key={index}>
-                    {item.id}
+                    <img src={item.attachments[0].photo.photo_604} />
                 </li>
             )
         })}
@@ -45,7 +45,7 @@ export default class TopPosts extends React.Component {
     constructor(props) {
         super(props)
         this.state={
-            selectedGroup: 'mudakoff',
+            selectedGroup: 'mem1001',
             posts: null
         }
 

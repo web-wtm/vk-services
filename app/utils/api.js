@@ -1,6 +1,6 @@
 import fetch from 'fetch-jsonp'
 
-const accessToken = '36681f27c141dd738c4d205be079df535bdef3138a20c644f8babc601c483e451bb55cfb5fed3815894ea';
+const accessToken = '009eb6a61f940e5e1dffd10b207f18194259f665e721f50855f803383a3af717dec6f9693bebccad58e2c';
 
 module.exports = {
     getMutualFriends: (sourceId, targetId) => {
@@ -18,7 +18,7 @@ module.exports = {
             })
     },
     getTopPosts: (domain) => {
-        return fetch(`https://api.vk.com/method/wall.get?domain=${domain}&count=50&v=5.65&access_token=${accessToken}`)
+        return fetch(`https://api.vk.com/method/wall.get?domain=${domain}&count=20&v=5.65&access_token=${accessToken}`)
         .then((data) => data.json())
             .then((response) => {
                 let items = response.response.items 
@@ -34,6 +34,4 @@ module.exports = {
     }
 }
 
-// 7e8c6b43faa6a671514d5363766f3b751ac72b1064c06f111ffd01cff25145bf009ae69313134e2c385a5 h
-// 36681f27c141dd738c4d205be079df535bdef3138a20c644f8babc601c483e451bb55cfb5fed3815894ea
 // https://oauth.vk.com/authorize?client_id=1673052&display=page&redirect_uri=https://vk.com/t7490w743m&scope=friends&response_type=token&v=5.65
