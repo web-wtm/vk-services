@@ -50,7 +50,19 @@ body {
         }
     }
     .posts-contaier {
-        width: 80%;
+        margin-top: 10px;
         background-color: #fff;
+        text-align: center;
+
+        .item {
+            display: inline-block;
+            margin: 10px;
+            
+            img {
+                width: 302px;
+                height: 280px;
+                border-radius: 15px;
+            }
+        }
     }
 }

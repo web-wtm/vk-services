@@ -29,15 +29,16 @@ const SelectedGroup = (props) => {
 }
 const PostsGrid = (props) => {
     return (
-        <ul>
-        {props.posts.map((item, index) => {
-            return (
-                <li key={index}>
-                    <img src={item.attachments[0].photo.photo_604} />
-                </li>
-            )
-        })}
-        </ul>
+        <div className='posts-contaier'>
+            {props.posts.map((item, index) => {
+                return (
+                    <div key={index} className='item'>
+                        <img src={item.attachments[0].photo.photo_604} />
+                        <p>{item.likes.count} likes</p>
+                    </div>
+                )
+            })}
+        </div>
     )
 }
 
@@ -59,8 +60,13 @@ export default class TopPosts extends React.Component {
     onSubmit(e) {
         e.preventDefault()
     }
+    sortByLikes(arr) {
+        console.log(arr)
+        arr.sort((a,b) => {
+            return a.likes.count === b.likes.count ? 0 : a.likes.count < b.likes.count ? 1 : -1;
+        })
+    }
     getPosts(domain) {
-
         this.setState(() => {
             return {
                 selectedGroup: domain,
@@ -69,9 +75,12 @@ export default class TopPosts extends React.Component {
         });
         api.getTopPosts(domain)
             .then((posts) => {
+                this.sortByLikes(posts);
+                let sortedPosts = posts.slice(0,15);
+
                 this.setState(() => {
                     return {
-                        posts: posts
+                        posts: sortedPosts
                     }
                 })
             })

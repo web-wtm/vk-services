@@ -10,7 +10,7 @@ const extractSass = new ExtractTextPlugin({
 const Config = {
     entry: './app/index.js',
     output: {
-        path: path.resolve(__dirname, './'),
+        path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js',
         publicPath: '/'
     },
@@ -42,7 +42,8 @@ const Config = {
             template: './app/index.html',
             minify: {
                 collapseWhitespace: true
-            }
+            },
+            showErrors: false
         }),
         extractSass
     ]
