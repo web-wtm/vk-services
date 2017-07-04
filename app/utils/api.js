@@ -1,6 +1,6 @@
 import fetch from 'fetch-jsonp'
 
-const accessToken = '59bf59b0b4bd01283bca60ab690575ed576bc0967c2fa403a4ce92420d05844a203d7de05d19235d81b00';
+const accessToken = '2f5a0d9f86aa96c61c7d00bd31d1456282f18d7a1c60e50ffe207d586e118c7d4918c3d6cb1c5611af5fa';
 
 
 module.exports = {
@@ -22,15 +22,14 @@ module.exports = {
         return fetch(`https://api.vk.com/method/wall.get?domain=${domain}&count=100&v=5.65&access_token=${accessToken}`)
         .then((data) => data.json())
             .then((response) => {
-                let items = response.response.items 
-                return items;
+                return response.response.items;
             })
     },
     photoSearch: (lat, long, radius) => {
-        return fetch(`https://api.vk.com/method/photos.search?lat=${lat}&long=${long}&radius=${radius}&v=5.65&access_token=${accessToken}`)
+        return fetch(`https://api.vk.com/method/photos.search?lat=${lat}&long=${long}&radius=${radius}&sort=0&v=5.65&access_token=${accessToken}`)
         .then((data) => data.json())
             .then((response) => {
-                console.log(response)
+                return response.response.items;
             })
     }
 }

@@ -16,9 +16,7 @@ const SelectedGroup = (props) => {
             {groupsDomain.map((item, index) => {
                 return (
                     <li key={index}>
-                        <button 
-                            onClick={props.onSelect.bind(null, item)}
-                        >
+                        <button onClick={props.onSelect.bind(null, item)}>
                             {item}
                         </button>
                     </li>
