@@ -1,9 +1,16 @@
 import fetch from 'fetch-jsonp'
+import axios from 'axios'
 
 const accessToken = '2f5a0d9f86aa96c61c7d00bd31d1456282f18d7a1c60e50ffe207d586e118c7d4918c3d6cb1c5611af5fa';
 
 
 module.exports = {
+    getAccessToken: () => {
+        return axios.post('https://oauth.vk.com/authorize?client_id=1673052&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.65')
+            .then((response) => {
+                console.log(response)
+            })
+},
     getMutualFriends: (sourceId, targetId) => {
         return fetch(`https://api.vk.com/method/friends.getMutual?source_uid=${sourceId}&target_uid=${targetId}&v=5.65&access_token=${accessToken}`)
             .then((data) => data.json())
@@ -34,4 +41,4 @@ module.exports = {
     }
 }
 
-// https://oauth.vk.com/authorize?client_id=1673052&display=page&redirect_uri=https://vk.com/t7490w743m&scope=friends&response_type=token&v=5.65
+// https://oauth.vk.com/authorize?client_id=1673052&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.65
