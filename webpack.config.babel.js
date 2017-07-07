@@ -42,7 +42,8 @@ const Config = {
             template: './app/index.html',
             minify: {
                 collapseWhitespace: true
-            }
+            },
+            showErrors: false
         }),
         extractSass
     ]

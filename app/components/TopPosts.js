@@ -5,7 +5,7 @@ import api from '../utils/api'
 
 const SelectedGroup = (props) => {
     let groupsDomain = [
-        'mudakoff',
+        'mem1001',
         'another_photos',
         'lhack',
         'ilikes'
@@ -16,9 +16,7 @@ const SelectedGroup = (props) => {
             {groupsDomain.map((item, index) => {
                 return (
                     <li key={index}>
-                        <button 
-                            onClick={props.onSelect.bind(null, item)}
-                        >
+                        <button onClick={props.onSelect.bind(null, item)}>
                             {item}
                         </button>
                     </li>
@@ -29,15 +27,16 @@ const SelectedGroup = (props) => {
 }
 const PostsGrid = (props) => {
     return (
-        <ul>
-        {props.posts.map((item, index) => {
-            return (
-                <li key={index}>
-                    {item.id}
-                </li>
-            )
-        })}
-        </ul>
+        <div className='posts-contaier'>
+            {props.posts.map((item, index) => {
+                return (
+                    <div key={index} className='item'>
+                        <img src={item.attachments[0].photo.photo_604} />
+                        <p>{item.likes.count} likes</p>
+                    </div>
+                )
+            })}
+        </div>
     )
 }
 
@@ -45,7 +44,7 @@ export default class TopPosts extends React.Component {
     constructor(props) {
         super(props)
         this.state={
-            selectedGroup: 'mudakoff',
+            selectedGroup: 'mem1001',
             posts: null
         }
 
@@ -59,8 +58,13 @@ export default class TopPosts extends React.Component {
     onSubmit(e) {
         e.preventDefault()
     }
+    sortByLikes(arr) {
+        console.log(arr)
+        arr.sort((a,b) => {
+            return a.likes.count === b.likes.count ? 0 : a.likes.count < b.likes.count ? 1 : -1;
+        })
+    }
     getPosts(domain) {
-
         this.setState(() => {
             return {
                 selectedGroup: domain,
@@ -69,9 +73,12 @@ export default class TopPosts extends React.Component {
         });
         api.getTopPosts(domain)
             .then((posts) => {
+                this.sortByLikes(posts);
+                let sortedPosts = posts.slice(0,15);
+
                 this.setState(() => {
                     return {
-                        posts: posts
+                        posts: sortedPosts
                     }
                 })
             })
