@@ -1,12 +1,12 @@
 import fetch from 'fetch-jsonp'
 import axios from 'axios'
 
-const accessToken = '2f5a0d9f86aa96c61c7d00bd31d1456282f18d7a1c60e50ffe207d586e118c7d4918c3d6cb1c5611af5fa';
+const accessToken = '6719ba556719ba55674619c57a67003d09667196719ba553e4722ad6ca092ecfcafa618';
 
 
 module.exports = {
     getAccessToken: () => {
-        return axios.post('https://oauth.vk.com/authorize?client_id=1673052&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.65')
+        return axios.get('https://oauth.vk.com/access_token?client_id=1673052&client_secret=Zk6IQ6pZJlwjxVB4JK0L&v=5.65&grant_type=client_credentials')
             .then((response) => {
                 console.log(response)
             })
