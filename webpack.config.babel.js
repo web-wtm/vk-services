@@ -10,7 +10,7 @@ const extractSass = new ExtractTextPlugin({
 const Config = {
     entry: './app/index.js',
     output: {
-        path: path.resolve(__dirname, './'),
+        path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js',
         publicPath: '/'
     },
@@ -27,9 +27,16 @@ const Config = {
             {
                 test: /\.scss?$/,
                 use: extractSass.extract({
-                    use: ['css-loader', 'sass-loader'],
+                    use: ['css-loader', 'resolve-url-loader', 'sass-loader'],
                     fallback: "style-loader"
                 })
+            },
+            {
+                test: /\.(jpg|png|svg)$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'app/images/[name].[ext]'
+                }
             }
         ]
     },

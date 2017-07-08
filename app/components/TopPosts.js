@@ -3,11 +3,15 @@ import Loading from './Loading'
 import InputField from './InputField'
 import api from '../utils/api'
 
+// TODO
+// nice style
+
+
 const SelectedGroup = (props) => {
     let groupsDomain = [
         'mem1001',
         'another_photos',
-        'lhack',
+        'ifun',
         'ilikes'
     ];
     
@@ -16,7 +20,10 @@ const SelectedGroup = (props) => {
             {groupsDomain.map((item, index) => {
                 return (
                     <li key={index}>
-                        <button onClick={props.onSelect.bind(null, item)}>
+                        <button 
+                            style={ item === props.selectedGroup ? { color: 'red'} : null} 
+                            onClick={props.onSelect.bind(null, item)}
+                        >
                             {item}
                         </button>
                     </li>
@@ -29,12 +36,22 @@ const PostsGrid = (props) => {
     return (
         <div className='posts-contaier'>
             {props.posts.map((item, index) => {
-                return (
-                    <div key={index} className='item'>
-                        <img src={item.attachments[0].photo.photo_604} />
-                        <p>{item.likes.count} likes</p>
-                    </div>
-                )
+                    return (
+                        <a key={index} className='item' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
+                            {
+                                item.attachments.map((att, ind) => {
+                                    if(att.type === 'photo') return <img key={ind} src={att.photo.photo_604} />
+                                    else if(att.type === 'audio') return <div key={ind}>{att.audio.artist} - {att.audio.title}</div>
+                                    else if(att.doc.ext == 'gif') return <img key={ind} src={att.doc.url} />
+                                })
+                            }
+                            <div className='info-container'>
+                                {item.text ? <div>{item.text}</div> : null}
+                                <p>{item.likes.count} <i className='icon-like'></i></p>
+                                <p>{item.reposts.count} <i className='icon-repo'></i></p>
+                            </div>
+                        </a>
+                    )
             })}
         </div>
     )
@@ -45,6 +62,7 @@ export default class TopPosts extends React.Component {
         super(props)
         this.state={
             selectedGroup: 'mem1001',
+            searchGroup: '',
             posts: null
         }
 
@@ -59,7 +77,6 @@ export default class TopPosts extends React.Component {
         e.preventDefault()
     }
     sortByLikes(arr) {
-        console.log(arr)
         arr.sort((a,b) => {
             return a.likes.count === b.likes.count ? 0 : a.likes.count < b.likes.count ? 1 : -1;
         })
@@ -90,20 +107,20 @@ export default class TopPosts extends React.Component {
     render () {
         return (
             <div>
-                <SelectedGroup onSelect={this.getPosts}/>
+                <SelectedGroup onSelect={this.getPosts} selectedGroup={this.state.selectedGroup} />
                 <form onSubmit={this.onSubmit}>
                     <InputField
-                        fieldName='selectedGroup'
+                        fieldName='searchGroup'
                         label='Search group's posts
-                        value={this.state.selectedGroup}
+                        value={this.state.searchGroup}
                         placeHolder='short domain of group'
                         onChange={this.onChange}
                     />
-                    <button onClick={this.getPosts.bind(null, this.state.selectedGroup)}> get </button>
+                    <button onClick={this.getPosts.bind(null, this.state.searchGroup)}> get </button>
                 </form>
                 {!this.state.posts ? 
                     <Loading text="Downloading" /> : 
-                    <PostsGrid posts={this.state.posts}/>
+                    <PostsGrid domain={this.state.selectedGroup} posts={this.state.posts}/>
                 }
                 
             </div>
