@@ -60,7 +60,7 @@ const PostsGrid = (props) => {
 export default class TopPosts extends React.Component {
     constructor(props) {
         super(props)
-        this.state={
+        this.state = {
             selectedGroup: 'mem1001',
             searchGroup: '',
             posts: null
@@ -82,21 +82,18 @@ export default class TopPosts extends React.Component {
         })
     }
     getPosts(domain) {
-        this.setState(() => {
-            return {
-                selectedGroup: domain,
-                posts: null
-            }
+        this.setState({
+            selectedGroup: domain,
+            posts: null
         });
+
         api.getTopPosts(domain)
             .then((posts) => {
                 this.sortByLikes(posts);
                 let sortedPosts = posts.slice(0,15);
 
-                this.setState(() => {
-                    return {
-                        posts: sortedPosts
-                    }
+                this.setState({
+                    posts: sortedPosts
                 })
             })
     }
@@ -119,7 +116,7 @@ export default class TopPosts extends React.Component {
                     <button onClick={this.getPosts.bind(null, this.state.searchGroup)}> get </button>
                 </form>
                 {!this.state.posts ? 
-                    <Loading text="Downloading" /> : 
+                    <Loading /> : 
                     <PostsGrid domain={this.state.selectedGroup} posts={this.state.posts}/>
                 }
                 

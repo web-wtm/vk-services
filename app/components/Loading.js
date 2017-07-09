@@ -9,25 +9,13 @@ var styles = {
 }
 
 class Loading extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            text: props.text
-        }
-    }
     render() {
         return (
-            <p style={styles.content}>
-                {this.state.text}
-            </p>
+            <div style={styles.content}>
+                <img src='app/images/spinner.gif' />
+            </div>
         )
     }
 } 
-Loading.propTypes = {
-    text: PropTypes.string.isRequired
-}
-Loading.defaultProps = {
-    text: 'loading'
-}
+
 module.exports = Loading;
