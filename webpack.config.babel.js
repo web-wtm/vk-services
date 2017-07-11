@@ -37,6 +37,13 @@ const Config = {
                 options: {
                     name: 'app/images/[name].[ext]'
                 }
+            },
+            {
+                test: /\.(mp4|webm)$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'app/video/[name].[ext]'
+                }
             }
         ]
     },

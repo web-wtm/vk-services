@@ -9,10 +9,26 @@ import api from '../utils/api'
 
 const SelectedGroup = (props) => {
     let groupsDomain = [
-        'mem1001',
-        'another_photos',
-        'ifun',
-        'ilikes'
+        {
+            name: '1001 Мем',
+            photoSrc: 'https://pp.userapi.com/c836431/v836431343/ce3f/Ptczxrycj24.jpg',
+            domain: 'mem1001'
+        },
+        {
+            name: 'Другая фотография',
+            photoSrc: 'https://pp.userapi.com/c626324/v626324861/4021a/RAL-iveVGng.jpg',
+            domain: 'another_photos'
+        },
+        {
+            name: 'Смейся до слёз :D',
+            photoSrc: 'https://cs7050.userapi.com/c638330/v638330437/23f09/TX1xbrk6FHs.jpg',
+            domain: 'ifun'
+        },
+        {
+            name: 'Четкие Приколы',
+            photoSrc: 'https://pp.userapi.com/c639816/v639816345/365b9/_elqC5XnXk8.jpg',
+            domain: 'ilikes'
+        }
     ];
     
     return (
@@ -20,11 +36,12 @@ const SelectedGroup = (props) => {
             {groupsDomain.map((item, index) => {
                 return (
                     <li key={index}>
+                        <img src={item.photoSrc} />
                         <button 
                             style={ item === props.selectedGroup ? { color: 'red'} : null} 
-                            onClick={props.onSelect.bind(null, item)}
+                            onClick={props.onSelect.bind(null, item.domain)}
                         >
-                            {item}
+                            {item.name}
                         </button>
                     </li>
                 )

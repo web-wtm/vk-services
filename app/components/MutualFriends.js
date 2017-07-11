@@ -4,18 +4,18 @@ import api from '../utils/api'
 
 const FriendsGrid = (props) => {
     return (
-                <div className='friends-container'>
-                    {props.friends.map((item,index) => {
-                        return (
-                            <a key={index} href={`https://vk.com/${item.screen_name}`}>
-                                <img src={item.photo_200} />
-                                <p>{item.first_name}</p>
-                                <p>{item.last_name}</p>
-                            </a>
-                        )
-                    })}
-                </div>
-            )
+        <div className='friends-container'>
+            {props.friends.map((item,index) => {
+                return (
+                    <a key={index} href={`https://vk.com/${item.screen_name}`}>
+                        <img src={item.photo_200} />
+                        <p>{item.first_name}</p>
+                        <p>{item.last_name}</p>
+                    </a>
+                )
+            })}
+        </div>
+    )
 }
 
 export default class MutualFriends extends React.Component {
