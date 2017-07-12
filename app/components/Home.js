@@ -17,23 +17,28 @@ export default class Home extends React.Component {
     render() {
         return (
             <div className='content'>
-                <div className='info-container'>
-                    <div className='info'>
-                        For use functionals of app you need to be authorize in VK
-                    </div>
-                    <div className='getToken'>
-                        If you have been authorize, <br /> click it
-                        <a href='https://oauth.vk.com/authorize?client_id=6104841&display=page&redirect_uri=https://vk-sevices.firebaseapp.com&scope=friends&response_type=token&v=5.65'>
-                            get permission
-                        </a>
+                <div className='info'>
+                    <div className='advice'>
                         <p>
-                            Next step is save your status, <br /> click it
-                            <button onClick={this.getToken}>get token</button>
+                            For use functionals of app you need to be authorized in VK
                         </p>
                     </div>
-                    <Video />
+                    <div className='permission'>
+                        <p>
+                            If you have been authorized, click it
+                            <a className='btn' href='https://oauth.vk.com/authorize?client_id=6104841&display=page&redirect_uri=https://vk-sevices.firebaseapp.com&scope=friends&response_type=token&v=5.65'>
+                                get permission
+                            </a>
+                        </p>
+                    </div>
+                    <div className='get-token'>
+                        <p className='save-status'>
+                            Next step is saving your status, click it
+                            <button className='btn' onClick={this.getToken}>get token</button>
+                        </p>
+                    </div>
                 </div>
-                
+                <Video />
             </div>
         )
     }
