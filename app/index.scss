@@ -1,5 +1,5 @@
 *{
-    font-family: 'Orbitron', sans-serif;
+    
 }
 // 4B88A2
 // 252627
@@ -23,13 +23,25 @@
         border: 1px solid #3c2963;
     }
 }
+.caption {
+    display: block;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 24px;
+}
 body {
+    font-family: 'Orbitron', sans-serif;
     padding: 0;
     margin: 0;
     background-color: #D3D4D9;
     position: relative;
     overflow-x: hidden;
     .nav-container {
+        &:after {
+            content: '';
+            clear: both;
+            display: table;
+        }
 
         .logo{
             width: 150px;
@@ -43,12 +55,6 @@ body {
         text-align: center;
         padding: 0;
         float: right;
-
-        &:after {
-            content: '';
-            clear: both;
-            display: table;
-        }
 
         li {
             display: inline-block;
@@ -145,6 +151,7 @@ body {
         width: 100%;
         justify-content: space-around;
         list-style: none;
+        font-family: 'Podkova', serif;
 
         li {
             cursor: pointer;
@@ -174,6 +181,7 @@ body {
             padding-top: 20px;
 
             .field-group {
+                vertical-align: middle;
                 display: inline-block;
 
                 label {
@@ -185,10 +193,14 @@ body {
                 input {
                     font-size: 18px;
                     padding: 10px;
+
+                    &:focus {
+                        outline: none;
+                    }
                 }
             }
             .btn {
-                padding: 10px 40px;
+                padding: 11px 40px;
             }
         }
     }
@@ -200,18 +212,20 @@ body {
         .item {
             display: inline-block;
             margin: 10px;
-            border-radius: 15px;
-            border: 3px solid black;
+            background-color: skyblue;
+            text-decoration: none;
+            border: 3px solid #3c2963;
             
             img {
-                height: 200px;
-                border-radius: 12px;
-                border-bottom-right-radius: 0;
-                border-bottom-left-radius: 0;
+                height: 300px;
+                margin: 10px;
             }
             .info-container {
                 display: block;
-
+                color: #fff;
+                font-family: 'Podkova', serif;
+                font-weight: bold;
+                
                 p {
                     padding: 0 10px;
                     display: inline-block;
@@ -234,6 +248,13 @@ body {
                     }
                 }
             }
+        }
+    }
+    .photo-search {
+        .map {
+            width: 100%;
+            height: 350px;
+            border: 2px solid #3c2963; 
         }
     }
 }

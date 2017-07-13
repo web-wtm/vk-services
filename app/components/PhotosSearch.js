@@ -1,6 +1,7 @@
 import React from 'react'
 import SimpleMap from './SimpleMap'
 import api from '../utils/api'
+import Select from './Select'
 
 const PhotosGrid = (props) => {
     return (
@@ -27,14 +28,24 @@ export default class PhotosSearch extends React.Component {
         super(props)
 
         this.state = {
-            photos: []
+            photos: [],
+            selArr: ['10','100','600'],
+            selectedRadius: 10
         }
 
+        this.onSelect = this.onSelect.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.onClick = this.onClick.bind(this);
+    }
+    onSelect(e) {
+        this.setState({selectedRadius: e.target.value})
+    }
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value })
     }
     onClick (obj){
         console.log(obj.lat, obj.lng)
-        api.photoSearch(obj.lat, obj.lng, 100)
+        api.photoSearch(obj.lat, obj.lng, this.state.selectedRadius)
             .then((response) => {
                 this.setState({
                     photos: response
@@ -44,9 +55,15 @@ export default class PhotosSearch extends React.Component {
     } 
     render () {
         return (
-            <div>
-                Photos
-                <div style={{width: '100%', height: '300px'}}>
+            <div className='photo-search'>
+                <div className="caption">Click on map to search some photos, you can enter radius of searching</div>
+                <Select 
+                    values={this.state.selArr}
+                    name='selectRadius'
+                    placeHolder='select searching radius'
+                    onSelect={this.onSelect}
+                />
+                <div className='map'>
                     <SimpleMap onClick={(this.onClick)} />
                 </div>
                 {!this.state.photos ? <SearchPriev /> : <PhotosGrid photos={this.state.photos} />}

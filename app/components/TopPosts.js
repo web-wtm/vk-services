@@ -116,6 +116,7 @@ export default class TopPosts extends React.Component {
     render () {
         return (
             <div className='top-posts'>
+                <div className="caption">There are last top posts of group to sort by likes</div>
                 <SelectedGroup onSelect={this.getPosts} selectedGroup={this.state.selectedGroup} />
                 <form onSubmit={this.onSubmit}>
                     <InputField
