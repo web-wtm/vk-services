@@ -1,56 +1,28 @@
 *{
-    font-family: 'Lobster', cursive;
+    font-family: 'Orbitron', sans-serif;
 }
 // 4B88A2
 // 252627
 // #BB0A21
 
-.animate {
-	transition: all 0.1s;
-	-webkit-transition: all 0.1s;
-}
+.btn {
+    display: inline-block;
+    padding: 10px;
+    font-size: 18px;
+    background-color: #3c2963;
+    color: #fff;
+    border: 1px solid #fff;
+    text-decoration: none;
+    transition: all ease-in 333ms;
+    vertical-align: middle;
+    cursor: pointer;
 
-.action-button {
-	position: relative;
-	padding: 10px 40px;
-    margin: 0px 10px 10px 0px;
-    float: left;
-	border-radius: 10px;
-	font-size: 25px;
-	color: #FFF;
-	text-decoration: none;	
+    &:hover {
+        background-color: #fff;
+        color: #3c2963;
+        border: 1px solid #3c2963;
+    }
 }
-
-.blue {
-	background-color: #3498DB;
-	border-bottom: 5px solid #2980B9;
-	text-shadow: 0px -2px #2980B9;
-}
-
-.red {
-	background-color: #E74C3C;
-	border-bottom: 5px solid #BD3E31;
-	text-shadow: 0px -2px #BD3E31;
-}
-
-.green {
-	background-color: #82BF56;
-	border-bottom: 5px solid #669644;
-	text-shadow: 0px -2px #669644;
-}
-
-.yellow {
-	background-color: #F2CF66;
-	border-bottom: 5px solid #D1B358;
-	text-shadow: 0px -2px #D1B358;
-}
-
-.action-button:active {
-	transform: translate(0px,5px);
-    -webkit-transform: translate(0px,5px);
-	border-bottom: 1px solid;
-}
-
 body {
     padding: 0;
     margin: 0;
@@ -64,25 +36,30 @@ body {
             vertical-align: top;
             display: inline-block;
             margin: 10px;
+            cursor: pointer;
         }
     }
     .nav {
-        margin: 20px 0 0 20px;
         text-align: center;
         padding: 0;
-        display: inline-block;
-        width: 80%;
+        float: right;
+
+        &:after {
+            content: '';
+            clear: both;
+            display: table;
+        }
 
         li {
             display: inline-block;
 
             a {
                 display: inline-block;
-                padding: 15px 25px;
+                margin: 15px 25px;
                 text-decoration: none;
                 font-size: 28px;
                 cursor: pointer;
-                color:#D3D4D9;
+                color: #fff;
                 -webkit-transition: all 333ms ease;
                 -moz-transition: all 333ms ease;
                 -ms-transition: all 333ms ease;
@@ -93,6 +70,7 @@ body {
                 &.active,
                 &:hover {
                     color: darkslategray;
+                    border-bottom: 1px solid darkslategray;
                 }
             }
         }
@@ -107,6 +85,7 @@ body {
             color: #D3D4D9;
             font-size: 24px;
             display: block;
+            padding-top: 150px;
             
             .advice {
                 display: block;
@@ -124,6 +103,10 @@ body {
                 display: block;
                 text-align: right;
 
+                .btn {
+                    margin-left: 15px;
+                }                
+
                 p {
                     padding: 20px;
                     border-radius: 30px;
@@ -140,6 +123,10 @@ body {
                     padding: 20px;
                     border-radius: 30px;
                     display: inline-block;
+
+                    .btn {
+                        margin-left: 15px;
+                    }
                 }
             }
         }
@@ -152,25 +139,56 @@ body {
         }
     }
     .tool-bar {
-        display: inline-block;
         margin: 0;
         padding: 0;
-        width: 20%;
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        list-style: none;
 
         li {
-            display: block;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            background-color: #3c2963;
+            color: #fff;
+            border-radius: 15px;
+            transition: background ease-in 333ms;
 
-            button {
-                cursor: pointer;
-                width: 100%;
-                padding: 5px 0;
-                border: 0;
-                font-size: 24px;
-                
-                &:focus {
-                    outline: none;
+            &:hover {
+                background-color: #4CAF50;
+            }
+
+            img {
+                vertical-align: middle;
+                width: 40px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+        }
+    }
+    .top-posts {
+        form {
+            text-align: center;
+            padding-top: 20px;
+
+            .field-group {
+                display: inline-block;
+
+                label {
+                    font-size: 28px;
+                    vertical-align: middle;
+                    padding-right: 10px;
                 }
 
+                input {
+                    font-size: 18px;
+                    padding: 10px;
+                }
+            }
+            .btn {
+                padding: 10px 40px;
             }
         }
     }

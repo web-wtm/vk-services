@@ -35,14 +35,9 @@ const SelectedGroup = (props) => {
         <ul className='tool-bar'>
             {groupsDomain.map((item, index) => {
                 return (
-                    <li key={index}>
+                    <li key={index} style={ item === props.selectedGroup ? { color: 'red'} : null} onClick={props.onSelect.bind(null, item.domain)}>
                         <img src={item.photoSrc} />
-                        <button 
-                            style={ item === props.selectedGroup ? { color: 'red'} : null} 
-                            onClick={props.onSelect.bind(null, item.domain)}
-                        >
                             {item.name}
-                        </button>
                     </li>
                 )
             })}
@@ -120,17 +115,17 @@ export default class TopPosts extends React.Component {
     
     render () {
         return (
-            <div>
+            <div className='top-posts'>
                 <SelectedGroup onSelect={this.getPosts} selectedGroup={this.state.selectedGroup} />
                 <form onSubmit={this.onSubmit}>
                     <InputField
                         fieldName='searchGroup'
-                        label='Search group's posts
+                        label='Search group'
                         value={this.state.searchGroup}
-                        placeHolder='short domain of group'
+                        placeHolder='short name of group'
                         onChange={this.onChange}
                     />
-                    <button onClick={this.getPosts.bind(null, this.state.searchGroup)}> get </button>
+                    <button className='btn' onClick={this.getPosts.bind(null, this.state.searchGroup)}> get </button>
                 </form>
                 {!this.state.posts ? 
                     <Loading /> : 
