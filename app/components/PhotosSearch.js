@@ -1,5 +1,5 @@
 import React from 'react'
-import SimpleMap from './SimpleMap'
+import Map from './Map'
 import api from '../utils/api'
 import Select from './Select'
 
@@ -7,21 +7,21 @@ const PhotosGrid = (props) => {
 
     return (
         <div className='photos-container'>
-            {props.photos.map((item, index) => {
-                return (
-                    <div key={index} className='item'>
-                        <img src={item.photo_604} />
-                        <div className='photo-owner'>{item.owner_id}</div>
-                        <button onClick={props.getInfo.apply(null, item.id)}>info</button>
-                    </div>
-                )
-            })}
+            <div className="caption">Result of searching:</div>
+            
+            {   props.photos.length ?
+                props.photos.map((item, index) => {
+                    return (
+                        <a key={index} className='item' target='_blank' href={`https://vk.com/id${item.owner_id}`} title='onwer'>
+                            <img src={item.photo_604} />
+                            <div className="item-hover">Click to see owner</div>
+                        </a>
+                    )
+                })
+                :
+                <div>No phono in this area, try with bigger radius</div>
+            }
         </div>
-    )
-}
-const SearchPriev = () => {
-    return (
-        <div>Click to search</div>
     )
 }
 
@@ -30,21 +30,17 @@ export default class PhotosSearch extends React.Component {
         super(props)
 
         this.state = {
-            photos: [],
+            photos: null,
             selArr: ['10','100','600'],
-            selectedRadius: 10
-        }
-
-        this.cursorStyle = {
-            top: 0,
-            left: 0,
-            opacity: 0
+            selectedRadius: 10,
+            currPointLat: 50.44,
+            currPointLang: 30.54,
+            currEnable: 0
         }
 
         this.onSelect = this.onSelect.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onClick = this.onClick.bind(this);
-        this.getInfo = this.getInfo.bind(this);
     }
 
     onSelect(e) {
@@ -56,12 +52,15 @@ export default class PhotosSearch extends React.Component {
     }
     
     onClick (obj){
-        this.cursorStyle.opacity = 1;
-        this.cursorStyle.top = obj.event.pageY - 5;
-        this.cursorStyle.left = obj.event.pageX - 5;
+        this.setState({
+            currPointLat: obj.lat,
+            currPointLang: obj.lng,
+            currEnable: 1
+        })
 
         api.photoSearch(obj.lat, obj.lng, this.state.selectedRadius)
             .then((response) => {
+                this.sortByDate(response)
                 this.setState({
                     photos: response
                 })
@@ -69,11 +68,10 @@ export default class PhotosSearch extends React.Component {
             })
     }
 
-    getInfo(id) {
-        api.getUsersInfo(id)
-            .then((response) => {
-                console.log(response)
-            })
+    sortByDate(arr) {
+        arr.sort((a,b) => {
+            return a.date === b.date ? 0 : a.date < b.date ? 1 : -1;
+        })
     }
 
     render () {
@@ -81,19 +79,23 @@ export default class PhotosSearch extends React.Component {
             <div className='photo-search'>
                 <div className="caption">Click on map to search some photos, you can enter radius of searching</div>
                 <div className="select-container">
-                    <label>The distance to the target may be different from the target</label>
                     <Select 
                         values={this.state.selArr}
                         name='selectRadius'
-                        placeHolder='select searching radius'
                         onSelect={this.onSelect}
                     />
+                    <label>The distance to the target may be different from the target</label>
                 </div>
                 <div className='map'>
-                    <SimpleMap onClick={(this.onClick)} />
-                    <div style={this.cursorStyle} className="cursor"></div>
+                    <Map 
+                        lat={this.state.currPointLat} 
+                        lang={this.state.currPointLang} 
+                        currEnable={this.state.currEnable} 
+                        onClick={this.onClick} 
+                    />
                 </div>
-                {!this.state.photos ? <SearchPriev /> : <PhotosGrid photos={this.state.photos} onClick={this.getInfo}/>}
+                {!this.state.photos ? 
+                    null : <PhotosGrid photos={this.state.photos} />}
             </div>
         )
     }

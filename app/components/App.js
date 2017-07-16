@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Nav from './Nav'
+import Footer from './Footer'
 import Home from './Home'
 import TopPosts from './TopPosts'
 import PhotosSearch from './PhotosSearch'
@@ -10,7 +11,7 @@ export default class App extends React.Component {
     render() {
         return (
             <Router>
-                <div>
+                <div className='wrapper'>
                 <Nav />
                 <Switch>
                     <Route exact path='/' component={Home} />
@@ -21,6 +22,7 @@ export default class App extends React.Component {
                         return <p>page not found</p>
                     }} />
                 </Switch>
+                <Footer />
                 </div>
             </Router>
         )

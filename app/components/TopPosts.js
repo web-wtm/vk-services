@@ -2,6 +2,7 @@ import React from 'react'
 import Loading from './Loading'
 import InputField from './InputField'
 import api from '../utils/api'
+// import ScrollToUp from 'react-scroll-up'
 
 // TODO
 // nice style
@@ -35,7 +36,7 @@ const SelectedGroup = (props) => {
         <ul className='tool-bar'>
             {groupsDomain.map((item, index) => {
                 return (
-                    <li key={index} style={ item === props.selectedGroup ? { color: 'red'} : null} onClick={props.onSelect.bind(null, item.domain)}>
+                    <li key={index} style={ item.domain === props.selectedGroup ? { background: '#47b475'} : null} onClick={props.onSelect.bind(null, item.domain)}>
                         <img src={item.photoSrc} />
                             {item.name}
                     </li>
@@ -49,11 +50,12 @@ const PostsGrid = (props) => {
         <div className='posts-contaier'>
             {props.posts.map((item, index) => {
                     return (
-                        <a key={index} className='item' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
+                        <a key={index} className='item' target='_blank' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
                             {
                                 item.attachments.map((att, ind) => {
                                     if(att.type === 'photo') return <img key={ind} src={att.photo.photo_604} />
-                                    else if(att.type === 'audio') return <div key={ind}>{att.audio.artist} - {att.audio.title}</div>
+                                    else if(att.type === 'audio') return <div key={ind} className='audio-track'>{att.audio.artist} - {att.audio.title}</div>
+                                    else if(att.type === 'poll') return 
                                     else if(att.doc.ext == 'gif') return <img key={ind} src={att.doc.url} />
                                 })
                             }
@@ -62,6 +64,7 @@ const PostsGrid = (props) => {
                                 <p>{item.likes.count} <i className='icon-like'></i></p>
                                 <p>{item.reposts.count} <i className='icon-repo'></i></p>
                             </div>
+                            <div className="item-hover">Click to open in vk</div>
                         </a>
                     )
             })}
@@ -75,7 +78,8 @@ export default class TopPosts extends React.Component {
         this.state = {
             selectedGroup: 'mem1001',
             searchGroup: '',
-            posts: null
+            posts: null,
+            error: false
         }
 
         this.getPosts = this.getPosts.bind(this);
@@ -94,6 +98,8 @@ export default class TopPosts extends React.Component {
         })
     }
     getPosts(domain) {
+        if(!domain.length) return;
+
         this.setState({
             selectedGroup: domain,
             posts: null
@@ -101,8 +107,10 @@ export default class TopPosts extends React.Component {
 
         api.getTopPosts(domain)
             .then((posts) => {
-                this.sortByLikes(posts);
-                let sortedPosts = posts.slice(0,15);
+                if(posts.error) return this.setState({error: true})
+                    
+                this.sortByLikes(posts.response.items);
+                let sortedPosts = posts.response.items.slice(0,20);
 
                 this.setState({
                     posts: sortedPosts
@@ -116,8 +124,11 @@ export default class TopPosts extends React.Component {
     render () {
         return (
             <div className='top-posts'>
-                <div className="caption">There are last top posts of group to sort by likes</div>
+                {/* <ScrollToUp showUnder={160}>
+                    <span className='scroll-up'>UP</span>
+                </ScrollToUp> */}
                 <SelectedGroup onSelect={this.getPosts} selectedGroup={this.state.selectedGroup} />
+                <div className="caption">There are last top posts of group to sort by likes</div>
                 <form onSubmit={this.onSubmit}>
                     <InputField
                         fieldName='searchGroup'
@@ -132,6 +143,7 @@ export default class TopPosts extends React.Component {
                     <Loading /> : 
                     <PostsGrid domain={this.state.selectedGroup} posts={this.state.posts}/>
                 }
+                {this.state.error ? <div>Smth wrong with short name of group </div> : null}
                 
             </div>
         )

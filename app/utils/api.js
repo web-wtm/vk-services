@@ -16,7 +16,10 @@ module.exports = {
         return fetch(`https://api.vk.com/method/wall.get?domain=${domain}&count=100&v=5.65&access_token=${serviceToken}`)
         .then((data) => data.json())
             .then((response) => {
-                return response.response.items;
+                return response;
+            })
+            .catch((e) => {
+                console.log(e);
             })
     },
     getMutualFriends: (sourceId, targetId, userToken) => {
