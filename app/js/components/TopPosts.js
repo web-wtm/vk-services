@@ -11,14 +11,14 @@ import api from '../utils/api'
 const SelectedGroup = (props) => {
     let groupsDomain = [
         {
-            name: '1001 Мем',
-            photoSrc: 'https://pp.userapi.com/c836431/v836431343/ce3f/Ptczxrycj24.jpg',
-            domain: 'mem1001'
+            name: 'ЁП',
+            photoSrc: 'https://pp.userapi.com/c841427/v841427388/97b1/_B5iRijVxDE.jpg',
+            domain: 'fuck_humor'
         },
         {
-            name: 'Другая фотография',
-            photoSrc: 'https://pp.userapi.com/c626324/v626324861/4021a/RAL-iveVGng.jpg',
-            domain: 'another_photos'
+            name: '#ябсъездил',
+            photoSrc: 'https://pp.userapi.com/c624331/v624331463/395fa/HyoRKKxp5v8.jpg',
+            domain: 'idtravel'
         },
         {
             name: 'Смейся до слёз :D',
@@ -76,7 +76,7 @@ export default class TopPosts extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedGroup: 'mem1001',
+            selectedGroup: 'fuck_humor',
             searchGroup: '',
             posts: null,
             error: false
