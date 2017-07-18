@@ -11,7 +11,7 @@ export default class Home extends React.Component {
     }
     getToken () {
         let querys = queryString.parse(this.props.location.hash)
-        localStorage.setItem('accessToken', querys.access_token);
+        sessionStorage.setItem('accessToken', querys.access_token);
         console.log('token', localStorage.getItem('accessToken'));
     }
     render() {

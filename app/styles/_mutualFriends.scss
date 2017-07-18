@@ -1,0 +1,63 @@
+    .mutual-container {
+        form {
+            text-align: center;
+            padding-top: 30px;
+
+            .btn-container {
+                margin-top: 20px;
+            }
+        }
+        .form-mutual {
+            .field-group {
+                margin: 0 20px;
+
+                label {
+                    display: block;
+                }
+            }
+        }
+
+        .field-group {
+            label {
+                vertical-align: middle;
+            }
+            input {
+                padding: 17.5px 10px;
+            }
+        }
+
+        .friends-container {
+            text-align: center;
+            .item {
+                display: inline-block;
+                margin: 20px;
+                color: #333;
+                transition: color ease-in 333ms;
+
+                &:hover {
+                    color: #47b475;
+                }
+
+                img {
+                    vertical-align: middle;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+                .name {
+                    font-family: 'Podkova', serif;
+                    
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+            }
+            .empty-response {
+                margin-top: 30px;
+                img {
+                    vertical-align: middle;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }

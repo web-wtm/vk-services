@@ -1,0 +1,48 @@
+.nav-container {
+        border-bottom: 1px solid rgba(255, 255, 255, .3);
+        background-color: rgba(38, 35, 56, 0.2);
+
+        &:after {
+            content: '';
+            clear: both;
+            display: table;
+        }
+
+        .logo{
+            width: 150px;
+            vertical-align: top;
+            display: inline-block;
+            margin: 10px;
+            cursor: pointer;
+        }
+}
+.nav {
+        text-align: center;
+        padding: 0;
+        float: right;
+
+        li {
+            display: inline-block;
+
+            a {
+                display: inline-block;
+                margin: 15px 25px;
+                text-decoration: none;
+                font-size: 20px;
+                cursor: pointer;
+                color: #fff;
+                -webkit-transition: all 333ms ease;
+                -moz-transition: all 333ms ease;
+                -ms-transition: all 333ms ease;
+                -o-transition: all 333ms ease;
+                transition: all 333ms ease;
+
+
+                &.active,
+                &:hover {
+                    color: #3c2963;
+                    border-bottom: 1px solid #3c2963;
+                }
+            }
+        }
+}

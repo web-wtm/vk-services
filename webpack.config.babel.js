@@ -8,7 +8,7 @@ const extractSass = new ExtractTextPlugin({
 });
 
 const Config = {
-    entry: './app/index.js',
+    entry: './app/js/index.js',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js',
@@ -33,10 +33,10 @@ const Config = {
             },
             {
                 test: /\.(jpg|png|svg)$/,
-                loader: 'file-loader',
-                options: {
-                    name: 'app/images/[name].[ext]'
-                }
+                loaders: [
+                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack-loader'
+                ]
             },
             {
                 test: /\.(mp4|webm)$/,

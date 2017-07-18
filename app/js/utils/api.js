@@ -11,6 +11,9 @@ module.exports = {
             .then((response) => {
                 return response.response;
             })
+            .catch((e) => {
+                console.log(e)
+            })
     },
     getTopPosts: (domain) => {
         return fetch(`https://api.vk.com/method/wall.get?domain=${domain}&count=100&v=5.65&access_token=${serviceToken}`)
@@ -28,12 +31,18 @@ module.exports = {
             .then((response) => {
                 return response.response;
             })
+            .catch((e) => {
+                console.log(e)
+            })
     },
     photoSearch: (lat, long, radius) => {
         return fetch(`https://api.vk.com/method/photos.search?lat=${lat}&long=${long}&radius=${radius}&sort=0&v=5.65&access_token=${serviceToken}`)
         .then((data) => data.json())
             .then((response) => {
                 return response.response.items;
+            })
+            .catch((e) => {
+                console.log(e)
             })
     }
 }

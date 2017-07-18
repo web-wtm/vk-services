@@ -33,8 +33,8 @@ export default class PhotosSearch extends React.Component {
             photos: null,
             selArr: ['10','100','600'],
             selectedRadius: 10,
-            currPointLat: 50.44,
-            currPointLang: 30.54,
+            currPointLat: 50.553613,
+            currPointLng: 30.516843,
             currEnable: 0
         }
 
@@ -54,7 +54,7 @@ export default class PhotosSearch extends React.Component {
     onClick (obj){
         this.setState({
             currPointLat: obj.lat,
-            currPointLang: obj.lng,
+            currPointLng: obj.lng,
             currEnable: 1
         })
 
@@ -64,7 +64,9 @@ export default class PhotosSearch extends React.Component {
                 this.setState({
                     photos: response
                 })
-                console.log(this.state.photos);
+            })
+            .catch((e) => {
+                console.log(e)
             })
     }
 
@@ -89,7 +91,7 @@ export default class PhotosSearch extends React.Component {
                 <div className='map'>
                     <Map 
                         lat={this.state.currPointLat} 
-                        lang={this.state.currPointLang} 
+                        lang={this.state.currPointLng} 
                         currEnable={this.state.currEnable} 
                         onClick={this.onClick} 
                     />
