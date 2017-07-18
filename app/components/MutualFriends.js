@@ -7,10 +7,9 @@ const FriendsGrid = (props) => {
         <div className='friends-container'>
             {props.friends.map((item,index) => {
                 return (
-                    <a key={index} href={`https://vk.com/${item.screen_name}`}>
-                        <img src={item.photo_200} />
-                        <p>{item.first_name}</p>
-                        <p>{item.last_name}</p>
+                    <a key={index} target='_blank' href={`https://vk.com/${item.screen_name}`} className='item'>
+                        <img src={item.photo_200 ? item.photo_200 : 'app/images/user-deleted.png'} />
+                        <p className='name'>{item.first_name} {item.last_name}</p>
                     </a>
                 )
             })}
@@ -22,8 +21,8 @@ export default class MutualFriends extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            sourceUserId: '',
-            targetUserId: '',
+            sourceUserId: '7490743',
+            targetUserId: '5956085',
             mutualFriendsArr: null,
             userUid: '',
             userId: ''
@@ -45,10 +44,13 @@ export default class MutualFriends extends React.Component {
     }
     onSubmit(e) {
         e.preventDefault()
+        if(!this.state.sourceUserId.length || !this.state.targetUserId) return;
+    
         api.getMutualFriends(this.state.sourceUserId, this.state.targetUserId, localStorage.getItem('accessToken'))
             .then((response) => {
                 api.getUsersInfo(response.toString(), this.usersParams.toString())
                     .then((resp) => {
+                        console.log(resp)
                         this.setState({
                             mutualFriendsArr: resp
                         })
@@ -57,6 +59,8 @@ export default class MutualFriends extends React.Component {
     }
     onGetId(e) {
         e.preventDefault();
+        if(!this.state.userUid.length) return;
+
         api.getUsersInfo(this.state.userUid)
             .then((response) => {
                 this.setState({
@@ -67,34 +71,39 @@ export default class MutualFriends extends React.Component {
     render () {
         const {sourceUserId, targetUserId, userUid} = this.state
         return (
-            <div>
-                <form onSubmit={this.onGetId}>
+            <div className='mutual-container'>
+                <div className="caption">Enter users ids to know their mutual friends</div>
+                <form onSubmit={this.onGetId} className='form-id'>
                     <InputField 
                         fieldName='userUid'
+                        label='To get user id enter his short name :'
                         value={userUid}
-                        placeholder='user uid'
+                        placeHolder='short name'
                         onChange={this.onChange}
                     />
-                    <button>get id</button>
+                    <button className='btn'>get id</button>
+                    <div className="user-id">
+                        { this.state.userId ? <p>user id: {this.state.userId}</p> : null }
+                    </div>
                 </form>
-                { this.state.userId ? <p>{this.state.userId}</p> : null }
-                mutual friends!
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit} className='form-mutual'>
                     <InputField 
                         fieldName='sourceUserId'
-                        label='Source user'
+                        label='Source user :'
                         value={sourceUserId}
                         placeHolder='source user id'
                         onChange={this.onChange}
                     />
                     <InputField 
                         fieldName='targetUserId'
-                        label='Target user'
+                        label='Target user :'
                         value={targetUserId}
                         placeHolder='target user id'
                         onChange={this.onChange}
                     />
-                    <button>get</button>
+                    <div className="btn-container">
+                        <button className='btn'>show mutual</button>
+                    </div>
                 </form>
                 {this.state.mutualFriendsArr ? <FriendsGrid friends={this.state.mutualFriendsArr}/> : null}
             </div>
