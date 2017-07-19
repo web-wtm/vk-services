@@ -2,11 +2,7 @@ import React from 'react'
 import Loading from './Loading'
 import InputField from './InputField'
 import api from '../utils/api'
-// import ScrollToUp from 'react-scroll-up'
-
-// TODO
-// nice style
-
+import ScrollToUp from 'react-scroll-up'
 
 const SelectedGroup = (props) => {
     let groupsDomain = [
@@ -55,6 +51,7 @@ const PostsGrid = (props) => {
                                 item.attachments.map((att, ind) => {
                                     if(att.type === 'photo') return <img key={ind} src={att.photo.photo_604} />
                                     else if(att.type === 'audio') return <div key={ind} className='audio-track'>{att.audio.artist} - {att.audio.title}</div>
+                                    else if(att.type === 'video') return <img key={ind} src={att.video.photo_320} />
                                     else if(att.type === 'poll') return 
                                     else if(att.doc.ext == 'gif') return <img key={ind} src={att.doc.url} />
                                 })
@@ -124,9 +121,9 @@ export default class TopPosts extends React.Component {
     render () {
         return (
             <div className='top-posts'>
-                {/* <ScrollToUp showUnder={160}>
+                <ScrollToUp showUnder={160} style={{'zIndex': 1}}>
                     <span className='scroll-up'>UP</span>
-                </ScrollToUp> */}
+                </ScrollToUp>
                 <SelectedGroup onSelect={this.getPosts} selectedGroup={this.state.selectedGroup} />
                 <div className="caption">There are last top posts of group to sort by likes</div>
                 <form onSubmit={this.onSubmit}>

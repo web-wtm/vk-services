@@ -12,17 +12,16 @@ export default class App extends React.Component {
         return (
             <Router>
                 <div className='wrapper'>
-                <Nav />
-                <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route path='/posts' component={TopPosts} />
-                    <Route path='/mutfriends' component={MutualFriends} />
-                    <Route path='/photos-search' component={PhotosSearch} />
-                    <Route render={function(){
-                        return <p>page not found</p>
-                    }} />
-                </Switch>
-                <Footer />
+                    <Nav />
+                    <Switch>
+                        <Route exact path='/' component={Home} />
+                        <Route path='/posts' component={TopPosts} />
+                        <Route path='/mutfriends' component={MutualFriends} />
+                        <Route path='/photos-search' component={PhotosSearch} />
+                        <Route render={function(){
+                            return <p>page not found</p>
+                        }} />
+                    </Switch>
                 </div>
             </Router>
         )

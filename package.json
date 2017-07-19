@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open",
-    "build": "NODE_ENV='prod' webpack -p",
+    "build": "NODE_ENV='production' webpack -p",
     "deploy": "npm run build && firebase deploy",
     "firebase-init": "firebase login && firebase init"
   },

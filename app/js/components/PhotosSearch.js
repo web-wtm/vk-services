@@ -2,6 +2,7 @@ import React from 'react'
 import Map from './Map'
 import api from '../utils/api'
 import Select from './Select'
+import ScrollToUp from 'react-scroll-up'
 
 const PhotosGrid = (props) => {
 
@@ -79,6 +80,9 @@ export default class PhotosSearch extends React.Component {
     render () {
         return (
             <div className='photo-search'>
+                <ScrollToUp showUnder={160} style={{'zIndex': 1}}>
+                    <span className='scroll-up'>UP</span>
+                </ScrollToUp>
                 <div className="caption">Click on map to search some photos, you can enter radius of searching</div>
                 <div className="select-container">
                     <Select 

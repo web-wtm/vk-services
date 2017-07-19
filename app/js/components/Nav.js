@@ -6,7 +6,7 @@ export default class Nav extends React.Component {
         return (
             <div className='nav-container'>
                 <a href='/' title='vk-services'>
-                    <img className='logo' src='app/images/logo.png' alt='logo' />
+                    <div className='logo'></div>
                 </a>
                 <ul className='nav'>
                     <li>

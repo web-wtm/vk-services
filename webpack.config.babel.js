@@ -63,7 +63,7 @@ const Config = {
     ]
 }
 
-if (process.env.NODE_ENV === 'prod') {
+if (process.env.NODE_ENV === 'production') {
     Config.plugins.push(
         new webpack.DefinePlugin({
             'process.env': {

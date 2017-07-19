@@ -1,6 +1,7 @@
 import React from 'react'
 import InputField from './InputField'
 import api from '../utils/api'
+import ScrollToUp from 'react-scroll-up'
 
 const FriendsGrid = (props) => {
     return (
@@ -27,8 +28,8 @@ export default class MutualFriends extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            sourceUserId: '7490743',
-            targetUserId: '5956085',
+            sourceUserId: '',
+            targetUserId: '',
             mutualFriendsArr: null,
             userUid: '',
             userId: '',
@@ -88,7 +89,10 @@ export default class MutualFriends extends React.Component {
         const {sourceUserId, targetUserId, userUid} = this.state
         return (
             <div className='mutual-container'>
-                <div className="caption">Enter users ids to know their mutual friends</div>
+                <ScrollToUp showUnder={160} style={{'zIndex': 1}}>
+                    <span className='scroll-up'>UP</span>
+                </ScrollToUp>
+                <div className="caption">Enter users id to know their mutual friends</div>
                 <form onSubmit={this.onSubmit} className='form-mutual'>
                     <InputField 
                         fieldName='sourceUserId'
@@ -111,7 +115,7 @@ export default class MutualFriends extends React.Component {
                 <form onSubmit={this.onGetId} className='form-id'>
                     <InputField 
                         fieldName='userUid'
-                        label='If you need user id to use it :'
+                        label='If you need user id use it :'
                         value={userUid}
                         placeHolder='short name'
                         onChange={this.onChange}
