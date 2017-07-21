@@ -122,10 +122,10 @@ export default class MutualFriends extends React.Component {
                     />
                     <button className='btn'>get id</button>
                     <div className="user-id">
-                        { this.state.userId ? <p>user id: {this.state.userId}</p> : null }
+                        { this.state.userId ? <p>user id: <span> {this.state.userId} </span> </p> : null }
                     </div>
+                    {this.state.error ? <div className='error'>{this.state.error}</div> : null}
                 </form>
-                {this.state.error ? <div className='error'>{this.state.error}</div> : null}
                 {this.state.mutualFriendsArr ? <FriendsGrid friends={this.state.mutualFriendsArr}/> : null }
             </div>
         )
