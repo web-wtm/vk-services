@@ -35,6 +35,15 @@
                 padding: 17.5px 10px;
             }
         }
+        .user-deleted {
+            background-image: url('/images/user-deleted.png');
+            background-size: 100%;
+            vertical-align: middle;
+            border-radius: 50%;
+            margin-right: 10px;
+            height: 200px;
+            width: 200px;
+        }
 
         .friends-container {
             text-align: center;
@@ -53,20 +62,19 @@
                     border-radius: 50%;
                     margin-right: 10px;
                 }
+                
                 .name {
                     font-family: 'Podkova', serif;
-                    
                     text-align: center;
                     font-weight: bold;
                     font-size: 18px;
                 }
+                
             }
             .empty-response {
                 margin-top: 30px;
-                img {
-                    vertical-align: middle;
-                    border-radius: 50%;
-                    margin-right: 10px;
+                .user-deleted {
+                    margin: 0 auto;
                 }
             }
         }

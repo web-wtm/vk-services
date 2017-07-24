@@ -7,7 +7,7 @@ const FriendsGrid = (props) => {
     return (
         <div className='friends-container'>
             {props.friends.length === 0 ? <div className='empty-response'>
-                                              <img src='app/images/user-deleted.png' />
+                                              <div className='user-deleted'></div>
                                               <p>They don't have mutual friends</p>
                                           </div> 
                                     : null
@@ -15,7 +15,7 @@ const FriendsGrid = (props) => {
             {props.friends.map((item,index) => {
                 return (
                     <a key={index} target='_blank' href={`https://vk.com/${item.screen_name}`} className='item'>
-                        <img src={item.photo_200 ? item.photo_200 : 'app/images/user-deleted.png'} />
+                        {item.photo_200 ?  <img src={item.photo_200} /> : <div className='user-deleted'></div>}
                         <p className='name'>{item.first_name} {item.last_name}</p>
                     </a>
                 )
