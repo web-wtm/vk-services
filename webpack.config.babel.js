@@ -21,7 +21,22 @@ const Config = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    presets: ['react', 'env', 'stage-2']
+                    presets: [
+                        'react',
+                        [
+                            'env', {
+                                targets: {
+                                    browsers: ['last 2 versions']
+                                }
+                            }
+                        ],
+                        'stage-2'
+                    ],
+                    env: {
+                        production: {
+                            presets: ['react-optimize']
+                        }
+                    }
                 }
             },
             {
