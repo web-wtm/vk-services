@@ -16,7 +16,7 @@ const NeedAuth = (props) => {
                     <p>
                         2. If you have been authorized, click it
                     </p>
-                    <a className='btn' href='https://oauth.vk.com/authorize?client_id=6104841&display=page&redirect_uri=https://vk-sevices.firebaseapp.com&scope=friends&response_type=token&v=5.65'>
+                    <a className='btn' href='https://oauth.vk.com/authorize?client_id=6104841&display=page&redirect_uri=https://vk-services.firebaseapp.com&scope=friends&response_type=token&v=5.65'>
                         get permission
                     </a>
                 </div>
@@ -47,7 +47,6 @@ export default class Home extends React.Component {
     render() {
         return (
             <div className='content'>
-                
                     {
                         sessionStorage.getItem('accessToken', queryString.parse(this.props.location.hash).access_token) ? 
                             <div className='already-auth'>
@@ -56,7 +55,6 @@ export default class Home extends React.Component {
                             : 
                             <NeedAuth onClick={this.getToken} />
                     }
-                    
                 <Video />
             </div>
         )
