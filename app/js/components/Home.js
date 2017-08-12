@@ -9,7 +9,7 @@ const NeedAuth = (props) => {
             <div className='need-auth'>
                 <div className='advice'>
                     <p>
-                        1. For use all functionals of app you need to be authorized in VK
+                        1. For use all functionals of app you need to access to VK or be authorized
                     </p>
                 </div>
                 <div className='permission'>
@@ -39,7 +39,10 @@ export default class Home extends React.Component {
     }
     getToken () {
         let querys = queryString.parse(this.props.location.hash);
-        sessionStorage.setItem('accessToken', querys.access_token);
+        if (querys.access_token) {
+            sessionStorage.setItem('accessToken', querys.access_token);
+            location.reload();
+        } 
     }
     render() {
         return (
