@@ -8,9 +8,9 @@ const extractSass = new ExtractTextPlugin({
 });
 
 const Config = {
-    entry: './app/index.js',
+    entry: './app/js/index.js',
     output: {
-        path: path.resolve(__dirname, './'),
+        path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js',
         publicPath: '/'
     },
@@ -21,15 +21,44 @@ const Config = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    presets: ['react', 'env', 'stage-2']
+                    presets: [
+                        'react',
+                        [
+                            'env', {
+                                targets: {
+                                    browsers: ['last 2 versions']
+                                }
+                            }
+                        ],
+                        'stage-2'
+                    ],
+                    env: {
+                        production: {
+                            presets: ['react-optimize']
+                        }
+                    }
                 }
             },
             {
                 test: /\.scss?$/,
                 use: extractSass.extract({
-                    use: ['css-loader', 'sass-loader'],
+                    use: ['css-loader', 'resolve-url-loader', 'sass-loader'],
                     fallback: "style-loader"
                 })
+            },
+            {
+                test: /\.(jpg|png|svg|gif)$/,
+                loaders: [
+                    'file-loader?name=/images/[name].[ext]',
+                    'image-webpack-loader'
+                ]
+            },
+            {
+                test: /\.(mp4|webm)$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'video/[name].[ext]'
+                }
             }
         ]
     },
@@ -49,7 +78,7 @@ const Config = {
     ]
 }
 
-if (process.env.NODE_ENV === 'prod') {
+if (process.env.NODE_ENV === 'production') {
     Config.plugins.push(
         new webpack.DefinePlugin({
             'process.env': {
