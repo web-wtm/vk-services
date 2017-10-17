@@ -57,7 +57,7 @@ const PostsGrid = (props) => {
                                 })
                             }
                             <div className='info-container'>
-                                {item.text ? <div>{item.text}</div> : null}
+                                {item.text ? <div className='post-text'>{item.text}</div> : null}
                                 <p>{item.likes.count} <i className='icon-like'></i></p>
                                 <p>{item.reposts.count} <i className='icon-repo'></i></p>
                             </div>

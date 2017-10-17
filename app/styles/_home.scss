@@ -4,12 +4,30 @@
         margin: 0 auto;
         padding: 0 1%;
 
+        .already-auth {
+            background-color: rgba(38, 35, 56, 0.2);
+            padding: 20px;
+            display: inline-block;
+            font-size: 28px;
+            margin-top: 150px;
+            position: relative;
+
+            span {
+                background-color: rgba(0, 194, 6, 0.4);
+                padding: 6px 10px;
+                margin-left: 15px;
+                border-radius: 50%;
+                font-size: 30px;
+                color: #fff;
+            }
+        }
+
         .info {
             color: #D3D4D9;
             font-size: 22px;
             display: block;
             margin-top: 150px;
-            padding: 0 20px;
+            padding: 20px;
             background-color: rgba(38, 35, 56, 0.2);
             
             p {
@@ -28,10 +46,14 @@
             .permission {
                 display: block;
                 text-align: right;
+                padding: 30px 0;
             }
             .get-token {
                 display: block;
                 text-align: left;
+            }
+            .btn {
+                border: 2px solid #fff;
             }
         }
         #video {
@@ -45,7 +67,7 @@
             z-index: -1;
             transform: translateX(-50%) translateY(-50%);
             background-size: cover;
-            // background-image: url('../images/video-bg.png');
+            background-image: url('/images/video-bg.png');
         }
 
     }

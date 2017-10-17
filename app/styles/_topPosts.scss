@@ -107,9 +107,14 @@
                 color: #fff;
                 font-family: 'Podkova', serif;
                 font-weight: bold;
+                text-align: center;
+
+                .post-text {
+                    padding: 5px;
+                }
                 
                 p {
-                    padding: 0 10px;
+                    padding: 5px 10px;
                     display: inline-block;
 
                     i {
@@ -121,10 +126,10 @@
                         background-size: 100%;
 
                         &.icon-repo {
-                            background-image: url('../images/icon-repo.png');
+                            background-image: url('/images/icon-repo.png');
                         }
                         &.icon-like {
-                            background-image: url('../images/icon-like.png');
+                            background-image: url('/images/icon-like.png');
                             height: 17px;
                         }
                     }

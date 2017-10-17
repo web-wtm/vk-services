@@ -21,7 +21,22 @@ const Config = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    presets: ['react', 'env', 'stage-2']
+                    presets: [
+                        'react',
+                        [
+                            'env', {
+                                targets: {
+                                    browsers: ['last 2 versions']
+                                }
+                            }
+                        ],
+                        'stage-2'
+                    ],
+                    env: {
+                        production: {
+                            presets: ['react-optimize']
+                        }
+                    }
                 }
             },
             {
@@ -32,9 +47,9 @@ const Config = {
                 })
             },
             {
-                test: /\.(jpg|png|svg)$/,
+                test: /\.(jpg|png|svg|gif)$/,
                 loaders: [
-                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'file-loader?name=/images/[name].[ext]',
                     'image-webpack-loader'
                 ]
             },
@@ -42,7 +57,7 @@ const Config = {
                 test: /\.(mp4|webm)$/,
                 loader: 'file-loader',
                 options: {
-                    name: 'app/video/[name].[ext]'
+                    name: 'video/[name].[ext]'
                 }
             }
         ]
