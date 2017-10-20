@@ -48,10 +48,10 @@ const Config = {
             },
             {
                 test: /\.(jpg|png|svg|gif)$/,
-                loaders: [
-                    'file-loader?name=/images/[name].[ext]',
-                    'image-webpack-loader'
-                ]
+                loader: 'file-loader',
+                options: {
+                    name: 'images/[name].[ext]'
+                }
             },
             {
                 test: /\.(mp4|webm)$/,
