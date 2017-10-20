@@ -45,15 +45,19 @@ const PostsGrid = (props) => {
     return (
         <div className='posts-contaier'>
             {props.posts.map((item, index) => {
+                console.log(item)
                     return (
                         <a key={index} className='item' target='_blank' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
                             {
                                 item.attachments.map((att, ind) => {
-                                    if(att.type === 'photo') return <img key={ind} src={att.photo.photo_604} />
-                                    else if(att.type === 'audio') return <div key={ind} className='audio-track'>{att.audio.artist} - {att.audio.title}</div>
-                                    else if(att.type === 'video') return <img key={ind} src={att.video.photo_320} />
-                                    else if(att.type === 'poll') return 
-                                    else if(att.doc.ext == 'gif') return <img key={ind} src={att.doc.url} />
+                                    if (att.type === 'photo') return <img key={ind} src={att.photo.photo_604} />
+                                    else if (att.type === 'audio') return <div key={ind} className='audio-track'>{att.audio.artist} - {att.audio.title}</div>
+                                    else if (att.type === 'video') return <img key={ind} src={att.video.photo_320} />
+                                    else if (att.type === 'poll') return
+                                    else if (att.type === 'page') return 
+                                    else if (att.type === 'link') return 
+                                    else if (att.doc.ext == 'gif') return <img key={ind} src={att.doc.url} />
+                                    else return
                                 })
                             }
                             <div className='info-container'>
@@ -83,17 +87,21 @@ export default class TopPosts extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
+
     componentDidMount() {
         this.getPosts(this.state.selectedGroup);
     }
+
     onSubmit(e) {
         e.preventDefault()
     }
+
     sortByLikes(arr) {
         arr.sort((a,b) => {
             return a.likes.count === b.likes.count ? 0 : a.likes.count < b.likes.count ? 1 : -1;
         })
     }
+
     getPosts(domain) {
         if(!domain.length) return;
 
@@ -108,12 +116,13 @@ export default class TopPosts extends React.Component {
                     
                 this.sortByLikes(posts.response.items);
                 let sortedPosts = posts.response.items.slice(0,20);
-
+        
                 this.setState({
                     posts: sortedPosts
                 })
             })
     }
+
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
