@@ -24,7 +24,7 @@ const NeedAuth = (props) => {
                     <p className='save-status'>
                         3. Next step is saving your status, click it
                     </p>
-                    <button className='btn' onClick={props.onClick}>get token</button>
+                    <button className='btn' onClick={props.onClick}>save token</button>
                 </div>
             </div>
         </div>

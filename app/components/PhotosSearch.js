@@ -1,5 +1,5 @@
 import React from 'react'
-import Map from './Map'
+import GoogleMap from './GoogleMap'
 import api from '../utils/api'
 import Select from './Select'
 import ScrollToUp from 'react-scroll-up'
@@ -93,7 +93,7 @@ export default class PhotosSearch extends React.Component {
                     <label>The distance to the target may be different from the target</label>
                 </div>
                 <div className='map'>
-                    <Map 
+                    <GoogleMap 
                         lat={this.state.currPointLat} 
                         lang={this.state.currPointLng} 
                         currEnable={this.state.currEnable} 

@@ -4,11 +4,11 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const extractSass = new ExtractTextPlugin({
-    filename: "styles/main.css"
+    filename: "assets/styles/main.css"
 });
 
 const Config = {
-    entry: './app/js/index.js',
+    entry: './app/index.js',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js',
@@ -50,14 +50,14 @@ const Config = {
                 test: /\.(jpg|png|svg|gif)$/,
                 loader: 'file-loader',
                 options: {
-                    name: 'images/[name].[ext]'
+                    name: 'assets/images/[name].[ext]'
                 }
             },
             {
                 test: /\.(mp4|webm)$/,
                 loader: 'file-loader',
                 options: {
-                    name: 'video/[name].[ext]'
+                    name: 'assets/video/[name].[ext]'
                 }
             }
         ]
