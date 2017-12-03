@@ -1,5 +1,4 @@
 import fetch from 'fetch-jsonp'
-import axios from 'axios'
 
 const serviceToken = '8a8d04248a8d04248a8d0424458ad0232d88a8d8a8d0424d3d25f2aeea47d69f9bf1d4d';
 

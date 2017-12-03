@@ -1,9 +1,10 @@
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import logger from 'redux-logger'
+import 'babel-polyfill'
 
 import mainSaga from './saga';
-import reducer from './main/reducer'
+import reducer from './main/reducers'
 
 const sagaMiddleware = createSagaMiddleware();
 
