@@ -1,8 +1,27 @@
 import React from 'react'
+import ScrollToUp from 'react-scroll-up'
+import { connect } from 'react-redux'
+
 import Loading from './Loading'
 import InputField from './InputField'
 import api from '../utils/api'
-import ScrollToUp from 'react-scroll-up'
+import { 
+    getPostsRequest,
+    setSelectedGroup
+} from '../main/actions'
+
+const mapStateToProps = (state) => {
+    return {
+        state: state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getPosts: (domain) => dispatch(getPostsRequest(domain)),
+        setSelectedGroup: (domain) => dispatch(setSelectedGroup(domain))
+    }
+}
 
 const SelectedGroup = (props) => {
     let groupsDomain = [
@@ -45,10 +64,10 @@ const PostsGrid = (props) => {
     return (
         <div className='posts-contaier'>
             {props.posts.map((item, index) => {
-                console.log(item)
                     return (
                         <a key={index} className='item' target='_blank' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
-                            {
+                            {   
+                                item.attachments ? 
                                 item.attachments.map((att, ind) => {
                                     if (att.type === 'photo') return <img key={ind} src={att.photo.photo_604} />
                                     else if (att.type === 'audio') return <div key={ind} className='audio-track'>{att.audio.artist} - {att.audio.title}</div>
@@ -59,6 +78,8 @@ const PostsGrid = (props) => {
                                     else if (att.doc.ext == 'gif') return <img key={ind} src={att.doc.url} />
                                     else return
                                 })
+                                :
+                                null
                             }
                             <div className='info-container'>
                                 {item.text ? <div className='post-text'>{item.text}</div> : null}
@@ -73,58 +94,28 @@ const PostsGrid = (props) => {
     )
 }
 
-export default class TopPosts extends React.Component {
+class TopPosts extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            selectedGroup: 'fuck_humor',
-            searchGroup: '',
-            posts: null,
-            error: false
-        }
 
-        this.getPosts = this.getPosts.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
-        this.getPosts(this.state.selectedGroup);
+        this.props.getPosts(this.props.state.selectedGroup)
     }
 
     onSubmit(e) {
         e.preventDefault()
     }
 
-    sortByLikes(arr) {
-        arr.sort((a,b) => {
-            return a.likes.count === b.likes.count ? 0 : a.likes.count < b.likes.count ? 1 : -1;
-        })
-    }
-
     getPosts(domain) {
         if(!domain.length) return;
-
-        this.setState({
-            selectedGroup: domain,
-            posts: null
-        });
-
-        api.getTopPosts(domain)
-            .then((posts) => {
-                if(posts.error) return this.setState({error: true})
-                    
-                this.sortByLikes(posts.response.items);
-                let sortedPosts = posts.response.items.slice(0,20);
-        
-                this.setState({
-                    posts: sortedPosts
-                })
-            })
     }
 
     onChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
+        this.props.setSelectedGroup(e.target.value);
     }
     
     render () {
@@ -133,27 +124,27 @@ export default class TopPosts extends React.Component {
                 <ScrollToUp showUnder={160} style={{'zIndex': 1}}>
                     <span className='scroll-up'>UP</span>
                 </ScrollToUp>
-                <SelectedGroup onSelect={this.getPosts} selectedGroup={this.state.selectedGroup} />
+                <SelectedGroup onSelect={this.props.getPosts} selectedGroup={this.props.state.selectedGroup} />
                 <div className="caption">There are last top posts of group to sort by likes</div>
                 <form onSubmit={this.onSubmit}>
                     <InputField
                         fieldName='searchGroup'
                         label='Search group'
-                        value={this.state.searchGroup}
+                        value={this.props.state.searchGroup}
                         placeHolder='short name of group'
                         onChange={this.onChange}
                     />
-                    <button className='btn' onClick={this.getPosts.bind(null, this.state.searchGroup)}> get </button>
+                    <button className='btn' onClick={this.props.getPosts.bind(null, this.props.state.searchGroup)}>get</button>
                 </form>
-                {!this.state.posts ? 
+
+                {!this.props.state.posts ? 
                     <Loading /> : 
-                    <PostsGrid domain={this.state.selectedGroup} posts={this.state.posts}/>
+                    <PostsGrid domain={this.props.state.selectedGroup} posts={this.props.state.posts}/>
                 }
-                {this.state.error ? <div>Smth wrong with short name of group </div> : null}
-                
+                {this.props.state.error ? <div>Smth wrong with short name of group </div> : null}
             </div>
         )
     }
 }
 
-// wall.get
+export default connect(mapStateToProps, mapDispatchToProps)(TopPosts)

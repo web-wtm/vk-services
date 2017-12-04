@@ -1,8 +1,11 @@
 import {
-    MAKE_TEST,
+    SET_SELECTED_GROUP,
     GET_TEST_REQUEST,
     GET_TEST_SUCCESS,
-    GET_TEST_FAIL
+    GET_TEST_FAIL,
+    GET_POSTS_REQUEST,
+    GET_POSTS_SUCCESS,
+    GET_POSTS_FAIL
 } from './actions'
 
 const createReducer = (initial, handlers) => {
@@ -17,13 +20,17 @@ const createReducer = (initial, handlers) => {
 
 const DEFAULT_STATE = {
     test: 'start',
-    loading: false
+    loading: false,
+    selectedGroup: 'fuck_humor',
+    searchGroup: '',
+    posts: null,
+    error: false
 }
 
-const setTest = (state, action) => {
+const setSelectedGroup = (state, action) => {
     return {
         ...state,
-        test: action.payload
+        searchGroup: action.payload
     }
 }
 
@@ -49,9 +56,20 @@ const setError = (state, action) => {
     }
 }
 
+const setPosts = (state, action) => {
+    return {
+        ...state,
+        posts: action.payload.items,
+        selectedGroup: action.payload.domain
+    }
+}
+
 export default createReducer(DEFAULT_STATE, {
-    [MAKE_TEST]: setTest,
+    [SET_SELECTED_GROUP]: setSelectedGroup,
     [GET_TEST_REQUEST]: setLoading,
     [GET_TEST_SUCCESS]: setId,
-    [GET_TEST_FAIL]: setError
+    [GET_TEST_FAIL]: setError,
+    [GET_POSTS_REQUEST]: setLoading,
+    [GET_POSTS_SUCCESS]: setPosts,
+    [GET_POSTS_FAIL]: setError
 })
