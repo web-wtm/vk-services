@@ -1,11 +1,27 @@
 import React from 'react'
 import GoogleMap from './GoogleMap'
+import { connect } from 'react-redux'
+
 import api from '../utils/api'
 import Select from './Select'
 import ScrollToUp from 'react-scroll-up'
+import {
+    getPhotosRequest
+} from '../main/actions'
+
+const mapStateToProps = (state) => {
+    return {
+        state: state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getPhotos: (query) => dispatch(getPhotosRequest(query))
+    }
+}
 
 const PhotosGrid = (props) => {
-
     return (
         <div className='photos-container'>
             <div className="caption">Result of searching:</div>
@@ -26,55 +42,33 @@ const PhotosGrid = (props) => {
     )
 }
 
-export default class PhotosSearch extends React.Component {
+class PhotosSearch extends React.Component {
     constructor(props) {
         super(props)
-
-        this.state = {
-            photos: null,
-            selArr: ['10','100','600'],
-            selectedRadius: 10,
-            currPointLat: 50.553613,
-            currPointLng: 30.516843,
-            currEnable: 0
-        }
-
+        
+        this.selArr = ['10','100','600'];
+        this.selectedRadius = 10,
+        this.currPointLat = 50.553613;
+        this.currPointLng = 30.516843;
         this.onSelect = this.onSelect.bind(this);
-        this.onChange = this.onChange.bind(this);
         this.onClick = this.onClick.bind(this);
     }
 
     onSelect(e) {
-        this.setState({selectedRadius: e.target.value})
+        this.selectedRadius = e.target.value;
     }
 
-    onChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-    
-    onClick (obj){
-        this.setState({
-            currPointLat: obj.lat,
-            currPointLng: obj.lng,
-            currEnable: 1
-        })
+    onClick (e){
+        this.currPointLat = e.lat;
+        this.currPointLng = e.lng;
 
-        api.photoSearch(obj.lat, obj.lng, this.state.selectedRadius)
-            .then((response) => {
-                this.sortByDate(response)
-                this.setState({
-                    photos: response
-                })
-            })
-            .catch((e) => {
-                console.log(e)
-            })
-    }
+        let queries = {
+            lat: this.currPointLat,
+            lng: this.currPointLng,
+            selectedRadius: this.selectedRadius
+        }
 
-    sortByDate(arr) {
-        arr.sort((a,b) => {
-            return a.date === b.date ? 0 : a.date < b.date ? 1 : -1;
-        })
+        this.props.getPhotos(queries);
     }
 
     render () {
@@ -86,7 +80,7 @@ export default class PhotosSearch extends React.Component {
                 <div className="caption">Click on map to search some photos, you can enter radius of searching</div>
                 <div className="select-container">
                     <Select 
-                        values={this.state.selArr}
+                        values={this.selArr}
                         name='selectRadius'
                         onSelect={this.onSelect}
                     />
@@ -94,15 +88,17 @@ export default class PhotosSearch extends React.Component {
                 </div>
                 <div className='map'>
                     <GoogleMap 
-                        lat={this.state.currPointLat} 
-                        lang={this.state.currPointLng} 
-                        currEnable={this.state.currEnable} 
+                        lat={this.currPointLat} 
+                        lang={this.currPointLng} 
+                        currEnable={0} 
                         onClick={this.onClick} 
                     />
                 </div>
-                {!this.state.photos ? 
-                    null : <PhotosGrid photos={this.state.photos} />}
+                {!this.props.state.photos ? 
+                    null : <PhotosGrid photos={this.props.state.photos} />}
             </div>
         )
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhotosSearch)

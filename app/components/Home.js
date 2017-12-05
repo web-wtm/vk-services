@@ -2,20 +2,6 @@ import React from 'react'
 import queryString from 'query-string'
 import { connect } from 'react-redux'
 import Video from './Video'
-import { makeTest, getTestRequest } from '../main/actions'
-
-const mapStateToProps = (state) => {
-    return {
-        state: state
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getRequest: () => dispatch(getTestRequest()),
-        makeTest: (value) => dispatch(makeTest(value))
-    }
-}
 
 const NeedAuth = (props) => {
     return (
@@ -52,16 +38,11 @@ const NeedAuth = (props) => {
     )
 }
 
-class Home extends React.Component {
+export default class Home extends React.Component {
     constructor() {
         super()
 
         this.getToken = this.getToken.bind(this)
-    }
-
-    componentDidMount() {
-        this.props.makeTest('success')
-        this.props.getRequest()
     }
 
     getToken () {
@@ -88,5 +69,3 @@ class Home extends React.Component {
         )
     }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)

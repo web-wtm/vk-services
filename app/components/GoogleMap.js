@@ -1,6 +1,5 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
-import api from '../utils/api'
 
 const CurrentPoint = () => (
     <div className='cursor'>

@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 
 import Loading from './Loading'
 import InputField from './InputField'
-import api from '../utils/api'
 import { 
     getPostsRequest,
-    setSelectedGroup
+    setSelectedGroup,
+    clearPosts
 } from '../main/actions'
 
 const mapStateToProps = (state) => {
@@ -19,7 +19,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getPosts: (domain) => dispatch(getPostsRequest(domain)),
-        setSelectedGroup: (domain) => dispatch(setSelectedGroup(domain))
+        setSelectedGroup: (domain) => dispatch(setSelectedGroup(domain)),
+        clearPosts: () => dispatch(clearPosts())
     }
 }
 
@@ -63,7 +64,8 @@ const SelectedGroup = (props) => {
 const PostsGrid = (props) => {
     return (
         <div className='posts-contaier'>
-            {props.posts.map((item, index) => {
+            {
+                props.posts.map((item, index) => {
                     return (
                         <a key={index} className='item' target='_blank' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
                             {   
@@ -89,7 +91,8 @@ const PostsGrid = (props) => {
                             <div className="item-hover">Click to open in vk</div>
                         </a>
                     )
-            })}
+                })
+            }
         </div>
     )
 }
@@ -101,17 +104,20 @@ class TopPosts extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
-
+    
     componentDidMount() {
         this.props.getPosts(this.props.state.selectedGroup)
     }
-
+    
     onSubmit(e) {
         e.preventDefault()
     }
-
+    
     getPosts(domain) {
         if(!domain.length) return;
+        
+        this.props.clearPosts();
+        this.props.getPosts(domain);
     }
 
     onChange(e) {
@@ -130,18 +136,18 @@ class TopPosts extends React.Component {
                     <InputField
                         fieldName='searchGroup'
                         label='Search group'
-                        value={this.props.state.searchGroup}
+                        value={this.props.state.selectedGroup}
                         placeHolder='short name of group'
                         onChange={this.onChange}
                     />
-                    <button className='btn' onClick={this.props.getPosts.bind(null, this.props.state.searchGroup)}>get</button>
+                    <button className='btn' onClick={this.getPosts.bind(this, this.props.state.selectedGroup)}>get</button>
                 </form>
-
-                {!this.props.state.posts ? 
-                    <Loading /> : 
-                    <PostsGrid domain={this.props.state.selectedGroup} posts={this.props.state.posts}/>
+                {
+                    this.props.state.loading ? <Loading /> 
+                    : 
+                    this.props.state.posts ? <PostsGrid domain={this.props.state.selectedGroup} posts={this.props.state.posts}/> : null
                 }
-                {this.props.state.error ? <div>Smth wrong with short name of group </div> : null}
+                { this.props.state.error ? <div>Smth wrong witht group's name</div> : null }
             </div>
         )
     }

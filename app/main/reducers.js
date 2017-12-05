@@ -1,8 +1,11 @@
 import {
     SET_SELECTED_GROUP,
-    GET_TEST_REQUEST,
-    GET_TEST_SUCCESS,
-    GET_TEST_FAIL,
+    CLEAR_POSTS,
+    
+    GET_PHOTOS_REQUEST,
+    GET_PHOTOS_SUCCESS,
+    GET_PHOTOS_FAIL,
+
     GET_POSTS_REQUEST,
     GET_POSTS_SUCCESS,
     GET_POSTS_FAIL
@@ -19,25 +22,31 @@ const createReducer = (initial, handlers) => {
 }
 
 const DEFAULT_STATE = {
-    test: 'start',
-    loading: false,
     selectedGroup: 'fuck_humor',
-    searchGroup: '',
     posts: null,
+    photos: null,
+    loading: false,
     error: false
 }
 
 const setSelectedGroup = (state, action) => {
     return {
         ...state,
-        searchGroup: action.payload
+        selectedGroup: action.payload
     }
 }
 
-const setId = (state, action) => {
+const clearPosts = (state) => {
     return {
         ...state,
-        id: action.payload,
+        posts: null
+    }
+}
+
+const setPhotos = (state, action) => {
+    return {
+        ...state,
+        photos: action.payload,
         loading: false
     }
 }
@@ -52,7 +61,8 @@ const setLoading = (state, acrtion) => {
 const setError = (state, action) => {
     return {
         ...state,
-        error: action.payload
+        error: action.payload,
+        loading: false
     }
 }
 
@@ -60,16 +70,20 @@ const setPosts = (state, action) => {
     return {
         ...state,
         posts: action.payload.items,
-        selectedGroup: action.payload.domain
+        selectedGroup: action.payload.domain,
+        loading: false
     }
 }
 
 export default createReducer(DEFAULT_STATE, {
     [SET_SELECTED_GROUP]: setSelectedGroup,
-    [GET_TEST_REQUEST]: setLoading,
-    [GET_TEST_SUCCESS]: setId,
-    [GET_TEST_FAIL]: setError,
+
+    [GET_PHOTOS_REQUEST]: setLoading,
+    [GET_PHOTOS_SUCCESS]: setPhotos,
+    [GET_PHOTOS_FAIL]: setError,
+
     [GET_POSTS_REQUEST]: setLoading,
     [GET_POSTS_SUCCESS]: setPosts,
-    [GET_POSTS_FAIL]: setError
+    [GET_POSTS_FAIL]: setError,
+    [CLEAR_POSTS]: clearPosts
 })
