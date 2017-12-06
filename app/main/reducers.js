@@ -8,7 +8,15 @@ import {
 
     GET_POSTS_REQUEST,
     GET_POSTS_SUCCESS,
-    GET_POSTS_FAIL
+    GET_POSTS_FAIL,
+
+    GET_USER_ID_REQUEST,
+    GET_USER_ID_SUCCESS,
+    GET_USER_ID_FAIL,
+
+    GET_MUTUAL_REQUEST,
+    GET_MUTUAL_SUCCESS,
+    GET_MUTUAL_FAIL
 } from './actions'
 
 const createReducer = (initial, handlers) => {
@@ -25,6 +33,8 @@ const DEFAULT_STATE = {
     selectedGroup: 'fuck_humor',
     posts: null,
     photos: null,
+    mutualFriends: null,
+    userId: null,
     loading: false,
     error: false
 }
@@ -75,6 +85,20 @@ const setPosts = (state, action) => {
     }
 }
 
+const setUserId = (state, action) => {
+    return {
+        ...state,
+        userId: action.payload
+    }
+}
+
+const setMutualFriends = (state, action) => {
+    return {
+        ...state,
+        mutualFriends: action.payload
+    }
+}
+
 export default createReducer(DEFAULT_STATE, {
     [SET_SELECTED_GROUP]: setSelectedGroup,
 
@@ -85,5 +109,13 @@ export default createReducer(DEFAULT_STATE, {
     [GET_POSTS_REQUEST]: setLoading,
     [GET_POSTS_SUCCESS]: setPosts,
     [GET_POSTS_FAIL]: setError,
-    [CLEAR_POSTS]: clearPosts
+    [CLEAR_POSTS]: clearPosts,
+
+    [GET_USER_ID_REQUEST]: setLoading,
+    [GET_USER_ID_SUCCESS]: setUserId,
+    [GET_USER_ID_FAIL]: setError,
+
+    [GET_MUTUAL_REQUEST]: setLoading,
+    [GET_MUTUAL_SUCCESS]: setMutualFriends,
+    [GET_MUTUAL_FAIL]: setError
 })

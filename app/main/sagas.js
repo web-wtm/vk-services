@@ -9,15 +9,24 @@ import {
     getPhotosSuccess,
     getPhotosFail,
     GET_PHOTOS_REQUEST,
-    GET_PHOTOS_SUCCESS
+
+    getUserIdSuccess,
+    getUserIdFail,
+    GET_USER_ID_REQUEST,
+
+    getMutualRequest,
+    getMutualFail,
+    GET_MUTUAL_REQUEST,
+    GET_USER_ID_SUCCESS
 } from './actions'
 
-let serviceToken = '8a8d04248a8d04248a8d0424458ad0232d88a8d8a8d0424d3d25f2aeea47d69f9bf1d4d';
+const serviceToken = '8a8d04248a8d04248a8d0424458ad0232d88a8d8a8d0424d3d25f2aeea47d69f9bf1d4d',
+      apiUrl = 'https://api.vk.com/method/';
 
 function* getPosts(action) {
     try {
         const response = yield call(responseHandler, 
-            `https://api.vk.com/method/wall.get?domain=${action.payload}&count=100&v=5.65&access_token=${serviceToken}`);
+            `${apiUrl}wall.get?domain=${action.payload}&count=100&v=5.65&access_token=${serviceToken}`);
 
         let posts = response.response.items;
         sortBy(posts, 'likes');
@@ -28,22 +37,46 @@ function* getPosts(action) {
             };
         
         yield put(getPostsSuccess(data));
-    } catch (err) {
-        yield put(getPostsFail(err));
+    } catch (e) {
+        yield put(getPostsFail(e));
     }
 }
 
 function* getPhotos(action) {
     try {
         const response = yield call(responseHandler,
-            `https://api.vk.com/method/photos.search?lat=${action.payload.lat}&long=${action.payload.lng}&radius=${action.payload.selectedRadius}&sort=0&v=5.65&access_token=${serviceToken}`);
+            `${apiUrl}photos.search?lat=${action.payload.lat}&long=${action.payload.lng}&radius=${action.payload.selectedRadius}&sort=0&v=5.65&access_token=${serviceToken}`);
             
         let photos = response.response.items;
         sortBy(photos, 'date');
         
         yield put(getPhotosSuccess(photos));
-    } catch(err) {
-        yield put(getPhotosFail(err));
+    } catch(e) {
+        yield put(getPhotosFail(e));
+    }
+}
+
+function* getUserId(action) {
+    try {
+        const response = yield call(responseHandler,
+            `${apiUrl}users.get?user_ids=${action.payload}&v=5.65&access_token=${serviceToken}`)
+
+        console.log(response)
+        yield put(getUserIdSuccess(response.response[0].id))
+    } catch (e) {
+        yield put(getUserIdFail(e))
+    }
+}
+
+function* getMutualFriends(action) {
+    console.log(action)
+    try {
+        const response = yield call(responseHandler,
+            `${apiUrl}method/friends.getMutual?source_uid=${action.payload.sourceUserId}&target_uid=${action.payload.targetUserId}&v=5.65&access_token=${action.payload.userToken}`)
+        
+            console.log(response)
+    } catch (e) {
+
     }
 }
 
@@ -61,4 +94,6 @@ function sortBy(arr, key) {
 export default function* main() {
     yield takeLatest(GET_POSTS_REQUEST, getPosts);
     yield takeLatest(GET_PHOTOS_REQUEST, getPhotos);
+    yield takeLatest(GET_USER_ID_REQUEST, getUserId);
+    yield takeLatest(GET_MUTUAL_REQUEST, getMutualFriends);
 }

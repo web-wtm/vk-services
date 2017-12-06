@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPhotos: (query) => dispatch(getPhotosRequest(query))
+        getPhotos: (params) => dispatch(getPhotosRequest(params))
     }
 }
 
@@ -62,13 +62,13 @@ class PhotosSearch extends React.Component {
         this.currPointLat = e.lat;
         this.currPointLng = e.lng;
 
-        let queries = {
+        let params = {
             lat: this.currPointLat,
             lng: this.currPointLng,
             selectedRadius: this.selectedRadius
         }
 
-        this.props.getPhotos(queries);
+        this.props.getPhotos(params);
     }
 
     render () {

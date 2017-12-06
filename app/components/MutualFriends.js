@@ -1,7 +1,28 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import InputField from './InputField'
 import api from '../utils/api'
 import ScrollToUp from 'react-scroll-up'
+import {
+    getUserIdRequest,
+    getMutualRequest
+} from '../main/actions'
+// 5956085
+// 7490743
+
+const mapStateToProps = (state) => {
+    return {
+        state: state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getUserId: (uid) => dispatch(getUserIdRequest(uid)),
+        getMutualFriends: (params) => dispatch(getMutualRequest(params))
+    }
+}
 
 const FriendsGrid = (props) => {
     return (
@@ -24,69 +45,66 @@ const FriendsGrid = (props) => {
     )
 }
 
-export default class MutualFriends extends React.Component {
+class MutualFriends extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            sourceUserId: '',
-            targetUserId: '',
-            mutualFriendsArr: null,
-            userUid: '',
-            userId: '',
-            error: ''
-        };
+
+        
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onGetId = this.onGetId.bind(this);
-
+        
         this.usersParams = [
             'screen_name',
             'city',
             'country',
             'photo_200'
         ];
+        this.params = {
+            sourceUserId: 5956085,
+            targetUserId: 490743,
+            options: this.usersParams,
+            userToken: sessionStorage.getItem('accessToken')
+        };
+
+        this.userUid = '';
+        this.error = '';
     }
 
     onChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
+        this[e.target.name] = e.target.value;
     }
+
     onSubmit(e) {
         e.preventDefault()
-        if(!this.state.sourceUserId.length || !this.state.targetUserId) return;
-        if(sessionStorage.getItem('accessToken') === null) return this.setState({error: 'You need to follow instruction on home page'})
-    
-        api.getMutualFriends(this.state.sourceUserId, this.state.targetUserId, sessionStorage.getItem('accessToken'))
-            .then((response) => {
-                api.getUsersInfo(response.toString(), this.usersParams.toString())
-                    .then((resp) => {
-                        this.setState({
-                            mutualFriendsArr: resp
-                        })
-                    })
-                    .catch((e) => {
-                        console.log(e)
-                    })
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+        console.log()
+        // if(!this.params.sourceUserId.length || !this.params.targetUserId) return;
+        if(this.params.userToken === null) return console.log('You need to follow instruction on home page');
+
+        this.props.getMutualFriends(this.params)
+        // api.getMutualFriends(this.state.sourceUserId, this.state.targetUserId, sessionStorage.getItem('accessToken'))
+        //     .then((response) => {
+        //         api.getUsersInfo(response.toString(), this.usersParams.toString())
+        //             .then((resp) => {
+        //                 this.setState({
+        //                     mutualFriendsArr: resp
+        //                 })
+        //             })
+        //             .catch((e) => {
+        //                 console.log(e)
+        //             })
+        //     })
+        //     .catch((e) => {
+        //         console.log(e)
+        //     })
     }
     onGetId(e) {
         e.preventDefault();
-        if(!this.state.userUid.length) return;
-
-        api.getUsersInfo(this.state.userUid)
-            .then((response) => {
-                this.setState({
-                    userId : response[0].id
-                })
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+        console.log(this.userUid)
+        if(!this.userUid.length) return;
+        this.props.getUserId(this.userUid);
     }
     render () {
-        const {sourceUserId, targetUserId, userUid} = this.state
         return (
             <div className='mutual-container'>
                 <ScrollToUp showUnder={160} style={{'zIndex': 1}}>
@@ -97,14 +115,12 @@ export default class MutualFriends extends React.Component {
                     <InputField 
                         fieldName='sourceUserId'
                         label='Source user :'
-                        value={sourceUserId}
                         placeHolder='source user id'
                         onChange={this.onChange}
                     />
                     <InputField 
                         fieldName='targetUserId'
                         label='Target user :'
-                        value={targetUserId}
                         placeHolder='target user id'
                         onChange={this.onChange}
                     />
@@ -116,20 +132,20 @@ export default class MutualFriends extends React.Component {
                     <InputField 
                         fieldName='userUid'
                         label='If you need user id use it :'
-                        value={userUid}
                         placeHolder='short name'
                         onChange={this.onChange}
                     />
                     <button className='btn'>get id</button>
                     <div className="user-id">
-                        { this.state.userId ? <p>user id: <span> {this.state.userId} </span> </p> : null }
+                        { this.props.state.userId ? <p>user id: <span> {this.props.state.userId} </span> </p> : null }
                     </div>
-                    {this.state.error ? <div className='error'>{this.state.error}</div> : null}
+                    {this.error ? <div className='error'> {this.error} </div> : null}
+                    {/* {this.props.state.error ? <div className='error'>{this.props.state.error}</div> : null} */}
                 </form>
-                {this.state.mutualFriendsArr ? <FriendsGrid friends={this.state.mutualFriendsArr}/> : null }
+                {/* {this.state.mutualFriendsArr ? <FriendsGrid friends={this.state.mutualFriendsArr}/> : null } */}
             </div>
         )
     }
 }
 
-// friends.getMutual
+export default connect(mapStateToProps, mapDispatchToProps)(MutualFriends)

@@ -101,7 +101,7 @@ class TopPosts extends React.Component {
     constructor(props) {
         super(props)
 
-        this.onChange = this.onChange.bind(this);
+        this.onChangeSelectedGroup = this.onChangeSelectedGroup.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
     
@@ -120,7 +120,7 @@ class TopPosts extends React.Component {
         this.props.getPosts(domain);
     }
 
-    onChange(e) {
+    onChangeSelectedGroup(e) {
         this.props.setSelectedGroup(e.target.value);
     }
     
@@ -138,7 +138,7 @@ class TopPosts extends React.Component {
                         label='Search group'
                         value={this.props.state.selectedGroup}
                         placeHolder='short name of group'
-                        onChange={this.onChange}
+                        onChange={this.onChangeSelectedGroup}
                     />
                     <button className='btn' onClick={this.getPosts.bind(this, this.props.state.selectedGroup)}>get</button>
                 </form>
