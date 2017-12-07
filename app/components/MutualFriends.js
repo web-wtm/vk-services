@@ -54,16 +54,17 @@ class MutualFriends extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.onGetId = this.onGetId.bind(this);
         
-        this.usersParams = [
+        this.usersRequestParams = [
             'screen_name',
             'city',
             'country',
             'photo_200'
         ];
+
         this.params = {
             sourceUserId: 5956085,
-            targetUserId: 490743,
-            options: this.usersParams,
+            targetUserId: 7490743,
+            fields: this.usersRequestParams,
             userToken: sessionStorage.getItem('accessToken')
         };
 

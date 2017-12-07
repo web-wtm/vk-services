@@ -1,5 +1,5 @@
 import fetchJsonP from 'fetch-jsonp'
-import { call, put, all, takeLatest } from  'redux-saga/effects'
+import { call, put, all, takeLatest, takeEvery } from  'redux-saga/effects'
 
 import {
     getPostsSuccess,
@@ -71,13 +71,22 @@ function* getUserId(action) {
 function* getMutualFriends(action) {
     console.log(action)
     try {
-        const response = yield call(responseHandler,
-            `${apiUrl}method/friends.getMutual?source_uid=${action.payload.sourceUserId}&target_uid=${action.payload.targetUserId}&v=5.65&access_token=${action.payload.userToken}`)
-        
-            console.log(response)
+
+        const response = yield call(getUsersInfo, action.payload)
+                
     } catch (e) {
 
     }
+}
+
+function getUsersInfo(params) {
+    console.log(params)
+    return fetchJsonP(`${apiUrl}friends.getMutual?source_uid=${params.sourceUserId}&target_uid=${params.targetUserId}&v=5.65&access_token=${params.userToken}`)
+        .then((response) => response.json())
+        .then((response) => {
+            fetchJsonP(`${apiUrl}users.get?user_ids=${response.response.toString()}&fields=${params.fields.toString()}&v=5.65&access_token=${serviceToken}`)
+                .then((data) => data.json())
+        }) 
 }
 
 function responseHandler(url) {
@@ -95,5 +104,5 @@ export default function* main() {
     yield takeLatest(GET_POSTS_REQUEST, getPosts);
     yield takeLatest(GET_PHOTOS_REQUEST, getPhotos);
     yield takeLatest(GET_USER_ID_REQUEST, getUserId);
-    yield takeLatest(GET_MUTUAL_REQUEST, getMutualFriends);
+    yield takeEvery(GET_MUTUAL_REQUEST, getMutualFriends);
 }
