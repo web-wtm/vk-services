@@ -1,5 +1,6 @@
 import {
     SET_SELECTED_GROUP,
+    SET_SEARCH_RADIUS,
     CLEAR_POSTS,
     
     GET_PHOTOS_REQUEST,
@@ -31,6 +32,7 @@ const createReducer = (initial, handlers) => {
 
 const DEFAULT_STATE = {
     selectedGroup: 'fuck_humor',
+    photoSearchRadius: 10,
     posts: null,
     photos: null,
     mutualFriends: null,
@@ -43,6 +45,13 @@ const setSelectedGroup = (state, action) => {
     return {
         ...state,
         selectedGroup: action.payload
+    }
+}
+
+const setSearchRadius = (state, action) => {
+    return {
+        ...state,
+        photoSearchRadius: action.payload
     }
 }
 
@@ -64,7 +73,8 @@ const setPhotos = (state, action) => {
 const setLoading = (state, acrtion) => {
     return {
         ...state,
-        loading: true
+        loading: true,
+        error: false
     }
 }
 
@@ -101,6 +111,7 @@ const setMutualFriends = (state, action) => {
 
 export default createReducer(DEFAULT_STATE, {
     [SET_SELECTED_GROUP]: setSelectedGroup,
+    [SET_SEARCH_RADIUS]: setSearchRadius,
 
     [GET_PHOTOS_REQUEST]: setLoading,
     [GET_PHOTOS_SUCCESS]: setPhotos,

@@ -1,4 +1,5 @@
 export const SET_SELECTED_GROUP = 'SET_SELECTED_GROUP';
+export const SET_SEARCH_RADIUS = 'SET_SEARCH_RADIUS';
 export const CLEAR_POSTS = 'CLEAR_POSTS'
 
 export const GET_PHOTOS_REQUEST = 'GET_PHOTOS_REQUEST';
@@ -22,6 +23,15 @@ export const setSelectedGroup = (domain) => {
     return {
         type: SET_SELECTED_GROUP,
         payload: domain
+    }
+}
+
+// set photoSearchRaduis
+
+export const setSearchRadius = (radius) => {
+    return {
+        type: SET_SEARCH_RADIUS,
+        payload: radius
     }
 }
 

@@ -17,7 +17,8 @@ import {
     getMutualRequest,
     getMutualFail,
     GET_MUTUAL_REQUEST,
-    GET_USER_ID_SUCCESS
+    GET_USER_ID_SUCCESS,
+    getMutualSuccess
 } from './actions'
 
 const serviceToken = '8a8d04248a8d04248a8d0424458ad0232d88a8d8a8d0424d3d25f2aeea47d69f9bf1d4d',
@@ -61,7 +62,6 @@ function* getUserId(action) {
         const response = yield call(responseHandler,
             `${apiUrl}users.get?user_ids=${action.payload}&v=5.65&access_token=${serviceToken}`)
 
-        console.log(response)
         yield put(getUserIdSuccess(response.response[0].id))
     } catch (e) {
         yield put(getUserIdFail(e))
@@ -69,24 +69,19 @@ function* getUserId(action) {
 }
 
 function* getMutualFriends(action) {
-    console.log(action)
+    const params = action.payload;
+
     try {
-
-        const response = yield call(getUsersInfo, action.payload)
-                
+        const friendsMutual = yield call(responseHandler, 
+            `${apiUrl}friends.getMutual?source_uid=${params.sourceUserId}&target_uid=${params.targetUserId}&v=5.65&access_token=${params.userToken}`);
+            
+        const friendsInfo = yield call(responseHandler,
+            `${apiUrl}users.get?user_ids=${friendsMutual.response.toString()}&fields=${params.fields.toString()}&v=5.65&access_token=${serviceToken}`);
+    
+        yield put(getMutualSuccess(friendsInfo.response))
     } catch (e) {
-
+        yield put(getMutualFail(e))
     }
-}
-
-function getUsersInfo(params) {
-    console.log(params)
-    return fetchJsonP(`${apiUrl}friends.getMutual?source_uid=${params.sourceUserId}&target_uid=${params.targetUserId}&v=5.65&access_token=${params.userToken}`)
-        .then((response) => response.json())
-        .then((response) => {
-            fetchJsonP(`${apiUrl}users.get?user_ids=${response.response.toString()}&fields=${params.fields.toString()}&v=5.65&access_token=${serviceToken}`)
-                .then((data) => data.json())
-        }) 
 }
 
 function responseHandler(url) {
@@ -104,5 +99,5 @@ export default function* main() {
     yield takeLatest(GET_POSTS_REQUEST, getPosts);
     yield takeLatest(GET_PHOTOS_REQUEST, getPhotos);
     yield takeLatest(GET_USER_ID_REQUEST, getUserId);
-    yield takeEvery(GET_MUTUAL_REQUEST, getMutualFriends);
+    yield takeLatest(GET_MUTUAL_REQUEST, getMutualFriends);
 }

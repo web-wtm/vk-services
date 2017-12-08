@@ -2,11 +2,11 @@ import React from 'react'
 import GoogleMap from './GoogleMap'
 import { connect } from 'react-redux'
 
-import api from '../utils/api'
 import Select from './Select'
 import ScrollToUp from 'react-scroll-up'
 import {
-    getPhotosRequest
+    getPhotosRequest,
+    setSearchRadius
 } from '../main/actions'
 
 const mapStateToProps = (state) => {
@@ -17,15 +17,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPhotos: (params) => dispatch(getPhotosRequest(params))
+        getPhotos: (params) => dispatch(getPhotosRequest(params)),
+        setRadius: (radius) => dispatch(setSearchRadius(radius))
     }
 }
 
 const PhotosGrid = (props) => {
     return (
-        <div className='photos-container'>
-            <div className="caption">Result of searching:</div>
-            
+        <div className='photos-container'>            
             {   props.photos.length ?
                 props.photos.map((item, index) => {
                     return (
@@ -55,7 +54,7 @@ class PhotosSearch extends React.Component {
     }
 
     onSelect(e) {
-        this.selectedRadius = e.target.value;
+        this.props.setRadius(e.target.value);
     }
 
     onClick (e){
@@ -65,7 +64,7 @@ class PhotosSearch extends React.Component {
         let params = {
             lat: this.currPointLat,
             lng: this.currPointLng,
-            selectedRadius: this.selectedRadius
+            selectedRadius: this.props.state.photoSearchRadius
         }
 
         this.props.getPhotos(params);
@@ -89,7 +88,8 @@ class PhotosSearch extends React.Component {
                 <div className='map'>
                     <GoogleMap 
                         lat={this.currPointLat} 
-                        lang={this.currPointLng} 
+                        lng={this.currPointLng} 
+                        radius={this.props.state.photoSearchRadius}
                         currEnable={0} 
                         onClick={this.onClick} 
                     />

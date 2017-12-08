@@ -2,12 +2,9 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     background-color: #fff;
     position: relative;
-
-    &:after {
-        content: '';
-        clear: both;
-        display: table;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     
     .logo{
         width: 160px;
@@ -24,7 +21,6 @@
 .nav {
     text-align: center;
     padding: 0;
-    float: right;
 
     li {
         display: inline-block;

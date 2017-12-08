@@ -2,14 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import InputField from './InputField'
-import api from '../utils/api'
 import ScrollToUp from 'react-scroll-up'
 import {
     getUserIdRequest,
     getMutualRequest
 } from '../main/actions'
-// 5956085
-// 7490743
 
 const mapStateToProps = (state) => {
     return {
@@ -49,11 +46,11 @@ class MutualFriends extends React.Component {
     constructor(props) {
         super(props)
 
-        
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onGetId = this.onGetId.bind(this);
         
+        this.userUid = '';
         this.usersRequestParams = [
             'screen_name',
             'city',
@@ -62,46 +59,26 @@ class MutualFriends extends React.Component {
         ];
 
         this.params = {
-            sourceUserId: 5956085,
-            targetUserId: 7490743,
+            sourceUserId: null,
+            targetUserId: null,
             fields: this.usersRequestParams,
             userToken: sessionStorage.getItem('accessToken')
         };
-
-        this.userUid = '';
-        this.error = '';
     }
 
     onChange(e) {
-        this[e.target.name] = e.target.value;
+        this.params[e.target.name] = e.target.value;
     }
 
     onSubmit(e) {
         e.preventDefault()
-        console.log()
-        // if(!this.params.sourceUserId.length || !this.params.targetUserId) return;
+        if(!this.params.sourceUserId || !this.params.targetUserId) return;
         if(this.params.userToken === null) return console.log('You need to follow instruction on home page');
 
         this.props.getMutualFriends(this.params)
-        // api.getMutualFriends(this.state.sourceUserId, this.state.targetUserId, sessionStorage.getItem('accessToken'))
-        //     .then((response) => {
-        //         api.getUsersInfo(response.toString(), this.usersParams.toString())
-        //             .then((resp) => {
-        //                 this.setState({
-        //                     mutualFriendsArr: resp
-        //                 })
-        //             })
-        //             .catch((e) => {
-        //                 console.log(e)
-        //             })
-        //     })
-        //     .catch((e) => {
-        //         console.log(e)
-        //     })
     }
     onGetId(e) {
         e.preventDefault();
-        console.log(this.userUid)
         if(!this.userUid.length) return;
         this.props.getUserId(this.userUid);
     }
@@ -140,10 +117,9 @@ class MutualFriends extends React.Component {
                     <div className="user-id">
                         { this.props.state.userId ? <p>user id: <span> {this.props.state.userId} </span> </p> : null }
                     </div>
-                    {this.error ? <div className='error'> {this.error} </div> : null}
-                    {/* {this.props.state.error ? <div className='error'>{this.props.state.error}</div> : null} */}
                 </form>
-                {/* {this.state.mutualFriendsArr ? <FriendsGrid friends={this.state.mutualFriendsArr}/> : null } */}
+                {this.props.state.mutualFriends ? <FriendsGrid friends={this.props.state.mutualFriends}/> : null }
+                {this.props.state.error ? <div> some prblm </div> : null}
             </div>
         )
     }
