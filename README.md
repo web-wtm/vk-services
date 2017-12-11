@@ -1,4 +1,4 @@
 # vk-services
-reactjs/webpack/vk api
+reactjs(redux, redux-saga)/webpack/vk api
 
 https://vk-services.firebaseapp.com/
