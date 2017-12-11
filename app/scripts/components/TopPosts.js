@@ -4,17 +4,10 @@ import { connect } from 'react-redux'
 
 import Loading from './Loading'
 import InputField from './InputField'
-import { 
-    getPostsRequest,
-    setSelectedGroup,
-    clearPosts
-} from '../main/actions'
-
-const mapStateToProps = (state) => {
-    return {
-        state: state
-    }
-}
+import { clearPosts } from '../actions/clearPosts'
+import { setSelectedGroup } from '../actions/selectedGroup'
+import { getPostsRequest } from '../actions/topPosts'
+import { mapStateToProps } from '../helpers'
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -61,6 +54,7 @@ const SelectedGroup = (props) => {
         </ul>
     )
 }
+
 const PostsGrid = (props) => {
     return (
         <div className='posts-contaier'>
@@ -69,6 +63,7 @@ const PostsGrid = (props) => {
                     return (
                         <a key={index} className='item' target='_blank' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
                             {   
+                                // TODO
                                 item.attachments ? 
                                 item.attachments.map((att, ind) => {
                                     if (att.type === 'photo') return <img key={ind} src={att.photo.photo_604} />

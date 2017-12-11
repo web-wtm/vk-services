@@ -1,19 +1,13 @@
 import React from 'react'
 import GoogleMap from './GoogleMap'
 import { connect } from 'react-redux'
+import ScrollToUp from 'react-scroll-up'
 
 import Select from './Select'
-import ScrollToUp from 'react-scroll-up'
-import {
-    getPhotosRequest,
-    setSearchRadius
-} from '../main/actions'
+import { getPhotosRequest } from '../actions/getPhotos'
+import { setSearchRadius } from '../actions/setSearchRadius'
+import { mapStateToProps } from '../helpers'
 
-const mapStateToProps = (state) => {
-    return {
-        state: state
-    }
-}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -28,14 +22,14 @@ const PhotosGrid = (props) => {
             {   props.photos.length ?
                 props.photos.map((item, index) => {
                     return (
-                        <a key={index} className='item' target='_blank' href={`https://vk.com/id${item.owner_id}`} title='onwer'>
+                        <a key={index} className='item' target='_blank' href={`https://vk.com/id${item.owner_id}`} title='open'>
                             <img src={item.photo_604} />
-                            <div className="item-hover">Click to see owner</div>
+                            <div className="item-hover">Click to open in vk</div>
                         </a>
                     )
                 })
                 :
-                <div>No phono in this area, try with bigger radius</div>
+                <div>No photos in search area, you can try with bigger radius</div>
             }
         </div>
     )
@@ -45,29 +39,30 @@ class PhotosSearch extends React.Component {
     constructor(props) {
         super(props)
         
-        this.selArr = ['10','100','600'];
-        this.selectedRadius = 10,
-        this.currPointLat = 50.553613;
-        this.currPointLng = 30.516843;
+        this.radiusList = [10, 100, 600];
+        this.requestParams = {
+            lat: 50.553613,
+            lng: 30.516843,
+            selectedRadius: this.props.state.photoSearchRadius
+        };
         this.onSelect = this.onSelect.bind(this);
         this.onClick = this.onClick.bind(this);
     }
 
+    componentDidMount() {
+        this.props.getPhotos(this.requestParams);
+    }
+
     onSelect(e) {
-        this.props.setRadius(e.target.value);
+        this.requestParams.selectedRadius = e.target.value;
+        this.props.setRadius(e.target.value);    
+        this.props.getPhotos(this.requestParams);
     }
 
     onClick (e){
-        this.currPointLat = e.lat;
-        this.currPointLng = e.lng;
-
-        let params = {
-            lat: this.currPointLat,
-            lng: this.currPointLng,
-            selectedRadius: this.props.state.photoSearchRadius
-        }
-
-        this.props.getPhotos(params);
+        this.requestParams.lat = e.lat;
+        this.requestParams.lng = e.lng;
+        this.props.getPhotos(this.requestParams);
     }
 
     render () {
@@ -76,19 +71,20 @@ class PhotosSearch extends React.Component {
                 <ScrollToUp showUnder={160} style={{'zIndex': 1}}>
                     <span className='scroll-up'>UP</span>
                 </ScrollToUp>
-                <div className="caption">Click on map to search some photos, you can enter radius of searching</div>
+                <div className="caption">Click on map to search some photos, you can choose radius of searching</div>
                 <div className="select-container">
                     <Select 
-                        values={this.selArr}
+                        values={this.radiusList}
                         name='selectRadius'
                         onSelect={this.onSelect}
+                        selected={this.props.state.photoSearchRadius}
                     />
-                    <label>The distance to the target may be different from the target</label>
+                    <label>Distance to the target may be approximately</label>
                 </div>
                 <div className='map'>
                     <GoogleMap 
-                        lat={this.currPointLat} 
-                        lng={this.currPointLng} 
+                        lat={this.requestParams.lat} 
+                        lng={this.requestParams.lng} 
                         radius={this.props.state.photoSearchRadius}
                         currEnable={0} 
                         onClick={this.onClick} 

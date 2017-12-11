@@ -1,34 +1,31 @@
 import {
-    SET_SELECTED_GROUP,
-    SET_SEARCH_RADIUS,
-    CLEAR_POSTS,
-    
     GET_PHOTOS_REQUEST,
     GET_PHOTOS_SUCCESS,
-    GET_PHOTOS_FAIL,
+    GET_PHOTOS_FAIL
+} from '../actions/getPhotos'
 
+import {
     GET_POSTS_REQUEST,
     GET_POSTS_SUCCESS,
-    GET_POSTS_FAIL,
+    GET_POSTS_FAIL
+} from '../actions/topPosts'
 
-    GET_USER_ID_REQUEST,
-    GET_USER_ID_SUCCESS,
-    GET_USER_ID_FAIL,
-
+import {
     GET_MUTUAL_REQUEST,
     GET_MUTUAL_SUCCESS,
     GET_MUTUAL_FAIL
-} from './actions'
+} from '../actions/mutualFriends'
 
-const createReducer = (initial, handlers) => {
-    return (state = initial, action) => {
-        if (handlers.hasOwnProperty(action.type)) {
-            return handlers[action.type](state, action)
-        } else {
-            return state;
-        }
-    }
-}
+import {
+    GET_USER_ID_REQUEST,
+    GET_USER_ID_SUCCESS,
+    GET_USER_ID_FAIL
+} from '../actions/getUserId'
+
+import { SET_SELECTED_GROUP } from '../actions/selectedGroup'
+import { SET_SEARCH_RADIUS } from '../actions/setSearchRadius'
+import { CLEAR_POSTS } from '../actions/clearPosts'
+import { createReducer } from '../helpers'
 
 const DEFAULT_STATE = {
     selectedGroup: 'fuck_humor',

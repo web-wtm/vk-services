@@ -1,18 +1,9 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
 
-// const CurrentPoint = (props) => (
-//     <div className='cursor large'></div>
-// )
-
-class CurrentPoint extends React.Component {
-    constructor(props) {
-        super(props)
-    }  
-    render() {
-       return <div className={'cursor size' + this.props.radius}></div>
-    }
-}
+const CurrentPoint = ({radius}) => (
+    <div className={'cursor size' + radius}></div>
+)
 
 class SimpleMap extends React.Component {
     constructor(props) {
@@ -37,7 +28,4 @@ class SimpleMap extends React.Component {
     }
 }
 
-
 export default SimpleMap;
-
-// map api key

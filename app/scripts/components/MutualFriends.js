@@ -1,18 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import ScrollToUp from 'react-scroll-up'
 
 import InputField from './InputField'
-import ScrollToUp from 'react-scroll-up'
-import {
-    getUserIdRequest,
-    getMutualRequest
-} from '../main/actions'
-
-const mapStateToProps = (state) => {
-    return {
-        state: state
-    }
-}
+import { getUserIdRequest } from '../actions/getUserId'
+import { getMutualRequest } from '../actions/mutualFriends'
+import { mapStateToProps } from '../helpers'
 
 const mapDispatchToProps = (dispatch) => {
     return {

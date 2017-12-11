@@ -2,24 +2,28 @@ import fetchJsonP from 'fetch-jsonp'
 import { call, put, all, takeLatest, takeEvery } from  'redux-saga/effects'
 
 import {
-    getPostsSuccess,
-    getPostsFail,
-    GET_POSTS_REQUEST,
-
-    getPhotosSuccess,
-    getPhotosFail,
-    GET_PHOTOS_REQUEST,
-
     getUserIdSuccess,
     getUserIdFail,
-    GET_USER_ID_REQUEST,
+    GET_USER_ID_REQUEST
+} from '../actions/getUserId'
 
-    getMutualRequest,
+import {
+    getMutualSuccess,
     getMutualFail,
-    GET_MUTUAL_REQUEST,
-    GET_USER_ID_SUCCESS,
-    getMutualSuccess
-} from './actions'
+    GET_MUTUAL_REQUEST
+} from '../actions/mutualFriends'
+
+import {
+    getPostsSuccess,
+    getPostsFail,
+    GET_POSTS_REQUEST
+} from '../actions/topPosts'
+
+import {
+    getPhotosSuccess,
+    getPhotosFail,
+    GET_PHOTOS_REQUEST
+} from '../actions/getPhotos'
 
 const serviceToken = '8a8d04248a8d04248a8d0424458ad0232d88a8d8a8d0424d3d25f2aeea47d69f9bf1d4d',
       apiUrl = 'https://api.vk.com/method/';

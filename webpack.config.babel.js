@@ -47,8 +47,15 @@ const Config = {
                 })
             },
             {
-                test: /\.(jpg|png|svg|gif)$/,
+                test: /\.(jpe?g|png|gif)$/,
                 loader: 'file-loader',
+                options: {
+                    name: 'assets/images/[name].[ext]'
+                }
+            },
+            {
+                test: /\.(svg)$/,
+                loader: 'svg-react-loader',
                 options: {
                     name: 'assets/images/[name].[ext]'
                 }
