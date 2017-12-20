@@ -1,7 +1,8 @@
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import path from 'path'
+import webpack from 'webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import CompressionPlugin from 'compression-webpack-plugin'
 
 const extractSass = new ExtractTextPlugin({
     filename: "assets/styles/main.css"
@@ -81,7 +82,14 @@ const Config = {
             },
             showErrors: false
         }),
-        extractSass
+        extractSass,
+        new CompressionPlugin({
+            asset: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.js$|\.css$|\.html$/,
+            threshold: 10240,
+            minRatio: 0
+        })
     ]
 }
 
@@ -92,7 +100,20 @@ if (process.env.NODE_ENV === 'production') {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
             }
         }),
-        new webpack.optimize.UglifyJsPlugin()
+        new webpack.optimize.UglifyJsPlugin({
+            mangle: true,
+            compress: {
+              warnings: false, // Suppress uglification warnings
+              pure_getters: true,
+              unsafe: true,
+              unsafe_comps: true,
+              screw_ie8: true
+            },
+            output: {
+              comments: false,
+            },
+            exclude: [/\.min\.js$/gi] // skip pre-minified libs
+        })
     );
 }
 
