@@ -17,20 +17,21 @@ const mapDispatchToProps = (dispatch) => {
 const FriendsGrid = (props) => {
     return (
         <div className='friends-container'>
-            {props.friends.length === 0 ? <div className='empty-response'>
-                                              <div className='user-deleted'></div>
-                                              <p>They don't have mutual friends</p>
-                                          </div> 
-                                    : null
+            {props.friends.length === 0 ? 
+                <div className='empty-response'>
+                    <div className='user-deleted'></div>
+                    <p>They don't have mutual friends</p>
+                </div> 
+                : 
+                props.friends.map((item,index) => {
+                    return (
+                        <a key={index} target='_blank' href={`https://vk.com/${item.screen_name}`} className='item'>
+                            {item.photo_200 ?  <img src={item.photo_200} /> : <div className='user-deleted'></div>}
+                            <p className='name'>{item.first_name} {item.last_name}</p>
+                        </a>
+                    )
+                })
             }
-            {props.friends.map((item,index) => {
-                return (
-                    <a key={index} target='_blank' href={`https://vk.com/${item.screen_name}`} className='item'>
-                        {item.photo_200 ?  <img src={item.photo_200} /> : <div className='user-deleted'></div>}
-                        <p className='name'>{item.first_name} {item.last_name}</p>
-                    </a>
-                )
-            })}
         </div>
     )
 }
@@ -43,7 +44,6 @@ class MutualFriends extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.onGetId = this.onGetId.bind(this);
         
-        this.userUid = '';
         this.usersRequestParams = [
             'screen_name',
             'city',
@@ -55,7 +55,8 @@ class MutualFriends extends React.Component {
             sourceUserId: null,
             targetUserId: null,
             fields: this.usersRequestParams,
-            userToken: sessionStorage.getItem('accessToken')
+            userToken: sessionStorage.getItem('accessToken'),
+            userUid: ''
         };
     }
 
@@ -72,8 +73,9 @@ class MutualFriends extends React.Component {
     }
     onGetId(e) {
         e.preventDefault();
-        if(!this.userUid.length) return;
-        this.props.getUserId(this.userUid);
+        if(!this.params.userUid.length) return;
+        console.log('s')
+        this.props.getUserId(this.params.userUid);
     }
     render () {
         return (
