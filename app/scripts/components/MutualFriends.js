@@ -71,12 +71,14 @@ class MutualFriends extends React.Component {
 
         this.props.getMutualFriends(this.params)
     }
+    
     onGetId(e) {
         e.preventDefault();
         if(!this.params.userUid.length) return;
         console.log('s')
         this.props.getUserId(this.params.userUid);
     }
+
     render () {
         return (
             <div className='mutual-container'>
