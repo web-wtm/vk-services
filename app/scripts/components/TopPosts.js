@@ -63,17 +63,23 @@ const PostsGrid = (props) => {
                     return (
                         <a key={index} className='item' target='_blank' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
                             {   
-                                // TODO
                                 item.attachments ? 
                                 item.attachments.map((att, ind) => {
-                                    if (att.type === 'photo') return <img key={ind} src={att.photo.photo_604} />
-                                    else if (att.type === 'audio') return <div key={ind} className='audio-track'>{att.audio.artist} - {att.audio.title}</div>
-                                    else if (att.type === 'video') return <img key={ind} src={att.video.photo_320} />
-                                    else if (att.type === 'poll') return
-                                    else if (att.type === 'page') return 
-                                    else if (att.type === 'link') return 
-                                    else if (att.doc.ext == 'gif') return <img key={ind} src={att.doc.url} />
-                                    else return
+                                    if (att.doc && att.doc.ext == 'gif') return <img key={ind} src={att.doc.url} />
+                                    
+                                    switch(att.type) {
+                                        case 'photo': 
+                                            return <img key={ind} src={att.photo.photo_604} />
+                                            break;
+                                        case 'audio': 
+                                            return <div key={ind} className='audio-track'>{att.audio.artist} - {att.audio.title}</div>
+                                            break;
+                                        case 'video':
+                                            return <img key={ind} src={att.video.photo_320} />
+                                            break;
+                                        default:
+                                            return;
+                                    }
                                 })
                                 :
                                 null
