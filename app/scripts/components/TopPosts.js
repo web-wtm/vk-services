@@ -101,17 +101,10 @@ const PostsGrid = (props) => {
 class TopPosts extends React.Component {
     constructor(props) {
         super(props)
-
-        this.onChangeSelectedGroup = this.onChangeSelectedGroup.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
     }
     
     componentDidMount() {
         this.props.getPosts(this.props.state.selectedGroup)
-    }
-    
-    onSubmit(e) {
-        e.preventDefault()
     }
     
     getPosts(domain) {
@@ -121,7 +114,11 @@ class TopPosts extends React.Component {
         this.props.getPosts(domain);
     }
 
-    onChangeSelectedGroup(e) {
+    onSubmit = (e) => {
+        e.preventDefault()
+    }
+    
+    onChangeSelectedGroup = (e) => {
         this.props.setSelectedGroup(e.target.value);
     }
     

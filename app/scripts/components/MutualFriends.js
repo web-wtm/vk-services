@@ -39,10 +39,6 @@ const FriendsGrid = (props) => {
 class MutualFriends extends React.Component {
     constructor(props) {
         super(props)
-
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.onGetId = this.onGetId.bind(this);
         
         this.usersRequestParams = [
             'screen_name',
@@ -60,11 +56,11 @@ class MutualFriends extends React.Component {
         };
     }
 
-    onChange(e) {
+    onChange = (e) => {
         this.params[e.target.name] = e.target.value;
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault()
         if(!this.params.sourceUserId || !this.params.targetUserId) return;
         if(this.params.userToken === null) return console.log('You need to follow instruction on home page');
@@ -72,7 +68,7 @@ class MutualFriends extends React.Component {
         this.props.getMutualFriends(this.params)
     }
     
-    onGetId(e) {
+    onGetId = (e) => {
         e.preventDefault();
         if(!this.params.userUid.length) return;
         console.log('s')

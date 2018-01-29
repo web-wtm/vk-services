@@ -45,21 +45,19 @@ class PhotosSearch extends React.Component {
             lng: 30.516843,
             selectedRadius: this.props.state.photoSearchRadius
         };
-        this.onSelect = this.onSelect.bind(this);
-        this.onClick = this.onClick.bind(this);
     }
 
     componentDidMount() {
         this.props.getPhotos(this.requestParams);
     }
 
-    onSelect(e) {
+    onSelect = (e) => {
         this.requestParams.selectedRadius = e.target.value;
         this.props.setRadius(e.target.value);    
         this.props.getPhotos(this.requestParams);
     }
 
-    onClick (e){
+    onClick = (e) => {
         this.requestParams.lat = e.lat;
         this.requestParams.lng = e.lng;
         this.props.getPhotos(this.requestParams);

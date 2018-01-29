@@ -41,11 +41,9 @@ const NeedAuth = (props) => {
 export default class Home extends React.Component {
     constructor() {
         super()
-
-        this.getToken = this.getToken.bind(this)
     }
 
-    getToken () {
+    getToken = () => {
         let querys = queryString.parse(this.props.location.hash);
         if (querys.access_token) {
             sessionStorage.setItem('accessToken', querys.access_token);
