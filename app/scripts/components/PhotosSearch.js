@@ -20,9 +20,9 @@ const PhotosGrid = (props) => {
     return (
         <div className='photos-container'>            
             {   props.photos.length ?
-                props.photos.map((item, index) => {
+                props.photos.map((item) => {
                     return (
-                        <a key={index} className='item' target='_blank' href={`https://vk.com/id${item.owner_id}`} title='open'>
+                        <a key={item.id} className='item' target='_blank' href={`https://vk.com/id${item.owner_id}`} title='open'>
                             <img src={item.photo_604} />
                             <div className="item-hover">Click to open in vk</div>
                         </a>

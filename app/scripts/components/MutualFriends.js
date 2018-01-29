@@ -23,9 +23,9 @@ const FriendsGrid = (props) => {
                     <p>They don't have mutual friends</p>
                 </div> 
                 : 
-                props.friends.map((item,index) => {
+                props.friends.map((item) => {
                     return (
-                        <a key={index} target='_blank' href={`https://vk.com/${item.screen_name}`} className='item'>
+                        <a key={item.id} target='_blank' href={`https://vk.com/${item.screen_name}`} className='item'>
                             {item.photo_200 ?  <img src={item.photo_200} /> : <div className='user-deleted'></div>}
                             <p className='name'>{item.first_name} {item.last_name}</p>
                         </a>
@@ -71,7 +71,6 @@ class MutualFriends extends React.Component {
     onGetId = (e) => {
         e.preventDefault();
         if(!this.params.userUid.length) return;
-        console.log('s')
         this.props.getUserId(this.params.userUid);
     }
 

@@ -43,9 +43,12 @@ const SelectedGroup = (props) => {
     
     return (
         <ul className='tool-bar'>
-            {groupsDomain.map((item, index) => {
+            {groupsDomain.map((item) => {
                 return (
-                    <li key={index} style={ item.domain === props.selectedGroup ? { background: '#47b475'} : null} onClick={props.onSelect.bind(null, item.domain)}>
+                    <li key={item.domain} 
+                        style={item.domain === props.selectedGroup ? { background: '#47b475'} : null} 
+                        onClick={props.onSelect.bind(null, item.domain)}
+                    >
                         <img src={item.photoSrc} />
                             {item.name}
                     </li>
@@ -59,33 +62,31 @@ const PostsGrid = (props) => {
     return (
         <div className='posts-contaier'>
             {
-                props.posts.map((item, index) => {
+                props.posts.map((item) => {
                     return (
-                        <a key={index} className='item' target='_blank' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
+                        <a key={item.id} className='item' target='_blank' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
                             {   
-                                item.attachments ? 
-                                item.attachments.map((att, ind) => {
-                                    if (att.doc && att.doc.ext == 'gif') return <img key={ind} src={att.doc.url} />
+                                item.attachments && 
+                                item.attachments.map((att) => {
+                                    if (att.doc && att.doc.ext == 'gif') return <img key={att[att.type].id} src={att.doc.url} />
                                     
                                     switch(att.type) {
                                         case 'photo': 
-                                            return <img key={ind} src={att.photo.photo_604} />
+                                            return <img key={att[att.type].id} src={att.photo.photo_604} />
                                             break;
                                         case 'audio': 
-                                            return <div key={ind} className='audio-track'>{att.audio.artist} - {att.audio.title}</div>
+                                            return <div key={att[att.type].id} className='audio-track'>{att.audio.artist} - {att.audio.title}</div>
                                             break;
                                         case 'video':
-                                            return <img key={ind} src={att.video.photo_320} />
+                                            return <img key={att[att.type].id} src={att.video.photo_320} />
                                             break;
                                         default:
                                             return;
                                     }
                                 })
-                                :
-                                null
                             }
                             <div className='info-container'>
-                                {item.text ? <div className='post-text'>{item.text}</div> : null}
+                                {item.text && <div className='post-text'>{item.text}</div>}
                                 <p>{item.likes.count} <i className='icon-like'></i></p>
                                 <p>{item.reposts.count} <i className='icon-repo'></i></p>
                             </div>
@@ -143,9 +144,9 @@ class TopPosts extends React.Component {
                 {
                     this.props.state.loading ? <Loading /> 
                     : 
-                    this.props.state.posts ? <PostsGrid domain={this.props.state.selectedGroup} posts={this.props.state.posts}/> : null
+                    this.props.state.posts && <PostsGrid domain={this.props.state.selectedGroup} posts={this.props.state.posts}/> 
                 }
-                { this.props.state.error ? <div>Smth wrong witht group's name</div> : null }
+                {this.props.state.error && <div>Smth wrong witht group's name</div>}
             </div>
         )
     }
