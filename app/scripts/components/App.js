@@ -7,8 +7,8 @@ import Footer from './Footer'
 import Home from './Home'
 import Page404 from '-!babel-loader!svg-react-loader?name=Page404!../../assets/images/404.svg'
 
-const TopPosts = () => <Async load={import('./TopPosts')} />
-const PhotosSearch = () => <Async load={import('./PhotosSearch')} />
+const TopPosts = () => <Async load={import('../../components/TopPosts')} />
+const PhotosSearch = () => <Async load={import('../../components/PhotosSearch')} />
 const MutualFriends = () => <Async load={import('./MutualFriends')} />
 
 export default class App extends React.Component {

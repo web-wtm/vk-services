@@ -1,12 +1,12 @@
 import React from 'react'
-import GoogleMap from './GoogleMap'
 import { connect } from 'react-redux'
 import ScrollToUp from 'react-scroll-up'
 
-import Select from './Select'
-import { getPhotosRequest } from '../actions/getPhotos'
-import { setSearchRadius } from '../actions/setSearchRadius'
-import { mapStateToProps } from '../helpers'
+import GoogleMap from '../../scripts/components/GoogleMap'
+import Select from '../../scripts/components/Select'
+import { getPhotosRequest } from '../../scripts/actions/getPhotos'
+import { setSearchRadius } from '../../scripts/actions/setSearchRadius'
+import { mapStateToProps } from '../../scripts/helpers'
 
 
 const mapDispatchToProps = (dispatch) => {
