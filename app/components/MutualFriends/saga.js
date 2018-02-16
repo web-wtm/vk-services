@@ -1,28 +1,17 @@
-import fetchJsonP from 'fetch-jsonp'
-import { call, put, all, takeLatest, takeEvery, fork } from  'redux-saga/effects'
+import { call, put, takeLatest } from  'redux-saga/effects'
 
+import { responseHandler, sortBy, serviceToken, apiUrl } from '../../utils/helpers'
 import {
     getUserIdSuccess,
     getUserIdFail,
     GET_USER_ID_REQUEST
-} from '../actions/getUserId'
+} from './action'
 
 import {
     getMutualSuccess,
     getMutualFail,
     GET_MUTUAL_REQUEST
-} from '../actions/mutualFriends'
-
-import {
-    GET_POSTS_REQUEST
-} from '../actions/topPosts'
-
-import getPosts from '../../components/TopPosts/saga'
-import getPhotos from '../../components/PhotosSearch/saga'
-
-const serviceToken = '8a8d04248a8d04248a8d0424458ad0232d88a8d8a8d0424d3d25f2aeea47d69f9bf1d4d',
-      apiUrl = 'https://api.vk.com/method/';
-
+} from './action'
 
 function* getUserId(action) {
     try {
@@ -51,23 +40,10 @@ function* getMutualFriends(action) {
     }
 }
 
-function responseHandler(url) {
-    return fetchJsonP(url)
-        .then((response) => response.json())
+export function* checkUserId() {
+    yield takeLatest(GET_USER_ID_REQUEST, getUserId)
 }
 
-function sortBy(arr, key) {
-    arr.sort((a,b) => {
-        return a[key].count === b[key].count ? 0 : a[key].count < b[key].count ? 1 : -1;
-    })
-}
-
-export default function* main() {
-    yield [
-        fork(getPosts),
-        fork(getPhotos)
-    ]
-    // yield takeLatest(GET_PHOTOS_REQUEST, getPhotos);
-    // yield takeLatest(GET_USER_ID_REQUEST, getUserId);
-    // yield takeLatest(GET_MUTUAL_REQUEST, getMutualFriends);
+export function* checkMutualFriends() {
+    yield takeLatest(GET_MUTUAL_REQUEST, getMutualFriends)
 }

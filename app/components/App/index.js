@@ -2,19 +2,19 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Async from 'react-code-splitting'
 
-import Navigation from './Navigation'
-import Footer from './Footer'
-import Home from './Home'
+import Navigation from '../Navigation'
+import Footer from '../Footer'
+import Home from '../Home'
 import Page404 from '-!babel-loader!svg-react-loader?name=Page404!../../assets/images/404.svg'
 
-const TopPosts = () => <Async load={import('../../components/TopPosts')} />
-const PhotosSearch = () => <Async load={import('../../components/PhotosSearch')} />
-const MutualFriends = () => <Async load={import('./MutualFriends')} />
+const TopPosts = () => <Async load={import('../TopPosts')} />
+const PhotosSearch = () => <Async load={import('../PhotosSearch')} />
+const MutualFriends = () => <Async load={import('../MutualFriends')} />
 
 export default class App extends React.Component {
     render() {
-        return (
-            <Router>
+        return [
+            <Router >
                 <div className='wrapper'>
                     <Navigation />
                     <Switch>
@@ -28,6 +28,6 @@ export default class App extends React.Component {
                     </Switch>
                 </div>
             </Router>
-        )
+        ]
     }
 }

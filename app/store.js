@@ -3,8 +3,8 @@ import createSagaMiddleware from 'redux-saga'
 import logger from 'redux-logger'
 import 'babel-polyfill'
 
-import mainSaga from './saga';
-import reducer from './main/reducer'
+import mainSaga from './components/App/saga';
+import reducer from './components/App/reducer'
 
 const sagaMiddleware = createSagaMiddleware();
 

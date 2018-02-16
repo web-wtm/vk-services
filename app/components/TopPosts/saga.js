@@ -1,13 +1,13 @@
 import fetchJsonP from 'fetch-jsonp'
 import { call, put, takeLatest } from 'redux-saga/effects'
 
+import { responseHandler, sortBy, serviceToken, apiUrl } from '../../utils/helpers'
 import {
     getPostsSuccess,
     getPostsFail,
     GET_POSTS_REQUEST
-} from '../../scripts/actions/topPosts'
-const serviceToken = '8a8d04248a8d04248a8d0424458ad0232d88a8d8a8d0424d3d25f2aeea47d69f9bf1d4d',
-      apiUrl = 'https://api.vk.com/method/';
+} from './action'
+
 function* getPosts(action) {
     try {
         const response = yield call(responseHandler, 
@@ -25,17 +25,6 @@ function* getPosts(action) {
     } catch (e) {
         yield put(getPostsFail(e));
     }
-}
-
-function responseHandler(url) {
-    return fetchJsonP(url)
-        .then((response) => response.json())
-}
-
-function sortBy(arr, key) {
-    arr.sort((a,b) => {
-        return a[key].count === b[key].count ? 0 : a[key].count < b[key].count ? 1 : -1;
-    })
 }
 
 export default function* () {

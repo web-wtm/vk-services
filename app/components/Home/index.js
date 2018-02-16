@@ -1,7 +1,8 @@
 import React from 'react'
 import queryString from 'query-string'
 import { connect } from 'react-redux'
-import Video from './Video'
+
+import Video from '../Video'
 
 const NeedAuth = (props) => {
     return (

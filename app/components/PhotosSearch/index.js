@@ -2,12 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ScrollToUp from 'react-scroll-up'
 
-import GoogleMap from '../../scripts/components/GoogleMap'
-import Select from '../../scripts/components/Select'
-import { getPhotosRequest } from '../../scripts/actions/getPhotos'
-import { setSearchRadius } from '../../scripts/actions/setSearchRadius'
-import { mapStateToProps } from '../../scripts/helpers'
-
+import GoogleMap from '../GoogleMap'
+import Select from '../Select'
+import { getPhotosRequest, setSearchRadius } from './action'
+import { mapStateToProps } from '../../utils/helpers'
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -22,7 +20,7 @@ const PhotosGrid = (props) => {
             {   props.photos.length ?
                 props.photos.map((item) => {
                     return (
-                        <a key={item.id} className='item' target='_blank' href={`https://vk.com/id${item.owner_id}`} title='open'>
+                        <a key={'_' + Math.random().toString(36).substr(2, 9)} className='item' target='_blank' href={`https://vk.com/id${item.owner_id}`} title='open'>
                             <img src={item.photo_604} />
                             <div className="item-hover">Click to open in vk</div>
                         </a>

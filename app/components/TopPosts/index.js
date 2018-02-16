@@ -2,12 +2,10 @@ import React from 'react'
 import ScrollToUp from 'react-scroll-up'
 import { connect } from 'react-redux'
 
-import Loading from '../../scripts/components/Loading'
-import InputField from '../../scripts/components/InputField'
-import { clearPosts } from '../../scripts/actions/clearPosts'
-import { setSelectedGroup } from '../../scripts/actions/selectedGroup'
-import { getPostsRequest } from '../../scripts/actions/topPosts'
-import { mapStateToProps } from '../../scripts/helpers'
+import Loading from '../Loading'
+import InputField from '../InputField'
+import { clearPosts, setSelectedGroup, getPostsRequest } from './action'
+import { mapStateToProps } from '../../utils/helpers'
 
 const mapDispatchToProps = (dispatch) => {
     return {

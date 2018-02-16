@@ -1,0 +1,19 @@
+.field-group {
+    vertical-align: middle;
+    display: inline-block;
+
+    label {
+        font-size: 28px;
+        padding-right: 10px;
+    }
+    
+    input {
+        font-size: 18px;
+        padding: 10px;
+        font-family: 'Orbitron', sans-serif;
+        line-height: 1;
+        &:focus {
+            outline: none;
+        }
+    }
+}
