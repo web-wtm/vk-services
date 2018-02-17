@@ -1,0 +1,101 @@
+@import '../../utils/sanitize.scss';
+@import '../Home/index.scss';
+@import '../Navigation/index.scss';
+@import '../PhotosSearch/index.scss';
+@import '../MutualFriends/index.scss';
+@import '../TopPosts/index.scss';
+@import '../InputField/index.scss';
+@import '../Video/index.scss';
+@import '../Footer/index.scss';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../assets/images/posts-bg.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.caption {
+    display: block;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 24px;
+}
+.not-found-404 {
+    font-size: 28px;
+    color: #960606;
+    padding: 20px;
+    font-weight: 600;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px;
+    text-transform: uppercase;
+    font-size: 22px;
+    background-color: #713FB4;
+    border: 2px solid #713FB4;
+    color: #fff;
+    text-decoration: none;
+    transition: all ease-in 222ms;
+    vertical-align: middle;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+
+    &:hover {
+        background-color: white;
+        color: #713FB4;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+#app {
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 100px;
+}
+
+.error {
+    background-color: rgba(255, 0, 0, 0.4);
+    padding: 5px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.scroll-up {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 18px 15px;
+    border-radius: 50%;
+    color: #fff;
+}
+
+.spinner {
+    background-image: url(../../assets/images/spinner.gif);
+    width: 150px;
+    height: 105px;
+    background-size: 100%;
+    margin: 50px auto 0;
+}
+
+@media screen and (max-width: 900px) {
+    .caption {
+        font-size: 18px;
+    }
+    .btn {
+        padding: 10px;
+        font-size: 16px;
+    }
+}
