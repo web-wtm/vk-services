@@ -5,9 +5,7 @@ export default class Nav extends React.Component {
     render() {
         return (
             <div className='nav-container'>
-                <a href='/' title='vk-services'>
-                    <div className='logo'></div>
-                </a>
+                <a className='logo' href='/' title='vk-services'></a>
                 <ul className='nav'>
                     <li>
                         <NavLink to='/' exact activeClassName='active'>home</NavLink>

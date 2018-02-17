@@ -144,7 +144,7 @@ class TopPosts extends React.Component {
                     : 
                     this.props.state.posts && <PostsGrid domain={this.props.state.selectedGroup} posts={this.props.state.posts}/> 
                 }
-                {this.props.state.error && <div>Smth wrong witht group's name</div>}
+                {this.props.state.error && <div className="error-msg">Smth went wrong</div>}
             </div>
         )
     }

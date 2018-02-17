@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Async from 'react-code-splitting'
 
@@ -13,21 +13,24 @@ const MutualFriends = () => <Async load={import('../MutualFriends')} />
 
 export default class App extends React.Component {
     render() {
-        return [
-            <Router >
-                <div className='wrapper'>
-                    <Navigation />
-                    <Switch>
-                        <Route exact path='/' component={Home} />
-                        <Route path='/posts' component={TopPosts} />
-                        <Route path='/mutfriends' component={MutualFriends} />
-                        <Route path='/photos-search' component={PhotosSearch} />
-                        <Route render={function(){
-                            return <Page404 style={{width: '100%', marginTop: '20px'}} />
-                                }} />
-                    </Switch>
-                </div>
-            </Router>
-        ]
+        return (
+            <Fragment>
+                <Router>
+                    <div className='wrapper'>
+                        <Navigation />
+                        <Switch>
+                            <Route exact path='/' component={Home} />
+                            <Route path='/posts' component={TopPosts} />
+                            <Route path='/mutfriends' component={MutualFriends} />
+                            <Route path='/photos-search' component={PhotosSearch} />
+                            <Route render={function(){
+                                return <Page404 style={{width: '100%', marginTop: '20px'}} />
+                                    }} />
+                        </Switch>
+                    </div>
+                </Router>
+                <Footer />
+            </Fragment>
+        )
     }
 }

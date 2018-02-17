@@ -62,3 +62,27 @@
         }
     }
 }
+
+@media screen and (max-width: 900px) {
+    .nav-container .logo {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .nav-container,
+    .nav {
+        display: block;
+    }
+
+    .nav li a {
+        margin: 10px 15px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .nav li a {
+        margin: 10px;
+        font-size: 14px;
+    }
+}
