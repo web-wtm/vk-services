@@ -84,6 +84,7 @@ class PhotosSearch extends React.Component {
                         radius={this.props.state.photoSearchRadius}
                         currEnable={0} 
                         onClick={this.onClick} 
+                        photos={this.props.state.photos}
                     />
                 </div>
                 {!this.props.state.photos ? 

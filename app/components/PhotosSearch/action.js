@@ -3,6 +3,7 @@ export const GET_PHOTOS_SUCCESS = 'GET_PHOTOS_SUCCESS';
 export const GET_PHOTOS_FAIL = 'GET_PHOTOS_FAIL';
 
 export const SET_SEARCH_RADIUS = 'SET_SEARCH_RADIUS';
+export const CLEAR_PHOTOS = 'CLEAR_PHOTOS';
 
 // search photos
 export const getPhotosRequest = (params) => {
@@ -31,5 +32,13 @@ export const setSearchRadius = (radius) => {
     return {
         type: SET_SEARCH_RADIUS,
         payload: radius
+    }
+}
+
+// clear photos
+
+export const clearPhotos = () => {
+    return {
+        type: CLEAR_PHOTOS
     }
 }
