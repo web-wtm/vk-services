@@ -4,10 +4,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
 
-const extractSass = new ExtractTextPlugin({
-    filename: "assets/styles/main.css"
-});
-
 const Config = {
     entry: './app/index.js',
     output: {
@@ -42,7 +38,7 @@ const Config = {
             },
             {
                 test: /\.scss?$/,
-                use: extractSass.extract({
+                use: ExtractTextPlugin.extract({
                     use: ['css-loader', 'resolve-url-loader', 'sass-loader'],
                     fallback: "style-loader"
                 })
@@ -82,7 +78,9 @@ const Config = {
             },
             showErrors: false
         }),
-        extractSass,
+        new ExtractTextPlugin({
+            filename: "assets/styles/main.css"
+        }),
         new CompressionPlugin({
             asset: "[path].gz[query]",
             algorithm: "gzip",
