@@ -87,6 +87,14 @@ const Config = {
             test: /\.js$|\.css$|\.html$/,
             threshold: 10240,
             minRatio: 0
+        }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+              context: path.join(__dirname, './app'),
+              output: {
+                path: path.join(__dirname, './dist')
+              }
+            }
         })
     ]
 }
