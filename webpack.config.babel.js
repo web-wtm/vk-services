@@ -4,7 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
 
-const Config = {
+export default {
     entry: './app/index.js',
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -68,6 +68,7 @@ const Config = {
     },
     devServer: {
         historyApiFallback: true,
+        port: 5000
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -96,31 +97,17 @@ const Config = {
               }
             }
         })
-    ]
-}
-
-if (process.env.NODE_ENV === 'production') {
-    Config.plugins.push(
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-            }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: true,
-            compress: {
-              warnings: false, // Suppress uglification warnings
-              pure_getters: true,
-              unsafe: true,
-              unsafe_comps: true,
-              screw_ie8: true
+    ],
+    optimization: {
+        runtimeChunk: false,
+        splitChunks: {
+          cacheGroups: {
+            commons: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'common',
+              chunks: 'all',
             },
-            output: {
-              comments: false,
-            },
-            exclude: [/\.min\.js$/gi] // skip pre-minified libs
-        })
-    );
+          },
+        }
+    }
 }
-
-export default Config;
