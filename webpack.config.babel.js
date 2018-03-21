@@ -4,11 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
 
-const extractSass = new ExtractTextPlugin({
-    filename: "assets/styles/main.css"
-});
-
-const Config = {
+export default {
     entry: './app/index.js',
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -42,7 +38,7 @@ const Config = {
             },
             {
                 test: /\.scss?$/,
-                use: extractSass.extract({
+                use: ExtractTextPlugin.extract({
                     use: ['css-loader', 'resolve-url-loader', 'sass-loader'],
                     fallback: "style-loader"
                 })
@@ -72,6 +68,7 @@ const Config = {
     },
     devServer: {
         historyApiFallback: true,
+        port: 5000
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -82,39 +79,35 @@ const Config = {
             },
             showErrors: false
         }),
-        extractSass,
+        new ExtractTextPlugin({
+            filename: "assets/styles/main.css"
+        }),
         new CompressionPlugin({
             asset: "[path].gz[query]",
             algorithm: "gzip",
             test: /\.js$|\.css$|\.html$/,
             threshold: 10240,
             minRatio: 0
-        })
-    ]
-}
-
-if (process.env.NODE_ENV === 'production') {
-    Config.plugins.push(
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-            }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: true,
-            compress: {
-              warnings: false, // Suppress uglification warnings
-              pure_getters: true,
-              unsafe: true,
-              unsafe_comps: true,
-              screw_ie8: true
-            },
-            output: {
-              comments: false,
-            },
-            exclude: [/\.min\.js$/gi] // skip pre-minified libs
+        new webpack.LoaderOptionsPlugin({
+            options: {
+              context: path.join(__dirname, './app'),
+              output: {
+                path: path.join(__dirname, './dist')
+              }
+            }
         })
-    );
+    ],
+    optimization: {
+        runtimeChunk: false,
+        splitChunks: {
+          cacheGroups: {
+            commons: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'common',
+              chunks: 'all',
+            },
+          },
+        }
+    }
 }
-
-export default Config;

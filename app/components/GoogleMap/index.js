@@ -2,8 +2,18 @@ import React from 'react'
 import GoogleMapReact from 'google-map-react'
 
 const CurrentPoint = ({radius}) => (
-    <div className={'cursor size' + radius}></div>
+    <div className='cursor'></div>
 )
+
+const PhotoOnMap = (props) => {
+    const bg = { backgroundImage: `url(${props.photo.photo_130})` }
+
+    return <a className="photo-on-map" style={bg} target='_blank' href={`https://vk.com/id${checkOwnerId(props.photo.owner_id)}`}></a>
+}
+
+const checkOwnerId = (id) => {
+    return id < 0 ? id*-1 : id
+}
 
 class SimpleMap extends React.Component {
     constructor(props) {
@@ -23,6 +33,16 @@ class SimpleMap extends React.Component {
                 onClick={this.props.onClick}
             >
                 <CurrentPoint lat={this.props.lat} lng={this.props.lng} radius={this.props.radius} />
+                {this.props.photos &&
+                        this.props.photos.map((item) => {
+                            return <PhotoOnMap 
+                                        key={'_' + Math.random().toString(36).substr(2, 9)} 
+                                        photo={item} 
+                                        lat={item.lat} 
+                                        lng={item.long}
+                                    />
+                        })
+                    }
             </GoogleMapReact>
         )
     }
