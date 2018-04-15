@@ -1,3 +1,4 @@
+import './index.scss'
 import React from 'react'
 import ScrollToUp from 'react-scroll-up'
 import { connect } from 'react-redux'
@@ -40,19 +41,30 @@ const SelectedGroup = (props) => {
     ];
     
     return (
-        <ul className='tool-bar'>
-            {groupsDomain.map((item) => {
-                return (
-                    <li key={item.domain} 
-                        style={item.domain === props.selectedGroup ? { background: '#47b475'} : null} 
-                        onClick={props.onSelect.bind(null, item.domain)}
-                    >
-                        <img src={item.photoSrc} />
-                            {item.name}
-                    </li>
-                )
-            })}
-        </ul>
+        <div className='group-nav'>
+            <ul className='group-nav__list'>
+                {groupsDomain.map((item) => {
+                    return (
+                        <li key={item.domain} 
+                            style={item.domain === props.selectedGroup ? { background: '#47b475'} : null} 
+                            onClick={props.onSelect.bind(null, item.domain)}
+                        >
+                            <img src={item.photoSrc} />
+                                {item.name}
+                        </li>
+                    )
+                })}
+            </ul>
+            <div className='group-nav__search'>
+                <InputField
+                    fieldName='searchGroup'
+                    placeHolder="name of group"
+                    value={props.inputValue}
+                    onChange={props.onChangeInput}
+                />
+                <button className='btn' onClick={props.onClickBtn}>search</button>
+            </div>
+        </div>
     )
 }
 
@@ -112,10 +124,6 @@ class TopPosts extends React.Component {
         this.props.clearPosts();
         this.props.getPosts(domain);
     }
-
-    onSubmit = (e) => {
-        e.preventDefault()
-    }
     
     onChangeSelectedGroup = (e) => {
         this.props.setSelectedGroup(e.target.value);
@@ -127,18 +135,13 @@ class TopPosts extends React.Component {
                 <ScrollToUp showUnder={160} style={{'zIndex': 1}}>
                     <span className='scroll-up'>UP</span>
                 </ScrollToUp>
-                <SelectedGroup onSelect={this.props.getPosts} selectedGroup={this.props.state.selectedGroup} />
-                <div className="caption">There are last top posts of group to sort by likes</div>
-                <form onSubmit={this.onSubmit}>
-                    <InputField
-                        fieldName='searchGroup'
-                        label='Search group'
-                        value={this.props.state.selectedGroup}
-                        placeHolder='short name of group'
-                        onChange={this.onChangeSelectedGroup}
-                    />
-                    <button className='btn' onClick={this.getPosts.bind(this, this.props.state.selectedGroup)}>get</button>
-                </form>
+                <SelectedGroup 
+                    onSelect={this.props.getPosts} 
+                    inputValue={this.props.state.selectedGroup}
+                    onChangeInput={this.onChangeSelectedGroup}
+                    selectedGroup={this.props.state.selectedGroup}
+                    onClickBtn={this.getPosts.bind(this, this.props.state.selectedGroup)}
+                />
                 {
                     this.props.state.loading ? <Loading /> 
                     : 

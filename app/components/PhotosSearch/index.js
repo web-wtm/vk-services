@@ -1,11 +1,13 @@
+import './index.scss'
 import React from 'react'
 import { connect } from 'react-redux'
 import ScrollToUp from 'react-scroll-up'
+import moment from 'moment'
 
 import GoogleMap from '../GoogleMap'
 import Select from '../Select'
 import { getPhotosRequest, setSearchRadius } from './action'
-import { mapStateToProps } from '../../utils/helpers'
+import { mapStateToProps, checkOwnerId } from '../../utils/helpers'
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -18,11 +20,12 @@ const PhotosGrid = (props) => {
     return (
         <div className='photos-container'>            
             {   props.photos.length ?
-                props.photos.map((item) => {
+                props.photos.map((item, index) => {
                     return (
-                        <a key={'_' + Math.random().toString(36).substr(2, 9)} className='item' target='_blank' href={`https://vk.com/id${item.owner_id}`} title='open'>
+                        <a key={index} className='item' target='_blank' href={`https://vk.com/id${checkOwnerId(item.owner_id)}`} title='open'>
                             <img src={item.photo_604} />
-                            <div className="item-hover">Click to open in vk</div>
+                            <div className='item-cover'>Click to open in vk</div>
+                             <div className='item-date'>{moment(item.date*1000).format("DD.MM.YYYY")}</div> 
                         </a>
                     )
                 })
@@ -67,16 +70,6 @@ class PhotosSearch extends React.Component {
                 <ScrollToUp showUnder={160} style={{'zIndex': 1}}>
                     <span className='scroll-up'>UP</span>
                 </ScrollToUp>
-                <div className="caption">Click on map to search some photos, you can choose radius of searching</div>
-                <div className="select-container">
-                    <Select 
-                        values={this.radiusList}
-                        name='selectRadius'
-                        onSelect={this.onSelect}
-                        selected={this.props.state.photoSearchRadius}
-                    />
-                    <label>Distance to the target may be approximately</label>
-                </div>
                 <div className='map'>
                     <GoogleMap 
                         lat={this.requestParams.lat} 
@@ -86,6 +79,16 @@ class PhotosSearch extends React.Component {
                         onClick={this.onClick} 
                         photos={this.props.state.photos}
                     />
+                </div>
+                <div className="caption">Click on map to search some photos, also you can choose radius of searching</div>
+                <div className="select-container">
+                    <Select 
+                        values={this.radiusList}
+                        name='selectRadius'
+                        onSelect={this.onSelect}
+                        selected={this.props.state.photoSearchRadius}
+                    />
+                    <label>*Distance to the target may be approximately</label>
                 </div>
                 {!this.props.state.photos ? 
                     null : <PhotosGrid photos={this.props.state.photos} />}

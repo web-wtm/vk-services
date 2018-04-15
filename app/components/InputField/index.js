@@ -1,9 +1,10 @@
+import './index.scss'
 import React from 'react'
 
 const InputField =({fieldName, placeHolder, value, type, label, onChange}) => {
     return (
         <div className='field-group'>
-            <label className='form-label'>{label}</label>
+            {label && <label className='form-label'>{label}</label>}
             <input 
                 name={fieldName}
                 value={value}

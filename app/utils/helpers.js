@@ -29,3 +29,7 @@ export const createReducer = (initial, handlers) => {
         }
     }
 }
+
+export const checkOwnerId = (id) => {
+    return id < 0 ? id*-1 : id
+}

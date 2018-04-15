@@ -1,13 +1,4 @@
 @import '../../utils/sanitize.scss';
-@import '../Home/index.scss';
-@import '../Navigation/index.scss';
-@import '../PhotosSearch/index.scss';
-@import '../MutualFriends/index.scss';
-@import '../TopPosts/index.scss';
-@import '../InputField/index.scss';
-@import '../GoogleMap/indes.scss';
-@import '../Video/index.scss';
-@import '../Footer/index.scss';
 
 html,
 body {
@@ -24,6 +15,10 @@ body {
     background-image: url(../../assets/images/posts-bg.jpg);
     background-attachment: fixed;
     background-size: cover;
+}
+
+.wrapper {
+    padding-top: 90px;
 }
 
 .caption {
@@ -77,10 +72,16 @@ body {
 }
 
 .scroll-up {
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 18px 15px;
+    background-color: rgba(255, 0, 0, 0.6);
+    padding: 15px;
     border-radius: 50%;
     color: #fff;
+    font-weight: bold;
+    transition: background-color ease 222ms;
+
+    &:hover {
+        background-color: rgba(255, 0, 0, 1);
+    }
 }
 
 .spinner {

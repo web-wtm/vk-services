@@ -1,18 +1,17 @@
+import './index.scss'
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
+
+import { checkOwnerId } from '../../utils/helpers'
 
 const CurrentPoint = ({radius}) => (
     <div className='cursor'></div>
 )
 
 const PhotoOnMap = (props) => {
-    const bg = { backgroundImage: `url(${props.photo.photo_130})` }
+    const bg = { backgroundImage: `url(${props.photo.photo_75})` }
 
     return <a className="photo-on-map" style={bg} target='_blank' href={`https://vk.com/id${checkOwnerId(props.photo.owner_id)}`}></a>
-}
-
-const checkOwnerId = (id) => {
-    return id < 0 ? id*-1 : id
 }
 
 class SimpleMap extends React.Component {

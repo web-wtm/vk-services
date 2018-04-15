@@ -1,3 +1,4 @@
+import './index.scss'
 import React from 'react'
 import queryString from 'query-string'
 import { connect } from 'react-redux'

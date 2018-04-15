@@ -1,3 +1,4 @@
+import './index.scss'
 import React from 'react'
 import { connect } from 'react-redux'
 import ScrollToUp from 'react-scroll-up'
@@ -22,9 +23,9 @@ const FriendsGrid = (props) => {
                     <p>They don't have mutual friends</p>
                 </div> 
                 : 
-                props.friends.map((item) => {
+                props.friends.map((item, index) => {
                     return (
-                        <a key={item.id} target='_blank' href={`https://vk.com/${item.screen_name}`} className='item'>
+                        <a key={index} target='_blank' href={`https://vk.com/${item.screen_name}`} className='item'>
                             {item.photo_200 ?  <img src={item.photo_200} /> : <div className='user-deleted'></div>}
                             <p className='name'>{item.first_name} {item.last_name}</p>
                         </a>

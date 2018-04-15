@@ -1,64 +1,60 @@
-.tool-bar {
-    margin: 0;
-    padding: 20px 0;
+.group-nav {
     display: flex;
-    width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin: 0;
+    background-color: #222;
     list-style: none;
     font-family: 'Podkova', serif;
+    
+    &__list {
+        display: inline-block;
 
-    li {
-        cursor: pointer;
-        padding: 10px;
-        width: 20%;
-        font-size: 18px;
-        font-weight: bold;
-        background-color: #a00d0d;
-        color: #fff;
-        transition: background ease-in 333ms;
+        li {
+            display: inline-block;
+            cursor: pointer;
+            padding: 10px 0;
+            margin: 0 1px;
+            width: 160px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #e5e5e5;
+            transition: background ease-in 333ms;
+            text-align: center;
 
-        &:hover {
-            background-color: #47b475;
-        }
+            &:hover {
+                background-color: #47b475;
+            }
 
-        img {
-            vertical-align: middle;
-            width: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
+            img {
+                display: block;
+                width: 30px;
+                border-radius: 50%;
+                margin: 0 auto 5px;
+            }
         }
     }
-}
-
-.top-posts {
-
-    form {
-        text-align: center;
-        padding-top: 20px;
-
+    &__search {
         .field-group {
-            vertical-align: middle;
-            display: inline-block;
+            height: 100%;
+            margin-top: -1px;
+        }
 
-            label {
-                font-size: 28px;
-                padding-right: 10px;
-            }
-
-            input {
-                font-size: 18px;
-                padding: 10px;
-                font-family: 'Orbitron', sans-serif;
-                line-height: 1;
-                &:focus {
-                    outline: none;
-                }
-            }
+        input { 
+            color: #222;
+            width: 200px;
+            height: 100%;
+            background-color: #f4f3f3;
         }
 
         .btn {
-            padding: 9.5px 40px;
-            margin-left: 20px;
+            height: 100%;
+            font-size: 18px;
+
+            &:hover {
+                border: 2px solid #FF612F;
+                background-color: #FF612F;
+                color: #fff;
+            }
         }
     }
 }

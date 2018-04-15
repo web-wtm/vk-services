@@ -1,4 +1,6 @@
+import './index.scss'
 import React from 'react'
+
 import videoMp4 from '../../assets/video/walk.mp4'
 import videoWebm from '../../assets/video/walk.webm'
 
