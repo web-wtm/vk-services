@@ -1,8 +1,8 @@
 import { fork, all } from  'redux-saga/effects'
 
-import getPosts from '../../components/TopPosts/saga'
-import getPhotos from '../../components/PhotosSearch/saga'
-import { checkUserId, checkMutualFriends } from '../../components/MutualFriends/saga'
+import getPosts from '../../containers/Posts/saga'
+import getPhotos from '../../containers/Photos/saga'
+import { checkUserId, checkMutualFriends } from '../../containers/Friends/saga'
 
 export default function* main() {
     yield all([

@@ -1,9 +1,10 @@
-import './index.scss'
+// import './index.scss'
 import React from 'react'
 import { connect } from 'react-redux'
 import ScrollToUp from 'react-scroll-up'
 
-import InputField from '../InputField'
+import Button from '../../components/Button'
+import InputField from '../../components/InputField'
 import { getUserIdRequest, getMutualRequest } from './action'
 import { mapStateToProps } from '../../utils/helpers'
 
@@ -95,7 +96,7 @@ class MutualFriends extends React.Component {
                         onChange={this.onChange}
                     />
                     <div className="btn-container">
-                        <button className='btn'>show mutual</button>
+                        <Button text='check mutual'/>
                     </div>
                 </form>
                 <form onSubmit={this.onGetId} className='form-id'>
@@ -105,7 +106,7 @@ class MutualFriends extends React.Component {
                         placeHolder='short name'
                         onChange={this.onChange}
                     />
-                    <button className='btn'>get id</button>
+                    <Button text='get id'/>
                     <div className="user-id">
                         { this.props.state.userId ? <p>user id: <span> {this.props.state.userId} </span> </p> : null }
                     </div>

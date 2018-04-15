@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import ScrollToUp from 'react-scroll-up'
 import moment from 'moment'
 
-import GoogleMap from '../GoogleMap'
-import Select from '../Select'
+import PhotoMap from '../../components/Map'
+import Select from '../../components/Select'
 import { getPhotosRequest, setSearchRadius } from './action'
 import { mapStateToProps, checkOwnerId } from '../../utils/helpers'
 
@@ -70,16 +70,14 @@ class PhotosSearch extends React.Component {
                 <ScrollToUp showUnder={160} style={{'zIndex': 1}}>
                     <span className='scroll-up'>UP</span>
                 </ScrollToUp>
-                <div className='map'>
-                    <GoogleMap 
-                        lat={this.requestParams.lat} 
-                        lng={this.requestParams.lng} 
-                        radius={this.props.state.photoSearchRadius}
-                        currEnable={0} 
-                        onClick={this.onClick} 
-                        photos={this.props.state.photos}
-                    />
-                </div>
+                <PhotoMap 
+                    lat={this.requestParams.lat} 
+                    lng={this.requestParams.lng} 
+                    radius={this.props.state.photoSearchRadius}
+                    currEnable={0} 
+                    onClick={this.onClick} 
+                    photos={this.props.state.photos}
+                />
                 <div className="caption">Click on map to search some photos, also you can choose radius of searching</div>
                 <div className="select-container">
                     <Select 

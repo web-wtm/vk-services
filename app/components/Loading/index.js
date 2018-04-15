@@ -1,12 +1,13 @@
-import React from 'react'
+import styled from 'styled-components'
 
-class Loading extends React.Component {
-    render() {
-        return (
-            <div className="spinner">
-            </div>
-        )
-    }
-} 
+import LoadingBg from '../../assets/images/loading.gif'
 
-module.exports = Loading;
+const LoadingAnimation = styled.div`
+    background-image: url(${LoadingBg});
+    width: 150px;
+    height: 105px;
+    background-size: 100%;
+    margin: 50px auto 0;
+`
+
+export default LoadingAnimation

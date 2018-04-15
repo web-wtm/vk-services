@@ -1,15 +1,33 @@
-import './index.scss'
 import React from 'react'
+import styled from 'styled-components'
 
-class Footer extends React.Component {
-    render () {
-        return (
-            <footer>
-                <div>© All rights reserved</div>
-                <div>*if somthing don't work, try with VPN :)</div>
-            </footer>
-        )
+const StyledFooter = styled.footer`
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    width: 100%;
+
+    div {
+        padding: 0 10px;
     }
+
+    @media screen and (max-width: 550px) {
+        font-size: 12px;
+    }
+`
+
+const Footer = () => {
+    return (
+        <StyledFooter>
+            <div>© All rights reserved</div>
+            <div>*if somthing don't work, try with VPN :)</div>
+        </StyledFooter>
+    )
 }
 
 export default Footer;

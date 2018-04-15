@@ -1,18 +1,19 @@
-import './index.scss'
 import React from 'react'
+
+import { FieldGroup, Label, Input } from './styled'
 
 const InputField =({fieldName, placeHolder, value, type, label, onChange}) => {
     return (
-        <div className='field-group'>
-            {label && <label className='form-label'>{label}</label>}
-            <input 
+        <FieldGroup>
+            {label && <Label>{label}</Label>}
+            <Input 
                 name={fieldName}
                 value={value}
                 placeholder={placeHolder}
                 type={type}
                 onChange={onChange}
             />
-        </div>
+        </FieldGroup>
     )
 }
 

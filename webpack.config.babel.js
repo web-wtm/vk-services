@@ -7,8 +7,8 @@ import CompressionPlugin from 'compression-webpack-plugin'
 export default {
     entry: './app/index.js',
     output: {
-        path: path.resolve(__dirname, './dist/scripts'),
-        filename: '.bundle-[name].js',
+        path: path.resolve(__dirname, './dist'),
+        filename: './scripts/bundle-[name].js',
         publicPath: '/'
     },
     module: {
