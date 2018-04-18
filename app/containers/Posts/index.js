@@ -109,7 +109,7 @@ const PostsGrid = (props) => {
     )
 }
 
-class TopPosts extends React.Component {
+class Posts extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -153,4 +153,4 @@ class TopPosts extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopPosts)
+export default connect(mapStateToProps, mapDispatchToProps)(Posts)

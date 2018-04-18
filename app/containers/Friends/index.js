@@ -37,7 +37,7 @@ const FriendsGrid = (props) => {
     )
 }
 
-class MutualFriends extends React.Component {
+class Friends extends React.Component {
     constructor(props) {
         super(props)
         
@@ -118,4 +118,4 @@ class MutualFriends extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MutualFriends)
+export default connect(mapStateToProps, mapDispatchToProps)(Friends)

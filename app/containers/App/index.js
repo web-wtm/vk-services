@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Async from 'react-code-splitting'
 
 import './global-styles'
+import Wrapper from '../../components/Wrapper'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Home from '../Home'
@@ -17,7 +18,7 @@ export default class App extends React.Component {
         return (
             <Fragment>
                 <Router>
-                    <div>
+                    <Wrapper>
                         <Header />
                         <Switch>
                             <Route exact path='/' component={Home} />
@@ -28,7 +29,7 @@ export default class App extends React.Component {
                                 return <Page404 style={{width: '100%', marginTop: '20px'}} />
                                     }} />
                         </Switch>
-                    </div>
+                    </Wrapper>
                 </Router>
                 <Footer />
             </Fragment>
