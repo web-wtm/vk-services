@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import videoMp4 from '../../assets/video/walk.mp4'
 import videoWebm from '../../assets/video/walk.webm'
 import videoBgUrl from '../../assets/images/video-bg.jpg'

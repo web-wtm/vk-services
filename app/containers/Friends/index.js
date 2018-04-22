@@ -1,40 +1,20 @@
-// import './index.scss'
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import ScrollToUp from 'react-scroll-up'
-
+import ScrollUp from '../../components/ScrollUp'
+import Caption from '../../components/Caption'
 import Button from '../../components/Button'
+import { ButtonSearch } from './styled'
 import InputField from '../../components/InputField'
+import SideBar from '../../components/SideBar'
+import FriendsGrid from '../../components/FriendsGrid'
 import { getUserIdRequest, getMutualRequest } from './action'
 import { mapStateToProps } from '../../utils/helpers'
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserId: (uid) => dispatch(getUserIdRequest(uid)),
+        getId: (uid) => dispatch(getUserIdRequest(uid)),
         getMutualFriends: (params) => dispatch(getMutualRequest(params))
     }
-}
-
-const FriendsGrid = (props) => {
-    return (
-        <div className='friends-container'>
-            {props.friends.length === 0 ? 
-                <div className='empty-response'>
-                    <div className='user-deleted'></div>
-                    <p>They don't have mutual friends</p>
-                </div> 
-                : 
-                props.friends.map((item, index) => {
-                    return (
-                        <a key={index} target='_blank' href={`https://vk.com/${item.screen_name}`} className='item'>
-                            {item.photo_200 ?  <img src={item.photo_200} /> : <div className='user-deleted'></div>}
-                            <p className='name'>{item.first_name} {item.last_name}</p>
-                        </a>
-                    )
-                })
-            }
-        </div>
-    )
 }
 
 class Friends extends React.Component {
@@ -57,11 +37,11 @@ class Friends extends React.Component {
         };
     }
 
-    onChange = (e) => {
+    onChangeInput = (e) => {
         this.params[e.target.name] = e.target.value;
     }
 
-    onSubmit = (e) => {
+    checkMutualFriends = (e) => {
         e.preventDefault()
         if(!this.params.sourceUserId || !this.params.targetUserId) return;
         if(this.params.userToken === null) return console.log('You need to follow instruction on home page');
@@ -69,51 +49,46 @@ class Friends extends React.Component {
         this.props.getMutualFriends(this.params)
     }
     
-    onGetId = (e) => {
+    getUserId = (e) => {
         e.preventDefault();
         if(!this.params.userUid.length) return;
-        this.props.getUserId(this.params.userUid);
+
+        this.props.getId(this.params.userUid);
     }
 
     render () {
         return (
-            <div className='mutual-container'>
-                <ScrollToUp showUnder={160} style={{'zIndex': 1}}>
-                    <span className='scroll-up'>UP</span>
-                </ScrollToUp>
-                <div className="caption">Enter users id to know their mutual friends</div>
-                <form onSubmit={this.onSubmit} className='form-mutual'>
-                    <InputField 
-                        fieldName='sourceUserId'
-                        label='Source user :'
-                        placeHolder='source user id'
-                        onChange={this.onChange}
-                    />
-                    <InputField 
-                        fieldName='targetUserId'
-                        label='Target user :'
-                        placeHolder='target user id'
-                        onChange={this.onChange}
-                    />
-                    <div className="btn-container">
-                        <Button text='check mutual'/>
-                    </div>
-                </form>
-                <form onSubmit={this.onGetId} className='form-id'>
-                    <InputField 
-                        fieldName='userUid'
-                        label='If you need user id use it :'
-                        placeHolder='short name'
-                        onChange={this.onChange}
-                    />
-                    <Button text='get id'/>
-                    <div className="user-id">
-                        { this.props.state.userId ? <p>user id: <span> {this.props.state.userId} </span> </p> : null }
-                    </div>
-                </form>
-                {this.props.state.mutualFriends ? <FriendsGrid friends={this.props.state.mutualFriends}/> : null }
-                {this.props.state.error ? <div> some prblm </div> : null}
-            </div>
+            <Fragment>
+                <ScrollUp />
+                <Caption>Enter users id to know their mutual friends</Caption>
+                <SideBar>
+                <InputField 
+                    fieldName='sourceUserId'
+                    label='Source user :'
+                    placeHolder='source user id'
+                    onChange={this.onChangeInput}
+                />
+                <InputField 
+                    fieldName='targetUserId'
+                    label='Target user :'
+                    placeHolder='target user id'
+                    onChange={this.onChangeInput}
+                />
+                <ButtonSearch onClick={this.checkMutualFriends}>check</ButtonSearch>
+                <InputField 
+                    fieldName='userUid'
+                    label='If you need user id use it :'
+                    placeHolder='short name'
+                    onChange={this.onChangeInput}
+                />
+                <ButtonSearch onClick={this.getUserId}>check id</ButtonSearch>
+                <div className="user-id">
+                    { this.props.state.userId && <p>user id: <span> {this.props.state.userId} </span> </p>}
+                </div>
+                </SideBar>
+                {this.props.state.mutualFriends && <FriendsGrid friends={this.props.state.mutualFriends}/>}
+                {this.props.state.error && <div> some problem </div>}
+            </Fragment>
         )
     }
 }

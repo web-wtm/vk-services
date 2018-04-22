@@ -4,10 +4,13 @@ import LoadingBg from '../../assets/images/loading.gif'
 
 const LoadingAnimation = styled.div`
     background-image: url(${LoadingBg});
-    width: 150px;
-    height: 105px;
+    width: 100px;
+    height: 100px;
     background-size: 100%;
-    margin: 50px auto 0;
+    position: absolute;
+    z-index: 3;
+    top: -5px;
+    left: 180px
 `
 
 export default LoadingAnimation

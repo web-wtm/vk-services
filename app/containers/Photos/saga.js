@@ -1,6 +1,5 @@
 import fetchJsonP from 'fetch-jsonp'
 import { call, put, takeLatest } from  'redux-saga/effects'
-
 import { responseHandler, sortBy, serviceToken, apiUrl } from '../../utils/helpers'
 import {
     getPhotosSuccess,
@@ -15,6 +14,7 @@ function* getPhotos(action) {
             
         let photos = response.response.items;
         sortBy(photos, 'date');
+        
         yield put(getPhotosSuccess(photos));
     } catch(e) {
         yield put(getPhotosFail(e));

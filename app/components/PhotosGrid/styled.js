@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import photoThumbUrl from '../../assets/images/photo-thumbnail.png'
 
 export const PhotosContainer = styled.div`
     text-align: center;
@@ -28,7 +29,7 @@ export const Photo = styled.a`
     position: relative;
     margin: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,.3);
-    background-image: url(../../assets/images/img-thumbnail.png);
+    background-image: url(${photoThumbUrl});
     background-position: center;
     background-size: 80px;
     background-repeat: no-repeat;

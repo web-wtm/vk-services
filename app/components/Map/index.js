@@ -1,8 +1,12 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
-
 import { checkOwnerId } from '../../utils/helpers'
-import { CurrentPoint, MapStyled, PhotoOnMap } from './styled'
+import { 
+    CurrentPoint, 
+    MapStyled, 
+    PhotoOnMap, 
+    PhotoOnMapCover 
+} from './styled'
 
 class SimpleMap extends React.Component {
     constructor(props) {
@@ -31,10 +35,14 @@ class SimpleMap extends React.Component {
                     <CurrentPoint lat={lat} lng={lng} radius={radius} />
                     {
                         photos && photos.map((item, index) => {
-                            const ownerLink = `https://vk.com/id${checkOwnerId(item.owner_id)}`,
-                                  bg = { backgroundImage: `url(${item.photo_75})` }
+                            const ownerLink = `https://vk.com/id${checkOwnerId(item.owner_id)}`;
 
-                            return <PhotoOnMap key={index} style={bg} target='_blank' href={ownerLink} lat={item.lat} lng={item.long} />
+                            return (
+                                <PhotoOnMap key={index} target='_blank' href={ownerLink} lat={item.lat} lng={item.long}>
+                                    <img src={item.photo_75} />
+                                    <PhotoOnMapCover />
+                                </PhotoOnMap>
+                            )
                         })
                     }
                 </GoogleMapReact>

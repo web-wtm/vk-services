@@ -17,9 +17,9 @@ function* getPosts(action) {
         sortBy(posts, 'likes');
 
         const data = {
-                items: posts.slice(0,20),
-                domain: action.payload
-            };
+            items: posts.slice(0,20),
+            domain: action.payload
+        };
         
         yield put(getPostsSuccess(data));
     } catch (e) {

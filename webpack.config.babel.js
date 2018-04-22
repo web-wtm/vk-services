@@ -1,8 +1,8 @@
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 
 export default {
     entry: './app/index.js',
@@ -35,13 +35,6 @@ export default {
                         }
                     }
                 }
-            },
-            {
-                test: /\.scss?$/,
-                use: ExtractTextPlugin.extract({
-                    use: ['css-loader', 'resolve-url-loader', 'sass-loader'],
-                    fallback: "style-loader"
-                })
             },
             {
                 test: /\.(jpe?g|png|gif)$/,
@@ -79,36 +72,52 @@ export default {
             },
             showErrors: false
         }),
-        new ExtractTextPlugin({
-            filename: "assets/styles/main.css",
-            allChunks: true
-        }),
         new CompressionPlugin({
             asset: "[path].gz[query]",
             algorithm: "gzip",
-            test: /\.js$|\.css$|\.html$/,
+            test: /\.js$|\.html$/,
             threshold: 10240,
             minRatio: 0
         }),
         new webpack.LoaderOptionsPlugin({
             options: {
-              context: path.join(__dirname, './app'),
-              output: {
-                path: path.join(__dirname, './dist')
-              }
+                context: path.join(__dirname, './app'),
+                output: {
+                    path: path.join(__dirname, './dist')
+                }
             }
         })
     ],
     optimization: {
         runtimeChunk: false,
         splitChunks: {
-          cacheGroups: {
-            commons: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'common',
-              chunks: 'all',
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'common',
+                    chunks: 'all',
+                },
             },
-          },
-        }
+        },
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    output: {
+                        comments: false,
+                    },
+                    compress: {
+                        unused: true,
+                        dead_code: true,
+                        warnings: false,
+                        drop_debugger: true,
+                        conditionals: true,
+                        evaluate: true,
+                        drop_console: true,
+                        sequences: true,
+                        booleans: true,
+                    }
+                }
+            })
+        ]
     }
 }

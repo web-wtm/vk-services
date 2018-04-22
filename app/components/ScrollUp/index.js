@@ -18,7 +18,7 @@ const ScrollUpStyled = styled.span`
 
 const ScrollUp = () => {
     return (
-        <ReactScrollUp showUnder={160} style={{zIndex: 1}}>
+        <ReactScrollUp showUnder={160} style={{zIndex: 5}}>
             <ScrollUpStyled>up</ScrollUpStyled>
         </ReactScrollUp>
     )

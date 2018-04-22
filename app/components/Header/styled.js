@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import logoUrl from '../../assets/images/logo.png'
 
 export const HeaderStyled = styled.header`
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -10,18 +9,13 @@ export const HeaderStyled = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 1;
+    z-index: 2;
 `
 
 export const Logo = styled.a`
-    width: 160px;
-    height: 70px;
-    vertical-align: top;
     display: inline-block;
-    margin: 10px;
     cursor: pointer;
-    background-size: 100%;
-    background-image: url(${logoUrl});
+    margin-left: 10px;
 `
 
 export const Navigation = styled.nav`
@@ -37,7 +31,7 @@ export const Navigation = styled.nav`
         font-size: 20px;
         font-weight: 600;
         cursor: pointer;
-        color: #713FB4;
+        color: #1d4076;
         transition: all 333ms ease;
 
         &:after {
@@ -45,7 +39,7 @@ export const Navigation = styled.nav`
             position: absolute;
             height: 2px;
             background-color: #FF612F;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
             width: 0;
             transition: all 333ms ease;

@@ -7,10 +7,11 @@ const StyledFooter = styled.footer`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 35px 0;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3);
     background-color: #fff;
     width: 100%;
+    z-index: 2;
 
     div {
         padding: 0 10px;

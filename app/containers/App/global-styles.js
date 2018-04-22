@@ -1,5 +1,4 @@
 import { injectGlobal } from 'styled-components'
-
 import postsBgUrl from '../../assets/images/posts-bg.jpg'
 
 injectGlobal`
@@ -22,6 +21,5 @@ injectGlobal`
     #app {
         position: relative;
         min-height: 100%;
-        padding-bottom: 100px;
     }
 `

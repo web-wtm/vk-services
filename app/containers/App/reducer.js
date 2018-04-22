@@ -28,9 +28,13 @@ import {
     GET_USER_ID_FAIL
 } from '../Friends/action'
 
+import { setLoggedStatus } from '../Home/reducer'
+import { LOG_IN, LOG_OUT } from '../Home/action'
+
 import { createReducer } from '../../utils/helpers'
 
 const DEFAULT_STATE = {
+    isLogged: false,
     selectedGroup: 'fuck_humor',
     photoSearchRadius: 10,
     posts: null,
@@ -75,5 +79,8 @@ export default createReducer(DEFAULT_STATE, {
 
     [GET_MUTUAL_REQUEST]: setLoading,
     [GET_MUTUAL_SUCCESS]: setMutualFriends,
-    [GET_MUTUAL_FAIL]: setError
+    [GET_MUTUAL_FAIL]: setError,
+
+    [LOG_IN]: setLoggedStatus,
+    [LOG_OUT]: setLoggedStatus
 })
