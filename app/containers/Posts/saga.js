@@ -13,11 +13,10 @@ function* getPosts(action) {
         const response = yield call(responseHandler, 
             `${apiUrl}wall.get?domain=${action.payload}&count=100&v=5.65&access_token=${serviceToken}`);
 
-        let posts = response.response.items;
-        sortBy(posts, 'likes');
+        let posts = response.response.items.slice(0,20);
 
         const data = {
-            items: posts.slice(0,20),
+            items: posts,
             domain: action.payload
         };
         

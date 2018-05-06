@@ -9,7 +9,7 @@ export function responseHandler(url) {
 }
 
 export function sortBy(arr, key) {
-    arr.sort((a,b) => {
+    arr && arr.sort((a,b) => {
         return a[key].count === b[key].count ? 0 : a[key].count < b[key].count ? 1 : -1;
     })
 }

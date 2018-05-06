@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-
 import PostsStyled from './styled'
 import ScrollUp from '../../components/ScrollUp'
 import InputField from '../../components/InputField'
@@ -9,7 +8,16 @@ import GroupsNav from '../../components/GroupsNav'
 import PostsGrid from '../../components/PostsGrid'
 import Loading from '../../components/Loading'
 import { clearPosts, setSelectedGroup, getPostsRequest } from './action'
-import { mapStateToProps } from '../../utils/helpers'
+import { sortedPosts } from './selectors'
+
+const mapStateToProps = (state) => {
+    return {
+        state : {
+            posts: sortedPosts(state),
+            ...state
+        }
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {

@@ -9,7 +9,16 @@ import Select from '../../components/Select'
 import Loading from '../../components/Loading'
 import PhotosGrid from '../../components/PhotosGrid'
 import { getPhotosRequest, setSearchRadius } from './action'
-import { mapStateToProps } from '../../utils/helpers'
+import { sortedPhotos } from './selectors'
+
+const mapStateToProps = (state) => {
+    return {
+        state: {
+            photos: sortedPhotos(state),
+            ...state
+        }
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {

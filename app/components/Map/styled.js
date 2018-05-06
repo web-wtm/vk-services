@@ -32,7 +32,7 @@ export const CurrentPoint = styled.div`
 export const MapStyled = styled.div`
     width: 100%;
     margin: 0 auto;
-    height: 500px;
+    height: 400px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 `
 

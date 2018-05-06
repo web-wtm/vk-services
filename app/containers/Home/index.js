@@ -18,7 +18,7 @@ class Home extends React.Component {
         super()
     }
 
-    componentWillMount() {
+    componentDidMount() {
         if(!sessionStorage.getItem('accessToken')) {
             this.props.setLoggedStatus(false)
         }
