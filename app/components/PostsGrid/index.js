@@ -1,7 +1,35 @@
 import React from 'react'
 import { PostsContainer, Post, PostCover, PostInfo, AudioTrack } from './styled'
 
+const fixtureTransform = (attachments) => {
+    console.log(attachments)
+    let photo = [], 
+        audio = [],
+        video  = [];
+
+    attachments && attachments.map(element => {
+        if (element.type) {
+            switch(element.type) {
+                case 'photo':
+                    photo.push(element)
+                    break;
+                case 'video':
+                    video.push(element)
+                    break;
+                case 'audio':
+                    audio.push(element)
+                    break;
+                default:
+                    return;
+            }
+        }
+    });
+
+    return {photo, audio, video};
+}
+
 const PostsGrid = (props) => {
+    
     return (
         <PostsContainer>
             {props.posts.map((item) => {

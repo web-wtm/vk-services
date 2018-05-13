@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development",
-    "build": "webpack --mode production",
+    "start": "NODE_ENV=development webpack-dev-server --mode development",
+    "build": "NODE_ENV=production webpack --mode production",
     "deploy": "npm run build && firebase deploy",
+    "clear": "rm -rf node_modules dist",
     "firebase-init": "firebase login && firebase init"
   },
   "babel": {

@@ -1,8 +1,9 @@
 import path from 'path'
 import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
+
+const IS_DEV = (process.env.NODE_ENV === 'development');
 
 export default {
     entry: './app/index.js',
@@ -11,6 +12,23 @@ export default {
         filename: './scripts/bundle-[name].js',
         publicPath: '/'
     },
+    plugins: [
+        new CompressionPlugin({
+            asset: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.js$|\.html$/,
+            threshold: 10240,
+            minRatio: 0
+        }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                context: path.join(__dirname, './app'),
+                output: {
+                    path: path.join(__dirname, './dist')
+                }
+            }
+        })
+    ],
     module: {
         rules: [
             {
@@ -63,31 +81,6 @@ export default {
         historyApiFallback: true,
         port: 5000
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: 'vk-services',
-            template: './app/index.html',
-            minify: {
-                collapseWhitespace: true
-            },
-            showErrors: false
-        }),
-        new CompressionPlugin({
-            asset: "[path].gz[query]",
-            algorithm: "gzip",
-            test: /\.js$|\.html$/,
-            threshold: 10240,
-            minRatio: 0
-        }),
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                context: path.join(__dirname, './app'),
-                output: {
-                    path: path.join(__dirname, './dist')
-                }
-            }
-        })
-    ],
     optimization: {
         runtimeChunk: false,
         splitChunks: {
@@ -99,7 +92,7 @@ export default {
                 },
             },
         },
-        minimizer: [
+        minimizer: !IS_DEV ? [
             new UglifyJsPlugin({
                 uglifyOptions: {
                     output: {
@@ -118,6 +111,6 @@ export default {
                     }
                 }
             })
-        ]
+        ] : []
     }
 }
