@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ScrollToUp from 'react-scroll-up'
 
-import GoogleMap from '../GoogleMap'
-import Select from '../Select'
+import GoogleMap from '../../components/GoogleMap'
+import Select from '../../components/Select'
 import { getPhotosRequest, setSearchRadius } from './action'
 import { mapStateToProps } from '../../utils/helpers'
 

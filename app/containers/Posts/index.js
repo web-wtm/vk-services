@@ -2,8 +2,8 @@ import React from 'react'
 import ScrollToUp from 'react-scroll-up'
 import { connect } from 'react-redux'
 
-import Loading from '../Loading'
-import InputField from '../InputField'
+import Loading from '../../components/Loading'
+import InputField from '../../components/InputField'
 import { clearPosts, setSelectedGroup, getPostsRequest } from './action'
 import { mapStateToProps } from '../../utils/helpers'
 

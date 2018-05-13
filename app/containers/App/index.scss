@@ -1,13 +1,13 @@
 @import '../../utils/sanitize.scss';
 @import '../Home/index.scss';
-@import '../Navigation/index.scss';
-@import '../PhotosSearch/index.scss';
-@import '../MutualFriends/index.scss';
-@import '../TopPosts/index.scss';
-@import '../InputField/index.scss';
-@import '../GoogleMap/indes.scss';
-@import '../Video/index.scss';
-@import '../Footer/index.scss';
+@import '../Photos/index.scss';
+@import '../Friends/index.scss';
+@import '../Posts/index.scss';
+@import '../../components/Navigation/index.scss';
+@import '../../components/InputField/index.scss';
+@import '../../components/GoogleMap/indes.scss';
+@import '../../components/Video/index.scss';
+@import '../../components/Footer/index.scss';
 
 html,
 body {

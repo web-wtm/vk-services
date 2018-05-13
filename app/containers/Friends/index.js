@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ScrollToUp from 'react-scroll-up'
 
-import InputField from '../InputField'
+import InputField from '../../components/InputField'
 import { getUserIdRequest, getMutualRequest } from './action'
 import { mapStateToProps } from '../../utils/helpers'
 

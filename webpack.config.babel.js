@@ -1,8 +1,12 @@
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
+
+const IS_DEV = (process.env.NODE_ENV === 'development');
 
 export default {
     entry: './app/index.js',
@@ -11,6 +15,34 @@ export default {
         filename: './scripts/bundle-[name].js',
         publicPath: '/'
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'vk-services',
+            template: './app/index.html',
+            minify: {
+                collapseWhitespace: true
+            },
+            showErrors: false
+        }),
+        new MiniCssExtractPlugin({
+            filename: "assets/styles/main.css"
+        }),
+        new CompressionPlugin({
+            asset: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.js$|\.css$|\.html$/,
+            threshold: 10240,
+            minRatio: 0
+        }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+              context: path.join(__dirname, './app'),
+              output: {
+                path: path.join(__dirname, './dist')
+              }
+            }
+        })
+    ],
     module: {
         rules: [
             {
@@ -38,10 +70,12 @@ export default {
             },
             {
                 test: /\.scss?$/,
-                use: ExtractTextPlugin.extract({
-                    use: ['css-loader', 'resolve-url-loader', 'sass-loader'],
-                    fallback: "style-loader"
-                })
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    { loader: 'css-loader', options: { minimize: !IS_DEV } }, 
+                    'resolve-url-loader',
+                    'sass-loader'
+                ]
             },
             {
                 test: /\.(jpe?g|png|gif)$/,
@@ -70,34 +104,6 @@ export default {
         historyApiFallback: true,
         port: 5000
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: 'vk-services',
-            template: './app/index.html',
-            minify: {
-                collapseWhitespace: true
-            },
-            showErrors: false
-        }),
-        new ExtractTextPlugin({
-            filename: "assets/styles/main.css"
-        }),
-        new CompressionPlugin({
-            asset: "[path].gz[query]",
-            algorithm: "gzip",
-            test: /\.js$|\.css$|\.html$/,
-            threshold: 10240,
-            minRatio: 0
-        }),
-        new webpack.LoaderOptionsPlugin({
-            options: {
-              context: path.join(__dirname, './app'),
-              output: {
-                path: path.join(__dirname, './dist')
-              }
-            }
-        })
-    ],
     optimization: {
         runtimeChunk: false,
         splitChunks: {
@@ -108,6 +114,30 @@ export default {
               chunks: 'all',
             },
           },
-        }
+        },
+        minimizer: !IS_DEV ? [
+            new UglifyJsPlugin({
+              uglifyOptions: {
+                output: {
+                    comments: false,
+                  },
+                  compress: {
+                    unused: true,
+                    dead_code: true,
+                    warnings: false,
+                    drop_debugger: true,
+                    conditionals: true,
+                    evaluate: true,
+                    drop_console: true,
+                    sequences: true,
+                    booleans: true,
+                  }
+              }
+            }),
+            new OptimizeCssAssetsPlugin({
+                cssProcessor: require('cssnano'),
+                cssProcessorOptions: { discardComments: { removeAll: true } }
+            })
+          ] : []
     }
 }

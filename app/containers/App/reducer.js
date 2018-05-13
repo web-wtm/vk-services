@@ -1,13 +1,13 @@
-import { setPhotos, setSearchRadius } from '../PhotosSearch/reducer'
+import { setPhotos, setSearchRadius } from '../Photos/reducer'
 import {
     GET_PHOTOS_REQUEST,
     GET_PHOTOS_SUCCESS,
     GET_PHOTOS_FAIL,
 
     SET_SEARCH_RADIUS
-} from '../PhotosSearch/action'
+} from '../Photos/action'
 
-import { setSelectedGroup, setPosts, clearPosts } from '../TopPosts/reducer'
+import { setSelectedGroup, setPosts, clearPosts } from '../Posts/reducer'
 import {
     GET_POSTS_REQUEST,
     GET_POSTS_SUCCESS,
@@ -15,9 +15,9 @@ import {
 
     SET_SELECTED_GROUP,
     CLEAR_POSTS
-} from '../TopPosts/action'
+} from '../Posts/action'
 
-import { setUserId, setMutualFriends } from '../MutualFriends/reducer'
+import { setUserId, setMutualFriends } from '../Friends/reducer'
 import {
     GET_MUTUAL_REQUEST,
     GET_MUTUAL_SUCCESS,
@@ -26,7 +26,7 @@ import {
     GET_USER_ID_REQUEST,
     GET_USER_ID_SUCCESS,
     GET_USER_ID_FAIL
-} from '../MutualFriends/action'
+} from '../Friends/action'
 
 import { createReducer } from '../../utils/helpers'
 
