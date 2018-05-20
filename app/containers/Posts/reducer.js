@@ -16,7 +16,7 @@ export const setPosts = (state, action) => {
     return {
         ...state,
         posts: action.payload.items,
-        selectedGroup: action.payload.domain,
+        selectedGroup: action.payload.path,
         loading: false
     }
 }

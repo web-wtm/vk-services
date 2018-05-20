@@ -21,8 +21,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPosts: (domain) => dispatch(getPostsRequest(domain)),
-        setSelectedGroup: (domain) => dispatch(setSelectedGroup(domain)),
+        getPosts: (path) => dispatch(getPostsRequest(path)),
+        setSelectedGroup: (path) => dispatch(setSelectedGroup(path)),
         clearPosts: () => dispatch(clearPosts())
     }
 }
@@ -36,11 +36,11 @@ class Posts extends React.Component {
         this.props.getPosts(this.props.state.selectedGroup)
     }
     
-    getPosts(domain) {
-        if(!domain.length) return;
+    getPosts(path) {
+        if(!path.length) return;
         
         this.props.clearPosts();
-        this.props.getPosts(domain);
+        this.props.getPosts(path);
     }
     
     onChangeSelectedGroup = (e) => {
@@ -62,7 +62,7 @@ class Posts extends React.Component {
                             onClickBtn={this.getPosts.bind(this, this.props.state.selectedGroup)}
                         />
                     </SideBar>
-                    {this.props.state.posts && <PostsGrid domain={this.props.state.selectedGroup} posts={this.props.state.posts}/>}
+                    {this.props.state.posts && <PostsGrid path={this.props.state.selectedGroup} posts={this.props.state.posts}/>}
                     {this.props.state.error && <div className="error-msg">Smth went wrong</div>}
                 </PostsStyled>
             </Fragment>

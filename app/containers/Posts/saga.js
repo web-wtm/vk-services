@@ -17,7 +17,7 @@ function* getPosts(action) {
 
         const data = {
             items: posts,
-            domain: action.payload
+            path: action.payload
         };
         
         yield put(getPostsSuccess(data));

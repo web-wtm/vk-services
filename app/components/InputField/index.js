@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Input } from './styled'
 
 const InputField =({fieldName, placeHolder, value, type, label, onChange}) => {

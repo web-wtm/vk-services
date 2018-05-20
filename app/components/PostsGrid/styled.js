@@ -25,7 +25,7 @@ export const PostCover = styled.div`
 
 export const Post = styled.a`
     display: inline-block;
-    height: 275px;
+    min-height: 275px;
     margin: 10px;
     padding: 5px;
     background-color: #fff;
@@ -41,6 +41,7 @@ export const Post = styled.a`
 
     img {
         max-height: 200px;
+        margin: 5px;
     }
 `
 

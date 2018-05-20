@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ScrollUp from '../../components/ScrollUp'
 import Caption from '../../components/Caption'
 import Button from '../../components/Button'
-import { ButtonSearch } from './styled'
+import { ButtonSearch, FriendsSearchInfo, UserId } from './styled'
 import InputField from '../../components/InputField'
 import SideBar from '../../components/SideBar'
 import FriendsGrid from '../../components/FriendsGrid'
@@ -60,7 +60,7 @@ class Friends extends React.Component {
         return (
             <Fragment>
                 <ScrollUp />
-                <Caption>Enter users id to know their mutual friends</Caption>
+                <FriendsSearchInfo>Enter users id to know their mutual friends (you can find out check user id below)</FriendsSearchInfo>
                 <SideBar>
                 <InputField 
                     fieldName='sourceUserId'
@@ -82,9 +82,9 @@ class Friends extends React.Component {
                     onChange={this.onChangeInput}
                 />
                 <ButtonSearch onClick={this.getUserId}>check id</ButtonSearch>
-                <div className="user-id">
+                <UserId>
                     { this.props.state.userId && <p>user id: <span> {this.props.state.userId} </span> </p>}
-                </div>
+                </UserId>
                 </SideBar>
                 {this.props.state.mutualFriends && <FriendsGrid friends={this.props.state.mutualFriends}/>}
                 {this.props.state.error && <div> some problem </div>}

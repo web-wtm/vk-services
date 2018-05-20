@@ -1,41 +1,14 @@
 import React from 'react'
-import { PostsContainer, Post, PostCover, PostInfo, AudioTrack } from './styled'
-
-const fixtureTransform = (attachments) => {
-    console.log(attachments)
-    let photo = [], 
-        audio = [],
-        video  = [];
-
-    attachments && attachments.map(element => {
-        if (element.type) {
-            switch(element.type) {
-                case 'photo':
-                    photo.push(element)
-                    break;
-                case 'video':
-                    video.push(element)
-                    break;
-                case 'audio':
-                    audio.push(element)
-                    break;
-                default:
-                    return;
-            }
-        }
-    });
-
-    return {photo, audio, video};
-}
+import { PostsContainer, Post, PostCover, PostInfo, AudioTrack, Photos } from './styled'
 
 const PostsGrid = (props) => {
     
     return (
         <PostsContainer>
-            {props.posts.map((item) => {
+            {props.posts.map(item => {
                 return (
-                    <Post key={item.id} target='_blank' href={`https://vk.com/${props.domain}?w=wall${item.from_id}_${item.id}`} title=''>
-                        {   
+                    <Post key={item.id} target='_blank' href={`https://vk.com/${props.path}?w=wall${item.from_id}_${item.id}`} title=''>
+                        {
                             item.attachments && 
                             item.attachments.map((att) => {
                                 if (att.doc && att.doc.ext == 'gif') return <img key={att[att.type].id} src={att.doc.url} />

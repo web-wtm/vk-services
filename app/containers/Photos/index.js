@@ -76,8 +76,7 @@ class Photos extends React.Component {
                     selected={this.props.state.photoSearchRadius}
                 />
                 <Title>*Distance to the target may be approximately</Title>
-                {!this.props.state.photos ? 
-                    null : <PhotosGrid photos={this.props.state.photos} />}
+                {this.props.state.photos && <PhotosGrid photos={this.props.state.photos} />}
             </Fragment>
         )
     }

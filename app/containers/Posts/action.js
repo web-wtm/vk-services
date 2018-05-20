@@ -13,18 +13,18 @@ export const clearPosts = () => {
 }
 
 // set selectedGroup
-export const setSelectedGroup = (domain) => {
+export const setSelectedGroup = (path) => {
     return {
         type: SET_SELECTED_GROUP,
-        payload: domain
+        payload: path
     }
 }
 
 // top posts
-export const getPostsRequest = (domain) => {
+export const getPostsRequest = (path) => {
     return {
         type: GET_POSTS_REQUEST,
-        payload: domain
+        payload: path
     }
 }
 
