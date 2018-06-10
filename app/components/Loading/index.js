@@ -7,7 +7,7 @@ const LoadingAnimation = styled.div`
     width: 100px;
     height: 100px;
     background-size: 100%;
-    position: absolute;
+    position: fixed;
     z-index: 3;
     top: -5px;
     left: 180px

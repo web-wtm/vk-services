@@ -1,13 +1,4 @@
 import styled from 'styled-components'
-import Button from '../Button'
-
-export const GroupSearch = styled.div`
-
-`
-
-export const ButtonSearch = Button.extend`
-    width: 100%;
-`
 
 export const GroupsNavList = styled.ul`
     display: inline-block;

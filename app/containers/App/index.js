@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Async from 'react-code-splitting'
+import loadable from 'loadable-components'
 import './global-styles'
 import Wrapper from '../../components/Wrapper'
 import Header from '../../components/Header'
@@ -8,9 +8,9 @@ import Footer from '../../components/Footer'
 import Page404 from '../../components/404'
 import Home from '../Home'
 
-const Posts = () => <Async load={import('../Posts')} />
-const Photos = () => <Async load={import('../Photos')} />
-const Friends = () => <Async load={import('../Friends')} />
+const Posts = loadable(() => import('../Posts'))
+const Photos = loadable(() => import('../Photos'))
+const Friends = loadable(() => import('../Friends'))
 
 export default class App extends React.Component {
     render() {

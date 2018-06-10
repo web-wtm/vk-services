@@ -1,7 +1,14 @@
 import styled from 'styled-components'
+import Button from '../../components/Button'
 
-const PostsStyled = styled.div`
-    position: relative;
+export const GroupSearch = styled.div`
+
 `
 
-export default PostsStyled
+export const ButtonSearch = Button.extend`
+    width: 100%;
+`
+
+export const PostsStyled = styled.div`
+    position: relative;
+`

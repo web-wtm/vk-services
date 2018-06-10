@@ -9,13 +9,3 @@ export const FriendsSearchInfo = Caption.extend`
 export const ButtonSearch = Button.extend`
     width: 100%;
 `
-
-export const UserId = styled.div`
-    color: #fff;
-    font-size: 18px;
-    text-align: center;
-
-    span {
-        color: rgb(71, 180, 117);
-    }
-`

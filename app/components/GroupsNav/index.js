@@ -7,35 +7,24 @@ import {
     GroupsNavList,
     GroupsNavItem,
     GroupLogo, 
-    GroupSearch,
-    ButtonSearch
 } from './styled'
 
-const GroupsNav = (props) => {
+const GroupsNav = ({ selectedGroup, onSelectGroup, params }) => {
     return (
         <Fragment>
             <GroupsNavList>
-                {groups.map((item) => {
+                {groups.map(({ domain, name, photoSrc }) => {
                     return (
-                        <GroupsNavItem key={item.path} 
-                            style={item.path === props.selectedGroup ? { background: '#47b475'} : null} 
-                            onClick={props.onSelect.bind(null, item.path)}
+                        <GroupsNavItem key={domain} 
+                            style={domain === selectedGroup ? { background: '#47b475'} : null} 
+                            onClick={onSelectGroup.bind(null, {domain, count: params.count})}
                         >
-                            <GroupLogo src={item.photoSrc} />
-                                {item.name}
+                            <GroupLogo src={photoSrc} />
+                                {name}
                         </GroupsNavItem>
                     )
                 })}
             </GroupsNavList>
-            <GroupSearch>
-                <InputField
-                    fieldName='searchGroup'
-                    placeHolder="name of group"
-                    value={props.inputValue}
-                    onChange={props.onChangeInput}
-                />
-                <ButtonSearch onClick={props.onClickBtn}>Search</ButtonSearch>
-            </GroupSearch>
         </Fragment>
     )
 }
