@@ -4,6 +4,10 @@ import UserDeletedThumb from '../../assets/images/user-deleted.png'
 export const FriendsContainer = styled.div`
     text-align: center;
     margin-left: 270px;
+
+    @media (max-width: 600px) {
+        margin-left: 160px;
+    }
 `
 
 export const User = styled.a`

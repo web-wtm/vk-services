@@ -6,6 +6,11 @@ export const PostsContainer = styled.div`
     padding-top: 10px;
     margin-left: 270px;
     text-align: center;
+    columns: 2;
+
+     @media (max-width: 600px) {
+        margin-left: 160px;
+    }
 `
 export const PostCover = styled.div`
     background-color: rgba(0, 0, 0, .3);
@@ -25,8 +30,7 @@ export const PostCover = styled.div`
 
 export const Post = styled.a`
     display: inline-block;
-    min-height: 275px;
-    margin: 10px;
+    margin: 5px;
     padding: 5px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -40,8 +44,7 @@ export const Post = styled.a`
     }
 
     img {
-        max-height: 200px;
-        margin: 5px;
+        width: 100%;
     }
 `
 

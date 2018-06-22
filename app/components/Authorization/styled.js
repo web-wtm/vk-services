@@ -12,6 +12,11 @@ export const Info = styled.div`
     @media screen and (max-width: 900px) {
         font-size: 16px;
     }
+
+    @media screen and (max-width: 600px) {
+        font-size: 12px;
+        line-height: 2;
+    }
 `
 
 export const LogIn = styled.a`

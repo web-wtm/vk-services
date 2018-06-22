@@ -10,7 +10,11 @@ const LoadingAnimation = styled.div`
     position: fixed;
     z-index: 3;
     top: -5px;
-    left: 180px
+    left: 110px
+
+    @media (max-width: 780px) {
+        left: 10px;
+    }
 `
 
 export default LoadingAnimation

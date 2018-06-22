@@ -10,12 +10,30 @@ export const HeaderStyled = styled.header`
     align-items: center;
     justify-content: space-between;
     z-index: 2;
+
+    @media (max-width: 780px) {
+        display: block;
+    }
 `
 
 export const Logo = styled.a`
     display: inline-block;
     cursor: pointer;
     margin-left: 10px;
+
+    svg {
+        width: 86px;
+    }
+
+    @media (max-width: 780px) {
+        display: block;
+        margin: 0;
+        text-align: center;
+
+        svg {
+            width: 50px;
+        }
+    }
 `
 
 export const Navigation = styled.nav`
@@ -51,6 +69,18 @@ export const Navigation = styled.nav`
                 :after {
                 width: 100%;
             }
+        }
+    }
+
+    @media (max-width: 900px) {
+        a {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 780px) {
+        a {
+            font-size: 14px;
         }
     }
 `

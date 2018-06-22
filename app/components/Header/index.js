@@ -8,7 +8,7 @@ const Header = ({isLoading}) => {
     return (
         <HeaderStyled>
             <Logo href='/' title='vk-services'> 
-                <LogoImg style={{width: '86px'}} />
+                <LogoImg />
             </Logo>
             <Navigation>
                 <NavLink to='/' exact activeClassName='active'>home</NavLink>
