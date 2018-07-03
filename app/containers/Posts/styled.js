@@ -12,3 +12,8 @@ export const ButtonSearch = Button.extend`
 export const PostsStyled = styled.div`
     position: relative;
 `
+
+export const Error = styled.div`
+    margin-left: 270px;
+    padding: 5px;
+`

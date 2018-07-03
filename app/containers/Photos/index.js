@@ -8,7 +8,7 @@ import PhotoMap from '../../components/Map'
 import Select from '../../components/Select'
 import Loading from '../../components/Loading'
 import PhotosGrid from '../../components/PhotosGrid'
-import { sortedPhotos } from './selectors'
+import { sortedPhotos } from '../../selectors/app'
 import api from '../../actions/api'
 
 const mapStateToProps = (state) => {
@@ -54,27 +54,28 @@ class Photos extends React.Component {
     }
 
     render () {
+        const { isLoading, foundPhotos } = this.props.state.photos
         return (
             <Fragment>
-                {this.props.state.photos.isLoading && <Loading /> }
+                {isLoading && <Loading /> }
                 <ScrollUp />
                 <PhotoMap 
                     lat={this.params.lat} 
                     lng={this.params.long} 
-                    radius={this.props.state.photoSearchRadius}
+                    radius={this.params.radius}
                     currEnable={0} 
                     onClick={this.clickOnMap} 
-                    photos={this.props.state.photos.foundPhotos}
+                    photos={foundPhotos}
                 />
                 <Caption>Click on map to search some photos, also you can choose radius of searching</Caption>
                 <Select 
                     values={this.radiusList}
                     name='selectRadius'
                     onSelect={this.onSelectRadius}
-                    selected={this.props.state.photoSearchRadius}
+                    selected={this.params.radius}
                 />
                 <Title>*Distance to the target may be approximately</Title>
-                {this.props.state.photos.foundPhotos && <PhotosGrid photos={this.props.state.photos.foundPhotos.items} />}
+                {foundPhotos && <PhotosGrid photos={foundPhotos.items} />}
             </Fragment>
         )
     }

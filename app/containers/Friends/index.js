@@ -59,6 +59,7 @@ class Friends extends React.Component {
     }
 
     render () {
+        const { userIds, errors } = this.props.state.friends
         return (
             <Fragment>
                 <ScrollUp />
@@ -85,8 +86,8 @@ class Friends extends React.Component {
                 />
                 <ButtonSearch onClick={this.getUserId}>check id</ButtonSearch>
                 </SideBar>
-                {this.props.state.friends.userIds && <FriendsGrid friends={this.props.state.friends.userIds}/>}
-                {this.props.state.error && <div> some problem </div>}
+                {userIds && <FriendsGrid friends={userIds}/>}
+                {errors && <div> some problem </div>}
             </Fragment>
         )
     }

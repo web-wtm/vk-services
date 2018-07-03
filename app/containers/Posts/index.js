@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import { PostsStyled, GroupSearch, ButtonSearch } from './styled'
+import { PostsStyled, GroupSearch, ButtonSearch, Error } from './styled'
 import ScrollUp from '../../components/ScrollUp'
 import InputField from '../../components/InputField'
 import SideBar from '../../components/SideBar'
@@ -8,7 +8,7 @@ import GroupsNav from '../../components/GroupsNav'
 import PostsGrid from '../../components/PostsGrid'
 import Loading from '../../components/Loading'
 import api from '../../actions/api'
-import { sortedPosts } from './selectors'
+import { sortedPosts } from '../../selectors/app'
 
 const mapStateToProps = (state) => {
     return {
@@ -51,16 +51,17 @@ class Posts extends React.Component {
     }
     
     render () {
+        const { isLoading, selectedGroup, groupPosts, errors } = this.props.state.posts
         return (
             <Fragment>
-                {this.props.state.posts.isLoading && <Loading /> }
+                {isLoading && <Loading /> }
                 <PostsStyled>
                     <ScrollUp />
                     <SideBar>
                         <GroupsNav 
                             onSelectGroup={this.props.getPosts}
                             params={this.params} 
-                            selectedGroup={this.props.state.posts.selectedGroup}
+                            selectedGroup={selectedGroup}
                         />
                         <GroupSearch>
                             <InputField
@@ -71,9 +72,9 @@ class Posts extends React.Component {
                             <ButtonSearch onClick={this.onSearcGroup}>Search</ButtonSearch>
                         </GroupSearch>
                     </SideBar>
-                    {this.props.state.posts.groupPosts && 
-                    <PostsGrid domain={this.props.state.posts.selectedGroup} posts={this.props.state.posts.groupPosts.items}/>}
-                    {this.props.state.error && <div className="error-msg">Smth went wrong</div>}
+                    {groupPosts && 
+                    <PostsGrid domain={selectedGroup} posts={groupPosts.items}/>}
+                    {errors && <Error>Smth went wrong</Error>}
                 </PostsStyled>
             </Fragment>
         )
