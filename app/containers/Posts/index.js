@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import PostsStyled from './styled'
+import { PostsStyled, GroupSearch, ButtonSearch, Error } from './styled'
 import ScrollUp from '../../components/ScrollUp'
 import InputField from '../../components/InputField'
 import SideBar from '../../components/SideBar'
 import GroupsNav from '../../components/GroupsNav'
 import PostsGrid from '../../components/PostsGrid'
 import Loading from '../../components/Loading'
-import { clearPosts, setSelectedGroup, getPostsRequest } from './action'
-import { sortedPosts } from './selectors'
+import api from '../../actions/api'
+import { sortedPosts } from '../../selectors/app'
 
 const mapStateToProps = (state) => {
     return {
@@ -21,49 +21,60 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPosts: (path) => dispatch(getPostsRequest(path)),
-        setSelectedGroup: (path) => dispatch(setSelectedGroup(path)),
-        clearPosts: () => dispatch(clearPosts())
+        getPosts: ({ domain, count}) => dispatch(api.getPosts({ domain, count}))
     }
 }
 
 class Posts extends React.Component {
     constructor(props) {
         super(props)
+
+        this.searchGroupDomain = '';
+        this.params = {
+            domain: this.props.state.posts.selectedGroup,
+            count: 100
+        };
     }
     
     componentDidMount() {
-        this.props.getPosts(this.props.state.selectedGroup)
+        this.props.getPosts(this.params)
     }
     
-    getPosts(path) {
-        if(!path.length) return;
-        
-        this.props.clearPosts();
-        this.props.getPosts(path);
+    onSearcGroup = () => {
+        if(!this.searchGroupDomain.length) return;
+        this.params.domain = this.searchGroupDomain
+        this.props.getPosts(this.params);
     }
-    
-    onChangeSelectedGroup = (e) => {
-        this.props.setSelectedGroup(e.target.value);
+
+    onChangeInput = (e) => {
+        this[e.target.name] = e.target.value;
     }
     
     render () {
+        const { isLoading, selectedGroup, groupPosts, errors } = this.props.state.posts
         return (
             <Fragment>
-                {this.props.state.loading && <Loading /> }
+                {isLoading && <Loading /> }
                 <PostsStyled>
                     <ScrollUp />
                     <SideBar>
                         <GroupsNav 
-                            onSelect={this.props.getPosts} 
-                            inputValue={this.props.state.selectedGroup}
-                            onChangeInput={this.onChangeSelectedGroup}
-                            selectedGroup={this.props.state.selectedGroup}
-                            onClickBtn={this.getPosts.bind(this, this.props.state.selectedGroup)}
+                            onSelectGroup={this.props.getPosts}
+                            params={this.params} 
+                            selectedGroup={selectedGroup}
                         />
+                        <GroupSearch>
+                            <InputField
+                                fieldName='searchGroupDomain'
+                                placeHolder="name of group"
+                                onChange={this.onChangeInput}
+                            />
+                            <ButtonSearch onClick={this.onSearcGroup}>Search</ButtonSearch>
+                        </GroupSearch>
                     </SideBar>
-                    {this.props.state.posts && <PostsGrid path={this.props.state.selectedGroup} posts={this.props.state.posts}/>}
-                    {this.props.state.error && <div className="error-msg">Smth went wrong</div>}
+                    {groupPosts && 
+                    <PostsGrid domain={selectedGroup} posts={groupPosts.items}/>}
+                    {errors && <Error>Smth went wrong</Error>}
                 </PostsStyled>
             </Fragment>
         )

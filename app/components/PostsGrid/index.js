@@ -1,13 +1,12 @@
 import React from 'react'
 import { PostsContainer, Post, PostCover, PostInfo, AudioTrack, Photos } from './styled'
 
-const PostsGrid = (props) => {
-    
+const PostsGrid = ({ posts, domain }) => {
     return (
         <PostsContainer>
-            {props.posts.map(item => {
+            {posts.map(item => {
                 return (
-                    <Post key={item.id} target='_blank' href={`https://vk.com/${props.path}?w=wall${item.from_id}_${item.id}`} title=''>
+                    <Post key={item.id} target='_blank' href={`https://vk.com/${domain}?w=wall${item.from_id}_${item.id}`} title=''>
                         {
                             item.attachments && 
                             item.attachments.map((att) => {

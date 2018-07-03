@@ -1,13 +1,4 @@
 import styled from 'styled-components'
-import Button from '../Button'
-
-export const GroupSearch = styled.div`
-
-`
-
-export const ButtonSearch = Button.extend`
-    width: 100%;
-`
 
 export const GroupsNavList = styled.ul`
     display: inline-block;
@@ -18,7 +9,7 @@ export const GroupsNavList = styled.ul`
 export const GroupsNavItem = styled.li`
     display: block;
     cursor: pointer;
-    padding: 15px 0;
+    padding: 10px 0;
     margin: 1px 0;
     font-size: 18px;
     font-weight: bold;
@@ -31,6 +22,10 @@ export const GroupsNavItem = styled.li`
 
     &:hover {
         background-color: #47b475;
+    }
+
+     @media (max-width: 600px) {
+        font-size: 10px;
     }
 `
 

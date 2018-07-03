@@ -3,38 +3,41 @@ import { connect } from 'react-redux'
 import ScrollUp from '../../components/ScrollUp'
 import Caption from '../../components/Caption'
 import Button from '../../components/Button'
-import { ButtonSearch, FriendsSearchInfo, UserId } from './styled'
+import { ButtonSearch, FriendsSearchInfo } from './styled'
 import InputField from '../../components/InputField'
 import SideBar from '../../components/SideBar'
 import FriendsGrid from '../../components/FriendsGrid'
-import { getUserIdRequest, getMutualRequest } from './action'
 import { mapStateToProps } from '../../utils/helpers'
+
+import api from '../../actions/api'
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getId: (uid) => dispatch(getUserIdRequest(uid)),
-        getMutualFriends: (params) => dispatch(getMutualRequest(params))
+        getUserId: (user_ids) => dispatch(api.getUserId(user_ids)),
+        getMutualFriends: ({ source_uid, target_uid, access_token }) => dispatch(api.getMutualFriends({ source_uid, target_uid, access_token }))
     }
 }
 
 class Friends extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {}
         
-        this.usersRequestParams = [
-            'screen_name',
-            'city',
-            'country',
-            'photo_200'
-        ];
-
         this.params = {
-            sourceUserId: null,
-            targetUserId: null,
-            fields: this.usersRequestParams,
-            userToken: sessionStorage.getItem('accessToken'),
-            userUid: ''
+            source_uid: '',
+            target_uid: '',
+            user_ids: '',
+            access_token: sessionStorage.getItem('accessToken')
         };
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.state.friends.mutualFriendsId) {
+            props.getUserId(props.state.friends.mutualFriendsId)
+            props.state.friends.mutualFriendsId = null
+        }
+
+        return props
     }
 
     onChangeInput = (e) => {
@@ -43,51 +46,48 @@ class Friends extends React.Component {
 
     checkMutualFriends = (e) => {
         e.preventDefault()
-        if(!this.params.sourceUserId || !this.params.targetUserId) return;
-        if(this.params.userToken === null) return console.log('You need to follow instruction on home page');
+        if(!this.params.source_uid || !this.params.target_uid) return;
+        if(this.params.access_token === null) throw Error('You need to follow instruction on home page');
 
         this.props.getMutualFriends(this.params)
     }
     
     getUserId = (e) => {
         e.preventDefault();
-        if(!this.params.userUid.length) return;
-
-        this.props.getId(this.params.userUid);
+        if(!this.params.user_ids.length) return;
+        this.props.getUserId(this.params.user_ids);
     }
 
     render () {
+        const { userIds, errors } = this.props.state.friends
         return (
             <Fragment>
                 <ScrollUp />
-                <FriendsSearchInfo>Enter users id to know their mutual friends (you can find out check user id below)</FriendsSearchInfo>
+                <FriendsSearchInfo>Enter users id to know their mutual friends (you can find out user id below)</FriendsSearchInfo>
                 <SideBar>
                 <InputField 
-                    fieldName='sourceUserId'
+                    fieldName='source_uid'
                     label='Source user :'
                     placeHolder='source user id'
                     onChange={this.onChangeInput}
                 />
                 <InputField 
-                    fieldName='targetUserId'
+                    fieldName='target_uid'
                     label='Target user :'
                     placeHolder='target user id'
                     onChange={this.onChangeInput}
                 />
                 <ButtonSearch onClick={this.checkMutualFriends}>check</ButtonSearch>
                 <InputField 
-                    fieldName='userUid'
+                    fieldName='user_ids'
                     label='If you need user id use it :'
                     placeHolder='short name'
                     onChange={this.onChangeInput}
                 />
                 <ButtonSearch onClick={this.getUserId}>check id</ButtonSearch>
-                <UserId>
-                    { this.props.state.userId && <p>user id: <span> {this.props.state.userId} </span> </p>}
-                </UserId>
                 </SideBar>
-                {this.props.state.mutualFriends && <FriendsGrid friends={this.props.state.mutualFriends}/>}
-                {this.props.state.error && <div> some problem </div>}
+                {userIds && <FriendsGrid friends={userIds}/>}
+                {errors && <div> some problem </div>}
             </Fragment>
         )
     }

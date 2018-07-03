@@ -4,10 +4,15 @@ import UserDeletedThumb from '../../assets/images/user-deleted.png'
 export const FriendsContainer = styled.div`
     text-align: center;
     margin-left: 270px;
+
+    @media (max-width: 600px) {
+        margin-left: 160px;
+    }
 `
 
 export const User = styled.a`
     display: inline-block;
+    text-decoration: none;
     margin: 20px;
     color: #333;
     transition: color ease-in 333ms;
@@ -17,11 +22,18 @@ export const User = styled.a`
     }
 `
 
+export const UserId = styled.div`
+    color: rgb(71, 180, 117);
+    font-size: 18px;
+    text-align: center;
+`
+
 export const UserName = styled.p`
     font-family: 'Podkova', serif;
     text-align: center;
     font-weight: bold;
     font-size: 18px;
+    margin: 5px;
 `
 
 export const UserPhoto = styled.img`

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { parse } from 'query-string'
-import { setLogged } from './action'
+import app from '../../actions/app'
 import { Container, AlreadyAuth } from './styled'
 import Authorization from '../../components/Authorization'
 import Video from '../../components/Video'
@@ -9,7 +9,8 @@ import { mapStateToProps } from '../../utils/helpers'
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setLoggedStatus: (status) => dispatch(setLogged(status))
+        logIn: () => dispatch(app.logIn()),
+        logOut: () => dispatch(app.logOut())
     }
 }
 
@@ -19,8 +20,10 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        if(!sessionStorage.getItem('accessToken')) {
-            this.props.setLoggedStatus(false)
+        if (sessionStorage.getItem('accessToken')) {
+            this.props.logIn();
+        } else {
+            this.props.logOut();
         }
     }
 
@@ -29,7 +32,7 @@ class Home extends React.Component {
         
         if (querys.access_token) {
             sessionStorage.setItem('accessToken', querys.access_token);
-            this.props.setLoggedStatus(true)
+            this.props.logIn();
             this.props.history.push("", document.title, window.location.pathname + window.location.search);
         } 
     }
@@ -37,7 +40,7 @@ class Home extends React.Component {
     render() {
         return (
             <Container>
-                {this.props.state.isLogged ? 
+                {this.props.state.app.isLogin ? 
                     <AlreadyAuth>
                         You have already authorized and can use all services <span>&#10003;</span>
                     </AlreadyAuth>

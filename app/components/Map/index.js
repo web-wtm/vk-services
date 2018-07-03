@@ -34,9 +34,9 @@ class SimpleMap extends React.Component {
                 <GoogleMapReact defaultCenter={center} defaultZoom={zoom} onClick={onClick}>
                     <CurrentPoint lat={lat} lng={lng} radius={radius} />
                     {
-                        photos && photos.map((item, index) => {
+                        photos && photos.items.map((item, index) => {
                             const ownerLink = `https://vk.com/id${checkOwnerId(item.owner_id)}`;
-
+                            // console.log(item)
                             return (
                                 <PhotoOnMap key={index} target='_blank' href={ownerLink} lat={item.lat} lng={item.long}>
                                     <img src={item.photo_75} />

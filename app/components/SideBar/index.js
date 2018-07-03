@@ -9,6 +9,10 @@ const SideBar = styled.div`
     z-index: 1;
     height: 100%;
     width: 270px;
+
+    @media (max-width: 600px) {
+        width: 160px;
+    }
 `
 
 export default SideBar
