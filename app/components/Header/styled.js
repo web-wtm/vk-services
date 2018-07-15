@@ -16,7 +16,7 @@ export const HeaderStyled = styled.header`
     }
 `
 
-export const Logo = styled.a`
+export const LogoContainer = styled.a`
     display: inline-block;
     cursor: pointer;
     margin-left: 10px;

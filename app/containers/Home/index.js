@@ -45,7 +45,7 @@ class Home extends React.Component {
                         You have already authorized and can use all services <span>&#10003;</span>
                     </AlreadyAuth>
                     : 
-                    <Authorization onClick={this.getToken} location={this.props.location} />
+                    <Authorization onClick={this.getToken} token={parse(this.props.location.hash).access_token} />
                 }
                 <Video /> 
             </Container>

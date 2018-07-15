@@ -9,7 +9,7 @@ const Authorization = (props) => {
     return (
         <Info>
             {
-                !parse(props.location.hash).access_token ? 
+                !props.token ? 
                 <Fragment>
                     For use all services of app you need to be authorized in VK &#8594;
                     <LogIn href={signInHref}>
@@ -24,6 +24,6 @@ const Authorization = (props) => {
             }
         </Info>
     )
-}
+}   
 
 export default Authorization

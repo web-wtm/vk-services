@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import ScrollUp from '../../components/ScrollUp'
-import Caption from '../../components/Caption'
-import Button from '../../components/Button'
 import { ButtonSearch, FriendsSearchInfo } from './styled'
 import InputField from '../../components/InputField'
 import SideBar from '../../components/SideBar'
@@ -18,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-class Friends extends React.Component {
+export class Friends extends React.Component {
     constructor(props) {
         super(props)
         this.state = {}
@@ -65,26 +63,26 @@ class Friends extends React.Component {
                 <ScrollUp />
                 <FriendsSearchInfo>Enter users id to know their mutual friends (you can find out user id below)</FriendsSearchInfo>
                 <SideBar>
-                <InputField 
-                    fieldName='source_uid'
-                    label='Source user :'
-                    placeHolder='source user id'
-                    onChange={this.onChangeInput}
-                />
-                <InputField 
-                    fieldName='target_uid'
-                    label='Target user :'
-                    placeHolder='target user id'
-                    onChange={this.onChangeInput}
-                />
-                <ButtonSearch onClick={this.checkMutualFriends}>check</ButtonSearch>
-                <InputField 
-                    fieldName='user_ids'
-                    label='If you need user id use it :'
-                    placeHolder='short name'
-                    onChange={this.onChangeInput}
-                />
-                <ButtonSearch onClick={this.getUserId}>check id</ButtonSearch>
+                    <InputField 
+                        fieldName='source_uid'
+                        label='Source user :'
+                        placeHolder='source user id'
+                        onChange={this.onChangeInput}
+                    />
+                    <InputField 
+                        fieldName='target_uid'
+                        label='Target user :'
+                        placeHolder='target user id'
+                        onChange={this.onChangeInput}
+                    />
+                    <ButtonSearch onClick={this.checkMutualFriends}>check</ButtonSearch>
+                    <InputField 
+                        fieldName='user_ids'
+                        label='If you need user id use it :'
+                        placeHolder='short name'
+                        onChange={this.onChangeInput}
+                    />
+                    <ButtonSearch onClick={this.getUserId}>check id</ButtonSearch>
                 </SideBar>
                 {userIds && <FriendsGrid friends={userIds}/>}
                 {errors && <div> some problem </div>}

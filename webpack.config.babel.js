@@ -63,10 +63,7 @@ export default {
             },
             {
                 test: /\.(svg)$/,
-                loader: 'svg-react-loader',
-                options: {
-                    name: 'assets/images/[name].[ext]'
-                }
+                loader: 'react-svg-loader'
             },
             {
                 test: /\.(mp4|webm)$/,

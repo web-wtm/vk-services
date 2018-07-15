@@ -1,5 +1,5 @@
 import React from 'react'
-import Page404 from '-!babel-loader!svg-react-loader?name=Page404!../../assets/images/404.svg'
+import { Page404 } from '../../icons'
 
 const PageNotFound = () => {
     return (
