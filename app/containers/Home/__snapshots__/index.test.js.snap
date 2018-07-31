@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Authorization component rendered Authorization component 1`] = `
+<div
+  className="sc-bwzfXH HGEod"
+>
+  For use all services of app you need to be authorized in VK →
+  <a
+    className="sc-htpNat cjYSCf"
+    href="https://oauth.vk.com/authorize?client_id=6104841&display=page&redirect_uri=https://vk-services.firebaseapp.com&scope=friends&response_type=token&v=5.65"
+  >
+    log in
+  </a>
+</div>
+`;
